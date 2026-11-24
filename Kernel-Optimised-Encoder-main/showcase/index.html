@@ -1,0 +1,468 @@
+<title>PS-09 Fast BGE Encoder</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column of evidence sections, each = claim (left rail) + chart (right), stacking on phones. */
+:root{
+  --bg:#f1f3f4; --surface:#ffffff; --ink:#101820; --ink-2:#47525d; --ink-3:#6b7681; --line:#d6dce1; --grid:#e6eaed;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --pad:#b9c2ca; --bad:#c8312f; --good:#13804f;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif; --body:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;
+    --bg:#0d1115; --surface:#151b21; --ink:#e8edf1; --ink-2:#a9b4be; --ink-3:#8793a0; --line:#2b343d; --grid:#222a32;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --pad:#3b4651; --bad:#ef6b69; --good:#3fbf86;}
+}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#0d1115; --surface:#151b21; --ink:#e8edf1; --ink-2:#a9b4be; --ink-3:#8793a0; --line:#2b343d; --grid:#222a32;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --pad:#3b4651; --bad:#ef6b69; --good:#3fbf86;}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--body);margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1080px;margin:0 auto;padding-block:40px 64px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.05;font-weight:800;font-stretch:112%}
+h2{font-size:1.5rem;font-weight:700;font-stretch:108%;line-height:1.2}
+p{margin:0;max-width:65ch}
+.eyebrow{font:600 .72rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+a{color:var(--s1)}
+code{font:.85em var(--mono);background:var(--grid);padding:1px 5px;border-radius:3px}
+
+/* hero */
+.hero{display:grid;gap:20px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.hero .lede{font-size:1.08rem;color:var(--ink-2)}
+.big{color:var(--s1)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:6px}
+.stat{background:var(--surface);padding:16px 18px;display:grid;gap:4px;align-content:start}
+.stat .v{font:700 2rem/1.1 var(--display);font-stretch:110%;font-variant-numeric:tabular-nums}
+.stat .k{font-size:.86rem;color:var(--ink-2)}
+.stat .src{font:.7rem/1.4 var(--mono);color:var(--ink-3)}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* sections */
+section{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:28px;padding-block:40px;border-bottom:1px solid var(--line)}
+section .claim{display:grid;gap:12px;align-content:start}
+section .claim p{color:var(--ink-2);font-size:.95rem}
+section .claim .take{color:var(--ink);font-weight:500}
+@media (max-width:860px){section{grid-template-columns:1fr;gap:18px}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px;display:grid;gap:14px;min-width:0}
+.panel-h{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.panel-h .t{font:600 .92rem/1.3 var(--body)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.8rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:2px;display:inline-block}
+.sw.dot{border-radius:50%}
+.sw.hatch{background:repeating-linear-gradient(135deg,var(--pad) 0 2px,transparent 2px 4px);outline:1px solid var(--pad)}
+.chart{width:100%;min-height:40px}
+.chart svg{display:block;width:100%;overflow:visible}
+.chart text{font-family:var(--body)} .chart text.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.note{font-size:.78rem;color:var(--ink-3)}
+details{font-size:.8rem;color:var(--ink-2)}
+details summary{cursor:pointer;color:var(--ink-3);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+details summary:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.82rem}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--grid);vertical-align:top}
+th{color:var(--ink-3);font-weight:500;font-size:.74rem}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+tr.pick td{font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:5px;font:600 .72rem/1 var(--mono);padding:4px 7px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.pill.bad{color:var(--bad)} .pill.good{color:var(--good)}
+
+/* toggle */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{font:500 .82rem var(--body);background:transparent;color:var(--ink-2);border:0;padding:7px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--s1);outline-offset:-2px}
+.tape-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tape-stats div{display:grid;gap:2px}
+.tape-stats .v{font:700 1.3rem/1.1 var(--display);font-variant-numeric:tabular-nums}
+.tape-stats .k{font-size:.76rem;color:var(--ink-3)}
+#tape rect.row{transition:y .7s cubic-bezier(.4,0,.2,1),width .7s cubic-bezier(.4,0,.2,1),x .7s cubic-bezier(.4,0,.2,1),fill .4s}
+@media (prefers-reduced-motion:reduce){#tape rect.row{transition:none}}
+
+/* pipeline */
+.flow{display:grid;gap:10px}
+.lane{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px}
+.lane .tag{font:600 .7rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);width:100%}
+.step{flex:1 1 140px;border:1px solid var(--line);border-radius:5px;padding:9px 11px;font-size:.8rem;color:var(--ink-2);background:var(--bg)}
+.step b{display:block;color:var(--ink);font-weight:600;font-size:.84rem;margin-bottom:2px}
+.step.hot{border-color:var(--s1)}
+.step.fp32{border-color:var(--s3)}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px;list-style:none;padding:0;margin:0}
+.checks li{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:.88rem;color:var(--ink-2)}
+.checks li b{color:var(--ink);font-weight:600}
+.checks li::before{content:"✓";color:var(--good);font-weight:700}
+@media (max-width:620px){.checks{grid-template-columns:1fr}.tape-stats{grid-template-columns:1fr 1fr}}
+footer{padding-top:28px;display:grid;gap:8px;font-size:.8rem;color:var(--ink-3)}
+footer p{max-width:none}
+
+#tip{position:fixed;pointer-events:none;z-index:20;background:var(--ink);color:var(--bg);font:.78rem/1.4 var(--body);padding:7px 9px;border-radius:5px;max-width:260px;opacity:0;transition:opacity .12s}
+#tip b{font-family:var(--mono);font-weight:600}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow">PS-09 · Kernel Optimisation for Encoders · team.py</span>
+    <h1>BAAI/bge-base-en-v1.5, <span class="big">21.3× faster</span> on one laptop GPU</h1>
+    <p class="lede">The same checkpoint, the same 12 BERT layers and the same answers: every one of the 100,000 practice passages stays within cosine 0.999992 of FP32. What changed is how the model runs.</p>
+    <div class="stats">
+      <div class="stat"><span class="v num">21.3×</span><span class="k">604.9 vs 28.4 passages/s</span><span class="src">official bench.py · 100,000 passages</span></div>
+      <div class="stat"><span class="v num">0 <small style="font-size:.5em;font-weight:600">/ 100,000</small></span><span class="k">passages below cosine 0.999</span><span class="src">worst 0.999992 vs FP32</span></div>
+      <div class="stat"><span class="v num">4.4 ms</span><span class="k">live query p50 · p99 8.2 ms</span><span class="src">1,500-query trace, bursts included</span></div>
+      <div class="stat"><span class="v num">1.6 GB</span><span class="k">peak GPU memory of 6 GB</span><span class="src">RTX 3050 6GB Laptop GPU</span></div>
+    </div>
+    <div class="panel" style="margin-top:6px">
+      <div class="panel-h"><span class="t">Where 21.3× sits on the throughput score</span>
+        <span class="legend"><span>Log scale: 1× scores 0, about 6× half marks, 40× full marks</span></span></div>
+      <div class="chart" id="score" role="img" aria-label="Log-scale score axis from 1x to 40x with markers at 1x reference, 3.0x FP16 only, 15.0x with scheduler, 21.3x submitted"></div>
+      <p class="note">If the scale is log-linear between 1× and 40×, 21.3× earns about 83% of the throughput marks (estimate from the published rule).</p>
+    </div>
+  </header>
+
+  <section id="padding">
+    <div class="claim">
+      <span class="eyebrow">Biggest single gain</span>
+      <h2>80% of the reference's work was padding</h2>
+      <p>The reference pads every passage to 512 tokens. The average practice passage has 100.</p>
+      <p>We sort by length and cut batches to a token budget of 8,192, padded only to the next multiple of 8. Inputs of 32 tokens or fewer form their own batches and run in FP32.</p>
+      <p class="take">Across all 100,000 passages: 51.2 M token positions become 10.4 M, padding drops from 80.4% to 3.7%.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-h">
+        <span class="t">48 real practice passages, one row each</span>
+        <div class="seg" role="group" aria-label="Batching plan">
+          <button type="button" id="mode-ref" aria-pressed="true">Reference: pad to 512</button>
+          <button type="button" id="mode-ours" aria-pressed="false">Ours: sort + token budget</button>
+        </div>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--s1)"></i>Real tokens, FP16</span>
+        <span><i class="sw" style="background:var(--s3)"></i>Real tokens, FP32 (≤ 32 tokens)</span>
+        <span><i class="sw hatch"></i>Padding (computed, then thrown away)</span>
+      </div>
+      <div class="chart" id="tape"></div>
+      <div class="tape-stats">
+        <div><span class="v num" id="ts-pos">24,576</span><span class="k">token positions computed</span></div>
+        <div><span class="v num" id="ts-pad">80.4%</span><span class="k">of them padding</span></div>
+        <div><span class="v num" id="ts-b">2</span><span class="k">batches</span></div>
+      </div>
+      <p class="note">Rows are drawn with the exact plan <code>team._plan</code> produces for these lengths (token budget 8,192). In the reference the GPU also runs attention over every padded position, which grows with length squared.</p>
+    </div>
+  </section>
+
+  <section id="ladder">
+    <div class="claim">
+      <span class="eyebrow">Ablation</span>
+      <h2>Each idea measured on its own</h2>
+      <p>Every stage runs through the official <code>bench.py</code>, end to end with tokenisation. Stages are cumulative presets, switched by environment variables, so each row adds one idea.</p>
+      <p class="take">FP16 Tensor Cores give 3×. Removing padding gives 5× on top of that. The pipeline, CLS-only last layer and budget tuning give the rest.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-h"><span class="t">Throughput, passages per second</span>
+        <span class="legend"><span><i class="sw" style="background:var(--ink-3)"></i>Reference</span><span><i class="sw" style="background:var(--s1)"></i>team.py stage</span></span></div>
+      <div class="chart" id="ladder-c"></div>
+      <p class="note">Stages 1–4: one run each on 20,000 passages at token budget 65,536 with the FP32 residual stream on. That budget filled ~90% of VRAM and timings drifted, so the final decisions used three interleaved rounds at small budgets (Precision section). Last row: the submitted file on all 100,000.</p>
+      <details><summary>Data table</summary><div class="tbl" id="ladder-t"></div></details>
+    </div>
+  </section>
+
+  <section id="profile">
+    <div class="claim">
+      <span class="eyebrow">Profiler evidence · torch.profiler</span>
+      <h2>Before: FP32 maths on padding. After: dense Tensor-Core GEMMs</h2>
+      <p>Same 2,000 passages under the profiler. GPU time is the sum of kernel and copy durations from the exported trace.</p>
+      <p class="take">GPU time falls from 69.7 s to 3.3 s. Idle gaps over 100 µs fall from 136 to 7; the GPU is busy 99.7% of the span.</p>
+      <p>The remaining work is the model's own matrix maths: 79% of GPU time is GEMM. 16.5% is the FP32 GEMMs of the short-input path, the price of zero violations.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-h"><span class="t">GPU time for 2,000 passages, seconds, by kernel type</span>
+        <span class="legend"><span><i class="sw" style="background:var(--s1)"></i>GEMM</span><span><i class="sw" style="background:var(--s2)"></i>Attention</span><span><i class="sw" style="background:var(--s3)"></i>LayerNorm + element-wise</span></span></div>
+      <div class="chart" id="prof-c"></div>
+      <div class="panel-h"><span class="t">Same runs as shares of GPU time</span></div>
+      <div class="chart" id="prof-share"></div>
+      <p class="note">Stage 1 and 2 profiles ran with the FP32 residual stream (since removed), which is why LayerNorm + element-wise reaches 24–25% there. Traces: <code>results_gpu/profiler/*/trace.json.gz</code>, open in ui.perfetto.dev.</p>
+      <details><summary>Data table</summary><div class="tbl" id="prof-t"></div></details>
+    </div>
+  </section>
+
+  <section id="precision">
+    <div class="claim">
+      <span class="eyebrow">The finding that mattered</span>
+      <h2>The official check sees 2,000 passages. The rule covers all 100,000</h2>
+      <p>One passage below cosine 0.999 scores the whole run zero. Plain FP16 passed the official 2,000 at 0.999663, so it looked safe.</p>
+      <p>We embedded all 100,000 practice passages with our FP32 path and compared. Plain FP16 failed on 2. An FP32 residual stream still failed on 1. Every passage below 0.9999 had 23 tokens or fewer.</p>
+      <p class="take">Inputs of 32 tokens or fewer now run in FP32. They are 33% of passages but 5.5% of tokens, so the cost is 3%, and the 100,000-passage worst case is 0.999992.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-h"><span class="t">Worst passage per length band: distance from FP32 (1 − cosine, log scale)</span></div>
+      <div class="legend">
+        <span><i class="sw dot" style="background:var(--s2)"></i>Plain FP16</span>
+        <span><i class="sw dot" style="background:var(--s3)"></i>FP16 + FP32 residual</span>
+        <span><i class="sw dot" style="background:var(--s1)"></i>Submitted: FP16, ≤ 32 tokens in FP32</span>
+      </div>
+      <div class="chart" id="prec-c"></div>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Variant (stage 4, budget 8,192)</th><th class="n">Passages/s</th><th class="n">Worst of 100k</th><th class="n">&lt; 0.999</th><th class="n">&lt; 0.9995</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td>Plain FP16</td><td class="n">692.2</td><td class="n">0.994402</td><td class="n">2</td><td class="n">5</td><td><span class="pill bad">✕ would score 0</span></td></tr>
+            <tr><td>FP16 + FP32 residual stream</td><td class="n">619.0</td><td class="n">0.997786</td><td class="n">1</td><td class="n">3</td><td><span class="pill bad">✕ would score 0</span></td></tr>
+            <tr class="pick"><td>Submitted: short inputs in FP32</td><td class="n">598.7</td><td class="n">0.999992</td><td class="n">0</td><td class="n">0</td><td><span class="pill good">✓ submitted</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Passages/s: mean of three interleaved rounds on 20,000 passages (spread ±1.5%). Worst passage: #31022, 16 tokens, “Transport in Gippsland (region) Shire of South Gippsland”. Its error is FP16 arithmetic, not a code bug: our FP32 path matches the official reference to 1.0000000.</p>
+      <details><summary>Data table</summary><div class="tbl" id="prec-t"></div></details>
+    </div>
+  </section>
+
+  <section id="live">
+    <div class="claim">
+      <span class="eyebrow">Live queries · 15% of the score</span>
+      <h2>One query at a time, replayed through a CUDA Graph</h2>
+      <p><code>bench.py</code> sends each query alone, in arrival order. Eager PyTorch launches hundreds of small kernels per query; a captured CUDA Graph launches the whole 12-layer forward in one call.</p>
+      <p class="take">Queries are short, so they take the FP32 path too. That costs about 2 ms per query and removes the precision risk on the hidden trace.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-h"><span class="t">GPU service time per query, ms (median of 1,500)</span>
+        <span class="legend"><span><i class="sw" style="background:var(--ink-3)"></i>Eager</span><span><i class="sw" style="background:var(--s1)"></i>CUDA Graph</span></span></div>
+      <div class="chart" id="live-c"></div>
+      <p class="note">Official replay of the 1,500-query trace with the submitted file: p50 4.40 ms, p99 8.24 ms, 0 violations, min cosine 0.9999999. The p99 includes waiting behind earlier queries of a burst. An FP32 query reads 440 MB of weights, which a graph cannot remove.</p>
+      <details><summary>Data table</summary><div class="tbl" id="live-t"></div></details>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="claim">
+      <span class="eyebrow">Architecture</span>
+      <h2>What runs inside <code>encode(texts)</code></h2>
+      <p>One Python file, one entry point, two paths. <code>setup()</code> is untimed: it loads the weights, warms up at real batch shapes and captures the graphs.</p>
+    </div>
+    <div class="panel">
+      <div class="flow">
+        <div class="lane"><span class="tag">setup(), not timed</span>
+          <div class="step"><b>Load checkpoint</b>FP16 copy + FP32 copy of the same weights</div>
+          <div class="step"><b>Warm up</b>real batch shapes, largest first; budget halves if VRAM is short</div>
+          <div class="step"><b>Capture CUDA Graphs</b>32-token graph on FP32, 64/128 on FP16</div>
+        </div>
+        <div class="lane"><span class="tag">N passages</span>
+          <div class="step"><b>Tokenise in a thread</b>Rust tokenizer, 16k-text chunks, overlaps the GPU</div>
+          <div class="step hot"><b>Plan batches</b>sort by length, 8,192-token budget, split at 8-token buckets</div>
+          <div class="step hot"><b>FP16 encoder</b>fused QKV, SDPA attention, CLS-only last layer</div>
+          <div class="step fp32"><b>FP32 encoder</b>batches of inputs ≤ 32 tokens, reference maths</div>
+          <div class="step"><b>Scatter in order</b>into one GPU buffer, one copy to host</div>
+        </div>
+        <div class="lane"><span class="tag">1 query</span>
+          <div class="step"><b>Tokenise</b>pick the smallest bucket that fits</div>
+          <div class="step fp32"><b>Graph replay</b>whole forward in one launch</div>
+          <div class="step"><b>[1, 768]</b>L2-normalised CLS vector</div>
+        </div>
+      </div>
+      <ul class="checks">
+        <li><span><b>Same model.</b> BAAI/bge-base-en-v1.5 checkpoint, unchanged weights and architecture.</span></li>
+        <li><span><b>Allowed precision only.</b> FP16 and FP32; no INT8, BF16 tested and rejected.</span></li>
+        <li><span><b>Exact tricks.</b> Fused QKV and CLS-only last layer give cosine 1.0000000 in FP32.</span></li>
+        <li><span><b>Single file.</b> <code>team.py</code> with <code>setup()</code> and <code>encode(texts)</code>; no variables needed.</span></li>
+        <li><span><b>Unknown GPU safe.</b> Budget adapts to VRAM; graph or compile failures fall back to eager.</span></li>
+        <li><span><b>Tested edges.</b> Empty text, Unicode, over-512 truncation, ordering: 29 cases pass on GPU.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>All numbers measured on an NVIDIA GeForce RTX 3050 6GB Laptop GPU (Ampere, sm_86), torch 2.15 + CUDA 13.2, 24 Nov 2026. Reference baseline: <code>reference.py</code> on 5,000 passages (its cost per passage does not depend on the text, since it pads everything to 512).</p>
+    <p>Evidence: <code>results_gpu/final/</code> (official 100k run and full check) · <code>results_gpu/repeats_p2/</code> (precision decision) · <code>results_gpu/ablation/</code> · <code>results_gpu/profiler/</code> · <code>results_gpu/latency/</code> · report: <code>reports/PS09_Final_Report.pdf</code></p>
+  </footer>
+</div>
+<div id="tip" role="tooltip"></div>
+
+<script>
+(() => {
+const NS = "http://www.w3.org/2000/svg";
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === "style") e.setAttribute("style", v); else if (k === "text") e.textContent = v; else e.setAttribute(k, v); }
+  if (parent) parent.appendChild(e); return e; };
+const fmt = (x, d = 1) => x.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+const tip = document.getElementById("tip");
+const showTip = (ev, html) => { tip.innerHTML = html; tip.style.opacity = 1;
+  const r = tip.getBoundingClientRect(); let x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14; if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14;
+  tip.style.left = x + "px"; tip.style.top = y + "px"; };
+const hideTip = () => { tip.style.opacity = 0; };
+const hover = (node, html) => { node.style.cursor = "default";
+  node.addEventListener("mousemove", e => showTip(e, html)); node.addEventListener("mouseleave", hideTip); };
+const table = (id, head, rows) => { document.getElementById(id).innerHTML = "<table><thead><tr>" + head.map((h, i) => `<th${i ? ' class="n"' : ""}>${h}</th>`).join("") +
+  "</tr></thead><tbody>" + rows.map(r => "<tr>" + r.map((c, i) => `<td${i ? ' class="n"' : ""}>${c}</td>`).join("") + "</tr>").join("") + "</tbody></table>"; };
+const width = id => Math.max(280, document.getElementById(id).clientWidth);
+
+/* ---------- score axis ---------- */
+function score() {
+  const box = document.getElementById("score"); box.innerHTML = ""; const W = width("score"), H = 96, L = 14, R = 24;
+  const s = el("svg", { viewBox: `0 0 ${W} ${H}`, height: H }, box);
+  const x = v => L + (Math.log(v) / Math.log(60)) * (W - L - R);
+  el("rect", { x: x(40), y: 30, width: x(60) - x(40), height: 14, rx: 3, style: "fill:var(--grid)" }, s);
+  el("line", { x1: x(1), x2: x(60), y1: 44, y2: 44, style: "stroke:var(--line);stroke-width:1" }, s);
+  for (const t of [1, 2, 6, 10, 40]) { el("line", { x1: x(t), x2: x(t), y1: 44, y2: 50, style: "stroke:var(--ink-3)" }, s);
+    el("text", { x: x(t), y: 64, "text-anchor": "middle", "font-size": 11, style: "fill:var(--ink-3)", text: t + "×" }, s); }
+  el("text", { x: x(6), y: 80, "text-anchor": "middle", "font-size": 10, style: "fill:var(--ink-3)", text: "half marks" }, s);
+  el("text", { x: x(40), y: 80, "text-anchor": "middle", "font-size": 10, style: "fill:var(--ink-3)", text: "full marks" }, s);
+  const marks = [[1, "reference", "var(--ink-3)"], [3.02, "FP16 only", "var(--ink-3)"], [15.04, "+ scheduler", "var(--ink-3)"], [21.3, "submitted 21.3×", "var(--s1)"]];
+  marks.forEach(([v, lab, c], i) => { const g = el("g", {}, s); const last = i === marks.length - 1;
+    el("circle", { cx: x(v), cy: 37, r: last ? 7 : 5, style: `fill:${c};stroke:var(--surface);stroke-width:2` }, g);
+    if (last || W > 520) el("text", { x: x(v), y: 20, "text-anchor": last ? "middle" : (i === 0 ? "start" : "middle"), "font-size": last ? 13 : 11,
+      "font-weight": last ? 700 : 400, style: `fill:${last ? "var(--ink)" : "var(--ink-2)"}`, text: lab }, g);
+    el("circle", { cx: x(v), cy: 37, r: 14, style: "fill:transparent" }, g);
+    hover(g, `<b>${fmt(v, v < 2 ? 0 : 1)}×</b> ${lab}`); });
+}
+
+/* ---------- padding tape ---------- */
+const LENS = [162,107,37,359,155,6,222,12,320,120,111,79,87,164,96,116,212,103,91,8,105,23,34,29,67,14,87,347,71,102,181,246,15,105,126,220,277,7,29,18,99,54,20,122,53,45,217,111];
+const pad8 = n => Math.ceil(n / 8) * 8;
+function planOurs(lengths, budget = 8192, short = 32, minFill = 0.25) {   // port of team._plan (stage 4 + P2)
+  const n = lengths.length, order = [...lengths.keys()].sort((a, b) => lengths[b] - lengths[a] || a - b);
+  const nLong = lengths.filter(l => l > short).length;
+  const negP = order.map(i => -pad8(lengths[i]));
+  const fill = minFill * Math.min(budget, lengths.reduce((a, b) => a + b, 0) / 4);
+  const batches = []; let i = 0;
+  while (i < n) { const T = pad8(lengths[order[i]]), b = Math.max(1, Math.floor(budget / T));
+    let end = Math.min(n, i + b); let k = i; while (k < n && negP[k] <= -T) k++;
+    end = Math.min(end, Math.max(k, i + Math.max(1, Math.floor(fill / T))));
+    if (i < nLong) end = Math.min(end, nLong);
+    batches.push({ rows: order.slice(i, end), T, fp32: lengths[order[end - 1]] <= short && lengths[order[i]] <= short }); i = end; }
+  return batches;
+}
+function planRef(lengths) { const b = []; for (let i = 0; i < lengths.length; i += 32) b.push({ rows: [...lengths.keys()].slice(i, i + 32), T: 512, fp32: false }); return b; }
+let mode = "ref"; const rowsEl = {};
+function tape(rebuild) {
+  const box = document.getElementById("tape"); const W = width("tape"), labW = W > 520 ? 92 : 0, x0 = labW, xw = W - labW - 4;
+  const rh = 5, gap = 1, bgap = 7, plans = { ref: planRef(LENS), ours: planOurs(LENS) };
+  const heights = Object.values(plans).map(p => p.length * bgap + LENS.length * (rh + gap));
+  const H = Math.max(...heights) + 4;
+  let s = box.querySelector("svg");
+  if (rebuild || !s) { box.innerHTML = ""; s = el("svg", { viewBox: `0 0 ${W} ${H}`, height: H }, box);
+    const defs = el("defs", {}, s); const p = el("pattern", { id: "hatch", width: 4, height: 4, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+    el("rect", { width: 4, height: 4, style: "fill:var(--surface)" }, p); el("line", { x1: 0, y1: 0, x2: 0, y2: 4, style: "stroke:var(--pad);stroke-width:2" }, p);
+    s.labels = el("g", {}, s);
+    LENS.forEach((L, i) => { const g = el("g", {}, s);
+      rowsEl[i] = { pad: el("rect", { class: "row", height: rh, style: "fill:url(#hatch)" }, g), real: el("rect", { class: "row", height: rh, rx: 1 }, g) };
+      g.addEventListener("mousemove", e => { const b = rowsEl[i].T; showTip(e, `Passage ${i + 1}: <b>${L}</b> tokens<br>padded to <b>${b}</b> · ${fmt(100 * (1 - L / b), 0)}% padding${rowsEl[i].fp32 ? "<br>runs on the FP32 path" : ""}`); });
+      g.addEventListener("mouseleave", hideTip); });
+  }
+  const sx = t => (t / 512) * xw, plan = plans[mode]; let y = 2, pos = 0; s.labels.innerHTML = "";
+  plan.forEach((b, bi) => {
+    if (labW && (mode === "ref" || b.rows.length * (rh + gap) >= 10))
+      el("text", { x: 0, y: y + 9, "font-size": 10, style: "fill:var(--ink-3)", class: "m", text: `${b.rows.length}×${b.T}${b.fp32 ? " FP32" : ""}` }, s.labels);
+    b.rows.forEach(i => { const r = rowsEl[i], L = LENS[i]; r.T = b.T; r.fp32 = b.fp32;
+      r.real.style.y = y + "px"; r.real.style.x = x0 + "px"; r.real.style.width = Math.max(1, sx(L)) + "px";
+      r.real.style.fill = mode === "ours" && b.fp32 ? "var(--s3)" : "var(--s1)";
+      r.pad.style.y = y + "px"; r.pad.style.x = x0 + "px"; r.pad.style.width = sx(b.T) + "px"; y += rh + gap; });
+    pos += b.rows.length * b.T; y += bgap; });
+  if (labW) { const gx = x0 + sx(512); el("line", { x1: gx, x2: gx, y1: 0, y2: H, style: "stroke:var(--line);stroke-dasharray:2 3" }, s.labels); }
+  const real = LENS.reduce((a, b) => a + b, 0);
+  document.getElementById("ts-pos").textContent = pos.toLocaleString("en-US");
+  document.getElementById("ts-pad").textContent = fmt(100 * (1 - real / pos), 1) + "%";
+  document.getElementById("ts-b").textContent = plan.length;
+}
+const setMode = m => { mode = m; document.getElementById("mode-ref").setAttribute("aria-pressed", m === "ref"); document.getElementById("mode-ours").setAttribute("aria-pressed", m === "ours"); tape(false); };
+document.getElementById("mode-ref").onclick = () => setMode("ref");
+document.getElementById("mode-ours").onclick = () => setMode("ours");
+
+/* ---------- horizontal bars ---------- */
+function hbars(id, data, { unit, max, digits = 1, valueLabel }) {
+  const box = document.getElementById(id); box.innerHTML = ""; const W = width(id), narrow = W < 560;
+  const labW = narrow ? 0 : Math.min(250, W * 0.4), bh = 18, rowH = narrow ? 44 : 30, H = data.length * rowH + 6;
+  const s = el("svg", { viewBox: `0 0 ${W} ${H}`, height: H }, box), vw = W - labW - 70, sx = v => (v / max) * vw;
+  data.forEach((d, i) => { const y = i * rowH + (narrow ? 18 : 6), g = el("g", {}, s);
+    el("text", { x: narrow ? 0 : labW - 10, y: narrow ? y - 5 : y + 13, "text-anchor": narrow ? "start" : "end", "font-size": 12,
+      "font-weight": d.em ? 600 : 400, style: `fill:${d.em ? "var(--ink)" : "var(--ink-2)"}`, text: d.label }, g);
+    el("rect", { x: labW, y, width: Math.max(2, sx(d.v)), height: bh, rx: 3, style: `fill:${d.color}` }, g);
+    el("text", { x: labW + sx(d.v) + 6, y: y + 13, "font-size": 12, class: "m", "font-weight": d.em ? 600 : 400,
+      style: "fill:var(--ink)", text: valueLabel ? valueLabel(d) : fmt(d.v, digits) }, g);
+    el("rect", { x: 0, y: y - 6, width: W, height: rowH, style: "fill:transparent" }, g);
+    hover(g, d.tip || `${d.label}: <b>${fmt(d.v, digits)}</b> ${unit}`); });
+}
+const LADDER = [
+  { label: "Reference · FP32, pad 512", v: 28.4, color: "var(--ink-3)", n: "5,000" },
+  { label: "S1 · FP16, fused QKV, SDPA", v: 85.9, color: "var(--s1)", n: "20,000" },
+  { label: "S2 · + length-aware scheduler", v: 427.3, color: "var(--s1)", n: "20,000" },
+  { label: "S3 · + async pipeline, CUDA Graphs", v: 426.5, color: "var(--s1)", n: "20,000" },
+  { label: "S4 · + CLS-only last layer", v: 460.4, color: "var(--s1)", n: "20,000" },
+  { label: "S4 · token budget 8,192", v: 621.1, color: "var(--s1)", n: "20,000" },
+  { label: "Submitted · short inputs in FP32", v: 604.9, color: "var(--s1)", n: "100,000", em: true }];
+LADDER.forEach(d => { d.tip = `${d.label}<br><b>${fmt(d.v)}</b> passages/s · <b>${fmt(d.v / 28.4, 1)}×</b> reference<br>${d.n} passages`; });
+
+/* ---------- profiler ---------- */
+const PROF = [ { label: "Reference", s: 69.674, g: 74.9, a: 17.9, n: 7.1, gaps: 136 }, { label: "S1 · FP16", s: 17.588, g: 65.4, a: 10.6, n: 24.0, gaps: 77 },
+  { label: "S2 · scheduler", s: 3.735, g: 68.7, a: 6.3, n: 25.0, gaps: 29 }, { label: "Submitted", s: 3.325, g: 79.0, a: 7.3, n: 13.6, gaps: 7, em: true } ];
+const CATS = [["g", "GEMM", "var(--s1)"], ["a", "Attention", "var(--s2)"], ["n", "LayerNorm + element-wise", "var(--s3)"]];
+function stacked(id, shares) {
+  const box = document.getElementById(id); box.innerHTML = ""; const W = width(id), narrow = W < 560;
+  const labW = narrow ? 0 : 120, bh = 20, rowH = narrow ? 46 : 32, H = PROF.length * rowH + 6;
+  const s = el("svg", { viewBox: `0 0 ${W} ${H}`, height: H }, box), vw = W - labW - (shares ? 8 : 120);
+  const max = shares ? 100 : 70;
+  PROF.forEach((d, i) => { const y = i * rowH + (narrow ? 20 : 6), g = el("g", {}, s); let x = labW;
+    el("text", { x: narrow ? 0 : labW - 10, y: narrow ? y - 6 : y + 14, "text-anchor": narrow ? "start" : "end", "font-size": 12, "font-weight": d.em ? 600 : 400,
+      style: `fill:${d.em ? "var(--ink)" : "var(--ink-2)"}`, text: d.label }, g);
+    const tot = d.g + d.a + d.n;
+    CATS.forEach(([k, name, c]) => { const val = shares ? d[k] / tot * 100 : d.s * d[k] / tot; const w = val / max * vw;
+      if (w > 0.5) { const r = el("rect", { x, y, width: Math.max(0.5, w - (w > 3 ? 2 : 0)), height: bh, rx: w > 6 ? 2 : 0, style: `fill:${c}` }, g);
+        hover(r, `${d.label} · ${name}<br><b>${shares ? fmt(d[k] / tot * 100, 1) + "%" : fmt(d.s * d[k] / tot, 2) + " s"}</b> of GPU time`); }
+      if (shares && w > 34) el("text", { x: x + 6, y: y + 14, "font-size": 11, class: "m", style: "fill:#fff;pointer-events:none", text: fmt(d[k] / tot * 100, 0) + "%" }, g);
+      x += w; });
+    if (!shares) { el("text", { x: x + 6, y: y + 14, "font-size": 12, class: "m", "font-weight": d.em ? 600 : 400, style: "fill:var(--ink)", text: `${fmt(d.s, 1)} s` }, g);
+      el("text", { x: x + 58, y: y + 14, "font-size": 11, style: "fill:var(--ink-3)", text: `${d.gaps} gaps` }, g); } });
+}
+
+/* ---------- precision dots ---------- */
+const PREC = [["1–8",6181,0.00111,0.000731,8.22e-11],["9–16",10303,0.0056,0.00221,7.91e-11],["17–24",9101,0.000876,0.000519,8.89e-11],["25–32",7096,3.65e-05,2.95e-05,1.56e-12],
+  ["33–48",8747,8.41e-06,3.89e-06,8.41e-06],["49–64",7596,1.24e-06,8.09e-07,1.24e-06],["65–128",23655,7.67e-06,1.24e-06,7.67e-06],["129–256",17976,2.16e-06,1.05e-06,2.16e-06],["257–512",9345,5.03e-06,1.81e-06,5.03e-06]];
+const SER = [[2, "Plain FP16", "var(--s2)"], [3, "FP16 + FP32 residual", "var(--s3)"], [4, "Submitted", "var(--s1)"]];
+function prec() {
+  const box = document.getElementById("prec-c"); box.innerHTML = ""; const W = width("prec-c"), H = 300, L = 54, R = 10, T = 14, B = 46;
+  const s = el("svg", { viewBox: `0 0 ${W} ${H}`, height: H }, box);
+  const lo = -12, hi = -2, sy = v => T + (hi - Math.log10(Math.max(v, 1e-12))) / (hi - lo) * (H - T - B);
+  const bw = (W - L - R) / PREC.length, cx = i => L + bw * (i + 0.5);
+  el("rect", { x: L, y: T, width: bw * 4, height: H - T - B, style: "fill:var(--s3);opacity:.08" }, s);
+  el("text", { x: L + 6, y: H - B - 8, "font-size": 10, style: "fill:var(--ink-3)", text: "≤ 32 tokens: FP32 path in the submitted file" }, s);
+  for (let e = lo; e <= hi; e += 2) { const y = sy(10 ** e);
+    el("line", { x1: L, x2: W - R, y1: y, y2: y, style: "stroke:var(--grid)" }, s);
+    el("text", { x: L - 8, y: y + 4, "text-anchor": "end", "font-size": 10, style: "fill:var(--ink-3)", class: "m", text: `1e${e}` }, s); }
+  const ty = sy(1e-3);
+  el("line", { x1: L, x2: W - R, y1: ty, y2: ty, style: "stroke:var(--bad);stroke-width:1.5;stroke-dasharray:5 4" }, s);
+  el("text", { x: W - R, y: ty - 6, "text-anchor": "end", "font-size": 11, "font-weight": 600, style: "fill:var(--bad)", text: "rule: cosine ≥ 0.999 · above this line scores 0" }, s);
+  PREC.forEach((r, i) => {
+    el("text", { x: cx(i), y: H - B + 16, "text-anchor": "middle", "font-size": W < 520 ? 9 : 11, style: "fill:var(--ink-2)", class: "m", text: r[0] }, s);
+    SER.forEach(([k, name, c], j) => { const x = cx(i) + (j - 1) * Math.min(12, bw / 4), y = sy(r[k]); const g = el("g", {}, s);
+      el("circle", { cx: x, cy: y, r: 5, style: `fill:${c};stroke:var(--surface);stroke-width:2` }, g);
+      el("circle", { cx: x, cy: y, r: 11, style: "fill:transparent" }, g);
+      hover(g, `${r[0]} tokens (${r[1].toLocaleString("en-US")} passages)<br>${name}: worst cosine <b>${(1 - r[k]).toFixed(r[k] < 1e-8 ? 9 : 6)}</b>`); }); });
+  el("text", { x: (L + W - R) / 2, y: H - 8, "text-anchor": "middle", "font-size": 11, style: "fill:var(--ink-3)", text: "passage length, tokens" }, s);
+  const wx = cx(1) - Math.min(12, bw / 4), wy = sy(0.0056);
+  el("text", { x: wx + 9, y: wy + 4, "font-size": 11, "font-weight": 600, style: "fill:var(--ink)", text: "0.9944" }, s);
+}
+
+/* ---------- render ---------- */
+function renderAll(rebuild) {
+  score(); tape(rebuild);
+  hbars("ladder-c", LADDER, { unit: "passages/s", max: 640 });
+  stacked("prof-c", false); stacked("prof-share", true); prec();
+  hbars("live-c", [
+    { label: "FP16 · eager", v: 2.49, color: "var(--ink-3)" }, { label: "FP16 · CUDA Graph", v: 1.76, color: "var(--s1)" },
+    { label: "FP32 · eager", v: 4.05, color: "var(--ink-3)" }, { label: "FP32 · CUDA Graph (submitted)", v: 3.71, color: "var(--s1)", em: true }],
+    { unit: "ms per query", max: 4.6, digits: 2, valueLabel: d => fmt(d.v, 2) + " ms" });
+}
+table("ladder-t", ["Stage", "Passages/s", "Speed-up", "Passages"], LADDER.map(d => [d.label, fmt(d.v), fmt(d.v / 28.4) + "×", d.n]));
+table("prof-t", ["Run", "GPU s", "GEMM %", "Attention %", "Norm + elementwise %", "Idle gaps > 100 µs"], PROF.map(d => [d.label, fmt(d.s, 2), fmt(d.g), fmt(d.a), fmt(d.n), d.gaps]));
+table("prec-t", ["Tokens", "Passages", "Plain FP16", "FP32 residual", "Submitted"], PREC.map(r => [r[0], r[1].toLocaleString("en-US"), ...[2, 3, 4].map(k => (1 - r[k]).toFixed(6))]));
+table("live-t", ["Path", "Service p50 ms"], [["FP16 eager", "2.49"], ["FP16 CUDA Graph", "1.76"], ["FP32 eager", "4.05"], ["FP32 CUDA Graph (submitted)", "3.71"]]);
+renderAll(true);
+let rt, lastW = innerWidth; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { if (innerWidth !== lastW) { lastW = innerWidth; renderAll(true); } }, 150); });
+})();
+</script>

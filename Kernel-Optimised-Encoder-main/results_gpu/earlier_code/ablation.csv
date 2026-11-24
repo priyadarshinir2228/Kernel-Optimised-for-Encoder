@@ -1,0 +1,6 @@
+when,stage,name,status,passages_per_s,seconds,speedup,min_cos,violations,live_p50_ms,live_p99_ms,live_min_cos,setup_s,token_budget,wall_s
+2026-11-23 18:32,1,"S1 + FP16, fused QKV, SDPA",ok,127.3,157.05,4.48,0.999663,0,,,,5.8,65536,164.6
+2026-11-23 18:33,2,S2 + length-aware token-budget scheduler,ok,624.5,32.03,21.99,0.999663,0,,,,5.7,65536,39.5
+2026-11-23 18:57,3,"S3 + async host pipeline, CUDA Graph live path",ok,612.2,32.67,21.55,0.999663,0,2.2,3.67,0.999982,6.0,65536,282.1
+2026-11-23 19:02,4,S4 + CLS-only last layer,ok,654.6,30.55,23.05,0.999663,0,2.17,3.58,0.999982,5.6,65536,279.7
+2026-11-23 19:12,4,S4 + CLS-only last layer,ok,666.1,150.12,23.45,0.999663,0,2.19,3.6,0.999982,5.5,65536,399.1

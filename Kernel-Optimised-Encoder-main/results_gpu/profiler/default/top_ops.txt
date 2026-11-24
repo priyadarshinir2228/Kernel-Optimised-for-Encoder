@@ -1,0 +1,36 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            encode_team         0.00%       0.000us         0.00%       0.000us       0.000us        3.336s       100.32%        3.336s        3.336s             1  
+                                            encode_team         3.11%     105.422ms       100.00%        3.387s        3.387s       0.000us         0.00%        3.325s        3.325s             1  
+                                           aten::linear         0.29%       9.844ms        30.87%        1.045s     361.622us       0.000us         0.00%        2.627s     908.813us          2891  
+                                            aten::addmm         1.31%      44.234ms        29.63%        1.004s     354.349us        2.626s        78.98%        2.626s     927.280us          2832  
+    ampere_fp16_s1688gemm_fp16_128x128_ldg8_relu_f2f_tn         0.00%       0.000us         0.00%       0.000us       0.000us     710.212ms        21.36%     710.212ms     949.481us           748  
+                                 ampere_sgemm_128x64_tn         0.00%       0.000us         0.00%       0.000us       0.000us     447.870ms        13.47%     447.870ms       2.682ms           167  
+ampere_fp16_s16816gemm_fp16_256x128_ldg8_relu_f2f_st...         0.00%       0.000us         0.00%       0.000us       0.000us     350.014ms        10.53%     350.014ms     872.854us           401  
+void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816...         0.00%       0.000us         0.00%       0.000us       0.000us     343.546ms        10.33%     343.546ms       1.562ms           220  
+sm80_xmma_gemm_f16f16_f16f32_f32_tn_n_tilesize96x128...         0.00%       0.000us         0.00%       0.000us       0.000us     270.397ms         8.13%     270.397ms     599.549us           451  
+                     aten::scaled_dot_product_attention         0.18%       6.257ms        16.75%     567.456ms     801.491us       0.000us         0.00%     245.265ms     346.420us           708  
+          aten::_scaled_dot_product_efficient_attention         0.10%       3.514ms        16.53%     559.911ms     790.835us       0.000us         0.00%     245.265ms     346.420us           708  
+                     aten::_efficient_attention_forward         0.21%       7.262ms        16.32%     552.652ms     780.582us     244.264ms         7.35%     245.265ms     346.420us           708  
+void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816...         0.00%       0.000us         0.00%       0.000us       0.000us     235.013ms         7.07%     235.013ms     791.290us           297  
+fmha_cutlassF_f16_aligned_64x64_rf_sm80(PyTorchMemEf...         0.00%       0.000us         0.00%       0.000us       0.000us     193.904ms         5.83%     193.904ms     293.794us           660  
+                                             aten::gelu         0.12%       4.214ms         5.44%     184.271ms     260.270us     190.156ms         5.72%     190.156ms     268.582us           708  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us     167.141ms         5.03%     167.141ms     253.244us           660  
+                                              aten::add         0.27%       9.162ms        10.37%     351.229ms     228.963us     150.920ms         4.54%     150.920ms      98.384us          1534  
+void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816...         0.00%       0.000us         0.00%       0.000us       0.000us     129.913ms         3.91%     129.913ms     811.959us           160  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us     123.841ms         3.72%     123.841ms      97.898us          1265  
+                                       aten::layer_norm         0.09%       3.018ms         6.78%     229.681ms     155.716us       0.000us         0.00%     105.661ms      71.635us          1475  
+                                aten::native_layer_norm         0.33%      11.345ms         6.69%     226.640ms     153.654us     105.661ms         3.18%     105.661ms      71.635us          1475  
+                                  ampere_sgemm_64x64_tn         0.00%       0.000us         0.00%       0.000us       0.000us      99.724ms         3.00%      99.724ms       4.533ms            22  
+void at::native::(anonymous namespace)::vectorized_l...         0.00%       0.000us         0.00%       0.000us       0.000us      91.132ms         2.74%      91.132ms      66.278us          1375  
+fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf...         0.00%       0.000us         0.00%       0.000us       0.000us      50.360ms         1.51%      50.360ms       1.049ms            48  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      23.015ms         0.69%      23.015ms     479.475us            48  
+sm80_xmma_gemm_f16f16_f16f32_f32_tn_n_tilesize192x12...         0.00%       0.000us         0.00%       0.000us       0.000us      22.051ms         0.66%      22.051ms     167.055us           132  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us      17.122ms         0.51%      17.122ms     186.104us            92  
+void at::native::(anonymous namespace)::vectorized_l...         0.00%       0.000us         0.00%       0.000us       0.000us      14.529ms         0.44%      14.529ms     145.294us           100  
+sm80_xmma_gemm_f16f16_f16f32_f32_tn_n_tilesize160x12...         0.00%       0.000us         0.00%       0.000us       0.000us      11.820ms         0.36%      11.820ms     166.475us            71  
+void at::native::elementwise_kernel<128, 4, at::nati...         0.00%       0.000us         0.00%       0.000us       0.000us       9.025ms         0.27%       9.025ms      41.024us           220  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 3.387s
+Self CUDA time total: 3.325s

@@ -1,0 +1,73 @@
+{
+ "what": "non-official live latency study; realtime mode replays bench.py's live() timing",
+ "mode": "service",
+ "n": 1500,
+ "setup_s": 108.67,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 0
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ },
+ "service_ms": {
+  "p50": 2.4949580001703,
+  "p90": 2.6675554021494463,
+  "p95": 2.7261938486844883,
+  "p99": 3.060312700545181,
+  "mean": 2.5200359059963375,
+  "max": 5.28104099794291
+ },
+ "min_cosine": 0.9999966621398926,
+ "violations_0.999": 0,
+ "slowest_service": [
+  {
+   "i": 336,
+   "ms": 5.28104099794291,
+   "text": "when did the wall come down in berlin"
+  },
+  {
+   "i": 1440,
+   "ms": 4.441977998794755,
+   "text": "what is the salary of us secretary of state"
+  },
+  {
+   "i": 610,
+   "ms": 4.289003001758829,
+   "text": "why does overexpression of rtks lead to cancer development"
+  },
+  {
+   "i": 110,
+   "ms": 4.195091998553835,
+   "text": "name the cell which is attached to the lateral side of sieve tube"
+  },
+  {
+   "i": 114,
+   "ms": 3.953830000682501,
+   "text": "where is this years army navy game played"
+  }
+ ],
+ "peak_gpu_allocated_mib": 215.7
+}

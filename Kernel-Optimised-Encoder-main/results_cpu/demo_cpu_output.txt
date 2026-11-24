@@ -1,0 +1,71 @@
+
+==============================================================================
+ 1. Hardware and configuration
+==============================================================================
+ device: CPU only (numbers NOT representative of a GPU)
+ loading the original encoder (reference.py) ...
+ loading our encoder (team.py: setup() loads, converts, warms up, captures CUDA Graphs) ...
+ team.setup() took 1.6 s (not timed by bench.py)
+   dtype                float32
+   res32                False
+   token_budget         65536
+   graph_buckets        []
+   compiled             False
+   notes                []
+   optimisations        fp16, sort, budget, bucket, overlap, cls_only, graph
+
+==============================================================================
+ 2. Same texts, same meaning: cosine(reference, ours)
+==============================================================================
+   empty string                              2 tokens   cos = 1.000000
+   one word                                  3 tokens   cos = 1.000000
+   query                                    11 tokens   cos = 1.000000
+   query                                    11 tokens   cos = 1.000000
+   short passage                             8 tokens   cos = 1.000000
+   medium passage                          162 tokens   cos = 1.000000
+   longest passage                         483 tokens   cos = 1.000000
+   unicode                                  11 tokens   cos = 1.000000
+   900 words (truncated to 512 tokens)     512 tokens   cos = 1.000000
+ minimum cosine 1.000000  (rule: >= 0.999 on every input; our internal gate 0.9995)
+
+==============================================================================
+ 3. Why the reference is slow: padding
+==============================================================================
+ 200 passages, 20,660 real tokens (mean 103, median 82)
+ reference computes 102,400 token positions  -> 79.8% is padding
+ ours computes      22,976 token positions  -> 10.1% is padding
+
+==============================================================================
+ 4. Throughput on the same 200 passages (end to end, including tokenisation)
+==============================================================================
+ reference (FP32, pad 512, batch 32):      3.5 passages/s   (57.9 s)
+ ours                               :     16.9 passages/s   (11.8 s)
+ speed-up                           :     4.90 x
+ accuracy on these 200: min cos 1.000000, mean 1.0000000, violations 0
+
+==============================================================================
+ 5. Live queries (30 from the practice trace, one encode([q]) call each)
+==============================================================================
+ service time per query: p50 22.98 ms, p99 29.23 ms, mean 23.12 ms  (eager path)
+ (bench.py's live p50/p99 also include waiting behind earlier queries of a burst)
+
+==============================================================================
+ 6. It still works as semantic search (small demo library, written for this demo)
+==============================================================================
+ Q: who wrote the art of war
+    0.755  The Art of War is an ancient Chinese military treatise attributed to the general and strat
+    0.428  World War I began in 1914 after the assassination of Archduke Franz Ferdinand in Sarajevo.
+ Q: when did the first world war start
+    0.813  World War I began in 1914 after the assassination of Archduke Franz Ferdinand in Sarajevo.
+    0.491  The French Revolution of 1789 abolished the monarchy and led to the rise of Napoleon Bonap
+ Q: how do plants make food from sunlight
+    0.716  Photosynthesis converts light energy into chemical energy stored in glucose, using water a
+    0.593  Mitochondria are organelles that produce most of the cell's supply of ATP through respirat
+ Q: how are neural networks trained
+    0.744  Backpropagation computes the gradient of a neural network's loss with respect to its weigh
+    0.464  Supply and demand determine the market price of a good in a competitive market.
+
+==============================================================================
+ Summary
+==============================================================================
+ min cosine 1.000000 | 17 vs 3 passages/s = 4.9x | live p50 22.98 ms

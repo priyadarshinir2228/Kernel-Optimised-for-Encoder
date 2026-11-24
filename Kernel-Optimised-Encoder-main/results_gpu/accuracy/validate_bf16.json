@@ -1,0 +1,193 @@
+{
+ "stage": 4,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 1,
+  "cls_only": 1,
+  "compile": 0,
+  "graph": 1
+ },
+ "token_budget": 65536,
+ "setup_s": 14.105468273162842,
+ "encode_s": 4.4849255084991455,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "bfloat16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ },
+ "passages": {
+  "n": 2000,
+  "min": 0.9973421260850753,
+  "p0.1": 0.9989453287549468,
+  "mean": 0.9999800566240585,
+  "max_abs_error": 0.007678639609366655,
+  "violations_0.999": 3,
+  "below_gate": 5,
+  "worst": [
+   {
+    "i": 19,
+    "cos": 0.9973421260850753,
+    "tokens": 8,
+    "text": "(band) albums 1992 albums"
+   },
+   {
+    "i": 657,
+    "cos": 0.9985248741840793,
+    "tokens": 12,
+    "text": "Portuguese non-fiction books 1991 non-fiction books"
+   },
+   {
+    "i": 1170,
+    "cos": 0.9989457496303931,
+    "tokens": 15,
+    "text": "1934 Connecticut Open Results in major championships NYF = Tournament not yet"
+   },
+   {
+    "i": 826,
+    "cos": 0.9993645215271453,
+    "tokens": 25,
+    "text": "German expatriates in China Members of the Prussian House of Representatives Peo"
+   },
+   {
+    "i": 930,
+    "cos": 0.9994568981007479,
+    "tokens": 15,
+    "text": "Royal reburials Royalty who died as children Sons of kings"
+   },
+   {
+    "i": 1056,
+    "cos": 0.9997768438570923,
+    "tokens": 9,
+    "text": "Galois theory Number theory Algebraic curves"
+   },
+   {
+    "i": 788,
+    "cos": 0.9998016696682517,
+    "tokens": 15,
+    "text": "Welsh bass guitarists People from Aberdare 21st-century bass guitarists"
+   },
+   {
+    "i": 714,
+    "cos": 0.9998045890002297,
+    "tokens": 6,
+    "text": "1991 beauty pageant contestants"
+   },
+   {
+    "i": 835,
+    "cos": 0.9998681888371642,
+    "tokens": 14,
+    "text": "High school sports associations in the United States 1921 establishments in Colo"
+   },
+   {
+    "i": 103,
+    "cos": 0.9998863017065065,
+    "tokens": 9,
+    "text": "Latin literary phrases Latin words and phrases"
+   }
+  ]
+ },
+ "queries": {
+  "n": 1500,
+  "min": 0.9988909539447279,
+  "p0.1": 0.9998601358741291,
+  "mean": 0.9999848908344947,
+  "max_abs_error": 0.00559074804186821,
+  "violations_0.999": 1,
+  "below_gate": 1,
+  "worst": [
+   {
+    "i": 1289,
+    "cos": 0.9988909539447279,
+    "tokens": 11,
+    "text": "grey's anatomy the episode with the bomb"
+   },
+   {
+    "i": 836,
+    "cos": 0.9998508984578226,
+    "tokens": 10,
+    "text": "how i met your mother the goat episode"
+   },
+   {
+    "i": 1286,
+    "cos": 0.9998694103141484,
+    "tokens": 10,
+    "text": "i do i do i do movie plot"
+   },
+   {
+    "i": 1435,
+    "cos": 0.9999462897659697,
+    "tokens": 14,
+    "text": "only player to play for manchester united manchester city liverpool and everton"
+   },
+   {
+    "i": 811,
+    "cos": 0.9999468114801124,
+    "tokens": 13,
+    "text": "latest season on keeping up with the kardashians"
+   },
+   {
+    "i": 890,
+    "cos": 0.9999578402434217,
+    "tokens": 10,
+    "text": "who did the chiefs play in the playoffs"
+   },
+   {
+    "i": 170,
+    "cos": 0.9999594168945414,
+    "tokens": 15,
+    "text": "how do you get inducted in the rock and roll hall of fame"
+   },
+   {
+    "i": 384,
+    "cos": 0.9999649845296422,
+    "tokens": 11,
+    "text": "star trek the next generation season 3 episode 24"
+   },
+   {
+    "i": 1312,
+    "cos": 0.9999656129456095,
+    "tokens": 11,
+    "text": "where is the national championship for college football played"
+   },
+   {
+    "i": 793,
+    "cos": 0.9999673338426648,
+    "tokens": 14,
+    "text": "what kind of beast is the beast from beauty and the beast"
+   }
+  ]
+ },
+ "peak_gpu_allocated_mib": 532.9,
+ "verdict": "FAIL"
+}

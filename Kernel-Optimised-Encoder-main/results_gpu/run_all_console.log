@@ -1,0 +1,1028 @@
+{"n": 5000, "seconds": 176.0262804031372, "passages_per_second": 28.404849483548414}
+[2026-11-23 23:55:34] START edge-case correctness, stages 1-4
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights:  82%|████████▏ | 163/199 [00:00<00:00, 1629.40it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 1692.47it/s]
+reference.encode on 29 edge cases (FP32, pad 512, device cuda:0) ...
+token lengths: {'len2': 2, 'len3': 3, 'len31': 31, 'len32': 32, 'len33': 33, 'len34': 34, 'len63': 63, 'len64': 64, 'len65': 65, 'len66': 66, 'len127': 127, 'len128': 128, 'len129': 129, 'len130': 130, 'len511': 511, 'len512': 512, 'empty': 2, 'space': 2, 'one_word': 3, 'short_query': 8, 'over_512_words': 512, 'over_512_mixed': 512, 'unicode': 33, 'repeated': 202, 'punctuation': 32, 'newlines_tabs': 10, 'numbers': 29, 'medium_passage': 162, 'long_passage': 483}
+  [PASS] truncation keeps <= 512 tokens 
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3347.76it/s]
+
+== stage 1 cfg={'fp16': 1, 'sort': 0, 'budget': 0, 'bucket': 0, 'overlap': 0, 'cls_only': 0, 'compile': 0, 'graph': 0} device=cuda dtype=torch.float16
+  [PASS] shape [N,768] float32 (29, 768)
+  [PASS] finite 
+  [PASS] L2-normalised max |norm-1|=5.96e-08
+  [PASS] batch min cos >= 0.9995 min=0.9999939 at len66
+  [PASS] single-query min cos >= 0.9995 min=0.9999939 at len66
+  [PASS] order preserved (reversed input) max diff=0.00e+00
+  [PASS] duplicates identical 
+  [PASS] no stale output between calls 
+  [PASS] live output matches reference 
+  [PASS] empty list -> [0,768] 
+  [PASS] returned array not overwritten by next call 
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2976.53it/s]
+
+== stage 2 cfg={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 0, 'cls_only': 0, 'compile': 0, 'graph': 0} device=cuda dtype=torch.float16
+  [PASS] shape [N,768] float32 (29, 768)
+  [PASS] finite 
+  [PASS] L2-normalised max |norm-1|=1.19e-07
+  [PASS] batch min cos >= 0.9995 min=0.9999939 at len66
+  [PASS] single-query min cos >= 0.9995 min=0.9999936 at len65
+  [PASS] order preserved (reversed input) max diff=7.44e-05
+  [PASS] duplicates identical 
+  [PASS] no stale output between calls 
+  [PASS] live output matches reference 
+  [PASS] empty list -> [0,768] 
+  [PASS] returned array not overwritten by next call 
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2419.74it/s]
+
+== stage 3 cfg={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 0, 'compile': 0, 'graph': 1} device=cuda dtype=torch.float16
+  [PASS] shape [N,768] float32 (29, 768)
+  [PASS] finite 
+  [PASS] L2-normalised max |norm-1|=1.19e-07
+  [PASS] batch min cos >= 0.9995 min=0.9999939 at len66
+  [PASS] single-query min cos >= 0.9995 min=0.9999939 at len66
+  [PASS] order preserved (reversed input) max diff=7.44e-05
+  [PASS] duplicates identical 
+  [PASS] no stale output between calls 
+  [PASS] live output matches reference 
+  [PASS] empty list -> [0,768] 
+  [PASS] returned array not overwritten by next call 
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3143.98it/s]
+
+== stage 4 cfg={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1} device=cuda dtype=torch.float16
+  [PASS] shape [N,768] float32 (29, 768)
+  [PASS] finite 
+  [PASS] L2-normalised max |norm-1|=1.19e-07
+  [PASS] batch min cos >= 0.9995 min=0.9999940 at len66
+  [PASS] single-query min cos >= 0.9995 min=0.9999939 at len66
+  [PASS] order preserved (reversed input) max diff=8.25e-05
+  [PASS] duplicates identical 
+  [PASS] no stale output between calls 
+  [PASS] live output matches reference 
+  [PASS] empty list -> [0,768] 
+  [PASS] returned array not overwritten by next call 
+
+RESULT: ALL PASS
+[2026-11-23 23:56:38] OK    edge-case correctness, stages 1-4
+[2026-11-23 23:56:38] START validate submitted default (2,000 passages + 1,500 queries)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 6018.17it/s]
+[passages] n=2000 min=0.999991 p0.1=0.999994 mean=1.000000 -> PASS
+[queries] n=1500 min=0.999997 p0.1=0.999999 mean=1.000000 -> PASS
+max |activation| seen: 15.9 (FP16 limit 65504)
+VERDICT: PASS
+runtime: {"stage": 4, "cfg": {"fp16": 1, "sort": 1, "budget": 1, "bucket": 1, "overlap": 1, "cls_only": 1, "compile": 0, "graph": 1}, "token_budget": 65536, "torch": "2.15.0+cu132", "cuda_available": true, "model": "BAAI/bge-base-en-v1.5", "device": "cuda", "dtype": "float16", "res32": true, "compiled": false, "graph_buckets": [32, 64, 128], "notes": [], "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU", "compute_capability": "8.6", "vram_gib": 5.69, "cuda_runtime": "13.2", "warmup_peak_gib": 1.804, "strict_reduction": true}
+[2026-11-23 23:57:07] OK    validate submitted default (2,000 passages + 1,500 queries)
+[2026-11-23 23:57:07] START validate plain FP16 residual stream (PS09_RES32=0)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3636.11it/s]
+[passages] n=2000 min=0.999663 p0.1=0.999987 mean=0.999999 -> PASS
+[queries] n=1500 min=0.999982 p0.1=0.999999 mean=1.000000 -> PASS
+max |activation| seen: 15.9 (FP16 limit 65504)
+VERDICT: PASS
+runtime: {"stage": 4, "cfg": {"fp16": 1, "sort": 1, "budget": 1, "bucket": 1, "overlap": 1, "cls_only": 1, "compile": 0, "graph": 1}, "token_budget": 65536, "torch": "2.15.0+cu132", "cuda_available": true, "model": "BAAI/bge-base-en-v1.5", "device": "cuda", "dtype": "float16", "res32": false, "compiled": false, "graph_buckets": [32, 64, 128], "notes": [], "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU", "compute_capability": "8.6", "vram_gib": 5.69, "cuda_runtime": "13.2", "warmup_peak_gib": 1.523, "strict_reduction": true}
+[2026-11-23 23:57:35] OK    validate plain FP16 residual stream (PS09_RES32=0)
+[2026-11-23 23:57:35] START validate BF16 variant (experiment)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7387.93it/s]
+[passages] n=2000 min=0.997342 p0.1=0.998945 mean=0.999980 -> FAIL
+[queries] n=1500 min=0.998891 p0.1=0.999860 mean=0.999985 -> FAIL
+VERDICT: FAIL
+runtime: {"stage": 4, "cfg": {"fp16": 1, "sort": 1, "budget": 1, "bucket": 1, "overlap": 1, "cls_only": 1, "compile": 0, "graph": 1}, "token_budget": 65536, "torch": "2.15.0+cu132", "cuda_available": true, "model": "BAAI/bge-base-en-v1.5", "device": "cuda", "dtype": "bfloat16", "res32": true, "compiled": false, "graph_buckets": [32, 64, 128], "notes": [], "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU", "compute_capability": "8.6", "vram_gib": 5.69, "cuda_runtime": "13.2", "warmup_peak_gib": 1.804, "strict_reduction": true}
+[2026-11-23 23:58:01] FAIL  validate BF16 variant (experiment) (exit 1)
+[2026-11-23 23:58:01] START validate with cuBLAS reduced-precision reductions allowed (experiment)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3236.86it/s]
+[passages] n=2000 min=0.999991 p0.1=0.999994 mean=1.000000 -> PASS
+[queries] n=1500 min=0.999997 p0.1=0.999999 mean=1.000000 -> PASS
+VERDICT: PASS
+runtime: {"stage": 4, "cfg": {"fp16": 1, "sort": 1, "budget": 1, "bucket": 1, "overlap": 1, "cls_only": 1, "compile": 0, "graph": 1}, "token_budget": 65536, "torch": "2.15.0+cu132", "cuda_available": true, "model": "BAAI/bge-base-en-v1.5", "device": "cuda", "dtype": "float16", "res32": true, "compiled": false, "graph_buckets": [32, 64, 128], "notes": [], "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU", "compute_capability": "8.6", "vram_gib": 5.69, "cuda_runtime": "13.2", "warmup_peak_gib": 1.804, "strict_reduction": false}
+[2026-11-23 23:58:32] OK    validate with cuBLAS reduced-precision reductions allowed (experiment)
+[2026-11-23 23:58:32] START validate FP16 accumulation (experiment, expected to fail)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3486.33it/s]
+[passages] n=2000 min=0.999636 p0.1=0.999878 mean=0.999996 -> PASS
+[queries] n=1500 min=0.999972 p0.1=0.999990 mean=0.999998 -> PASS
+VERDICT: PASS
+runtime: {"stage": 4, "cfg": {"fp16": 1, "sort": 1, "budget": 1, "bucket": 1, "overlap": 1, "cls_only": 1, "compile": 0, "graph": 1}, "token_budget": 65536, "torch": "2.15.0+cu132", "cuda_available": true, "model": "BAAI/bge-base-en-v1.5", "device": "cuda", "dtype": "float16", "res32": true, "compiled": false, "graph_buckets": [32, 64, 128], "notes": [], "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU", "compute_capability": "8.6", "vram_gib": 5.69, "cuda_runtime": "13.2", "warmup_peak_gib": 1.804, "strict_reduction": true}
+[2026-11-23 23:58:59] OK    validate FP16 accumulation (experiment, expected to fail)
+[2026-11-23 23:59:00] START ablation S1-S2 (20k, official bench.py)
+
+=== S1 + FP16, fused QKV, SDPA  flags={'fp16': 1, 'sort': 0, 'budget': 0, 'bucket': 0, 'overlap': 0, 'cls_only': 0, 'compile': 0, 'graph': 0}  budget=65536 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/ablation/bench_stage1_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3722.75it/s]
+{
+ "n_passages": 20000,
+ "seconds": 232.92187150300015,
+ "passages_per_second": 85.86570196668882,
+ "setup_seconds": 17.464168310165405,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 3.022924026280115
+}
+
+
+=== S2 + length-aware token-budget scheduler  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 0, 'cls_only': 0, 'compile': 0, 'graph': 0}  budget=65536 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/ablation/bench_stage2_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2612.51it/s]
+{
+ "n_passages": 20000,
+ "seconds": 46.81074252600047,
+ "passages_per_second": 427.2523553517921,
+ "setup_seconds": 18.023210048675537,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 15.041528581211075
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S1 + FP16, fused QKV, SDPA | fp16 res32 | 20000 | 65536 | 85.9 | 3.02 | 0.999991 | 0 |  |  |  | 2650 |
+| S2 + length-aware token-budget scheduler | fp16 sort budget bucket res32 | 20000 | 65536 | 427.3 | 15.04 | 0.999991 | 0 |  |  |  | 2650 |
+[2026-11-24 00:04:27] OK    ablation S1-S2 (20k, official bench.py)
+[2026-11-24 00:04:27] START ablation S3-S5 (20k + live trace, official bench.py)
+
+=== S3 + async host pipeline, CUDA Graph live path  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 0, 'compile': 0, 'graph': 1}  budget=65536 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/ablation/bench_stage3_n20000.json --trace data/practice_trace.jsonl --ref-queries data/practice_ref_queries.npy --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3009.94it/s]
+{
+ "n_passages": 20000,
+ "seconds": 46.89099299599911,
+ "passages_per_second": 426.52114451290174,
+ "setup_seconds": 17.547889709472656,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 15.01578611637901,
+ "live": {
+  "n": 1500,
+  "p50_ms": 3.3354780000887096,
+  "p99_ms": 5.643545310227722,
+  "shape_ok": true,
+  "n_violations": 0,
+  "min_cosine": 0.9999969601631165
+ }
+}
+
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=65536 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/ablation/bench_stage4_n20000.json --trace data/practice_trace.jsonl --ref-queries data/practice_ref_queries.npy --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 4836.71it/s]
+{
+ "n_passages": 20000,
+ "seconds": 43.442039641999145,
+ "passages_per_second": 460.3835401104023,
+ "setup_seconds": 16.693058967590332,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 16.207920424892528,
+ "live": {
+  "n": 1500,
+  "p50_ms": 3.3388010010284574,
+  "p99_ms": 5.769281220147419,
+  "shape_ok": true,
+  "n_violations": 0,
+  "min_cosine": 0.9999970197677612
+ }
+}
+
+
+=== S5 + torch.compile  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 1, 'graph': 1}  budget=65536 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/ablation/bench_stage5_n20000.json --trace data/practice_trace.jsonl --ref-queries data/practice_ref_queries.npy --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3397.40it/s]
+W1124 00:15:41.484000 84808 /home/aravinds/Desktop/ps09/.venv/lib/python3.14/site-packages/torch/_inductor/utils.py:2143] [0/0_1] Not enough SMs to use max_autotune_gemm mode
+/home/aravinds/Kernel-Optimisation-for-Encoder/.venv/lib/python3.14/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+{
+ "n_passages": 20000,
+ "seconds": 40.51316657499774,
+ "passages_per_second": 493.6666691549799,
+ "setup_seconds": 196.60306572914124,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9998595118522644,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 17.37966150607145,
+ "live": {
+  "n": 1500,
+  "p50_ms": 3.313369500119734,
+  "p99_ms": 5.649010700616373,
+  "shape_ok": true,
+  "n_violations": 0,
+  "min_cosine": 0.9999970197677612
+ }
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S3 + async host pipeline, CUDA Graph live path | fp16 sort budget bucket overlap graph res32 | 20000 | 65536 | 426.5 | 15.02 | 0.999991 | 0 | 3.34 | 5.64 | 0.999997 | 5496 |
+| S4 + CLS-only last layer | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 65536 | 460.4 | 16.21 | 0.999991 | 0 | 3.34 | 5.77 | 0.999997 | 5500 |
+| S5 + torch.compile | fp16 sort budget bucket overlap cls_only compile graph res32 | 20000 | 65536 | 493.7 | 17.38 | 0.99986 | 0 | 3.31 | 5.65 | 0.999997 | 3228 |
+[2026-11-24 00:22:56] OK    ablation S3-S5 (20k + live trace, official bench.py)
+[2026-11-24 00:22:56] START S4 with plain FP16 residual stream (RES32 off)
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=65536 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/ablation/bench_stage4_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3007.85it/s]
+{
+ "n_passages": 20000,
+ "seconds": 39.06731687599677,
+ "passages_per_second": 511.93687202737334,
+ "setup_seconds": 16.317327737808228,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9996633529663086,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 18.022868676839078
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 + CLS-only last layer | fp16 sort budget bucket overlap cls_only graph | 20000 | 65536 | 511.9 | 18.02 | 0.999663 | 0 |  |  |  | 5556 |
+[2026-11-24 00:23:57] OK    S4 with plain FP16 residual stream (RES32 off)
+[2026-11-24 00:23:57] START S4 without length-bucket split (O2b off)
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 0, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=65536 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/ablation/bench_stage4_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7293.93it/s]
+{
+ "n_passages": 20000,
+ "seconds": 35.12747374199898,
+ "passages_per_second": 569.3549199379992,
+ "setup_seconds": 14.301639556884766,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 20.044285757182394
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 + CLS-only last layer | fp16 sort budget overlap cls_only graph res32 | 20000 | 65536 | 569.4 | 20.04 | 0.999991 | 0 |  |  |  | 2752 |
+[2026-11-24 00:24:50] OK    S4 without length-bucket split (O2b off)
+[2026-11-24 00:24:50] START budget 8192
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=8192 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/token_budget/bench_stage4_b8192_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 12743.00it/s]
+{
+ "n_passages": 20000,
+ "seconds": 32.20121213699895,
+ "passages_per_second": 621.0946319321984,
+ "setup_seconds": 3.810905933380127,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 21.865795567476088
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 + CLS-only last layer | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 8192 | 621.1 | 21.87 | 0.999991 | 0 |  |  |  | 736 |
+[2026-11-24 00:25:28] OK    budget 8192
+[2026-11-24 00:25:28] START budget 16384
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=16384 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/token_budget/bench_stage4_b16384_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 14931.42it/s]
+{
+ "n_passages": 20000,
+ "seconds": 31.919051032000425,
+ "passages_per_second": 626.5850441464884,
+ "setup_seconds": 4.741118907928467,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 22.059086935468372
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 + CLS-only last layer | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 16384 | 626.6 | 22.06 | 0.999991 | 0 |  |  |  | 1096 |
+[2026-11-24 00:26:06] OK    budget 16384
+[2026-11-24 00:26:06] START budget 32768
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=32768 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/token_budget/bench_stage4_b32768_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 11308.47it/s]
+{
+ "n_passages": 20000,
+ "seconds": 32.074449739000556,
+ "passages_per_second": 623.5492787170479,
+ "setup_seconds": 6.420910120010376,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 21.9522120361242
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 + CLS-only last layer | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 32768 | 623.5 | 21.95 | 0.999991 | 0 |  |  |  | 2326 |
+[2026-11-24 00:26:47] OK    budget 32768
+[2026-11-24 00:26:47] START budget 65536
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=65536 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/token_budget/bench_stage4_b65536_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 16523.80it/s]
+{
+ "n_passages": 20000,
+ "seconds": 32.40731195100307,
+ "passages_per_second": 617.1446749498446,
+ "setup_seconds": 10.00406289100647,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 21.72673632040486
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 + CLS-only last layer | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 65536 | 617.1 | 21.73 | 0.999991 | 0 |  |  |  | 5500 |
+[2026-11-24 00:27:31] OK    budget 65536
+[2026-11-24 00:27:31] START budget 131072
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=131072 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/token_budget/bench_stage4_b131072_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 13325.03it/s]
+{
+ "n_passages": 20000,
+ "seconds": 32.812616399001854,
+ "passages_per_second": 609.5216473078444,
+ "setup_seconds": 16.55410599708557,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 21.458365680158543
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 + CLS-only last layer | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 131072 | 609.5 | 21.46 | 0.999991 | 0 |  |  |  | 4958 |
+[2026-11-24 00:28:22] OK    budget 131072
+reject budget 65536: peak 5500 MiB > 70% of 5825 MiB
+reject budget 131072: peak 4958 MiB > 70% of 5825 MiB
+| budget | passages/s | min cos | peak GPU MiB |
+|---|---|---|---|
+| 8192 | 621.1 | 0.999991 | 736 |
+| 16384 | 626.6 | 0.999991 | 1096 |
+| 32768 | 623.5 | 0.999991 | 2326 |
+
+RECOMMENDED: stage 4, token budget 8192 (621.1 p/s; fastest was 626.6 p/s; ties within 2% go to the smaller budget)
+[2026-11-24 00:28:23] START service time, CUDA Graph on
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 16238.65it/s]
+{
+ "what": "non-official live latency study; realtime mode replays bench.py's live() timing",
+ "mode": "service",
+ "n": 1500,
+ "setup_s": 9.75,
+ "service_ms": {
+  "p50": 1.7590000006748596,
+  "p90": 1.7743977979989722,
+  "p95": 1.7814673479733756,
+  "p99": 1.79375272247853,
+  "mean": 1.7614046079858479,
+  "max": 2.0724229980260134
+ },
+ "min_cosine": 0.9999970197677612,
+ "violations_0.999": 0,
+ "slowest_service": [
+  {
+   "i": 448,
+   "ms": 2.0724229980260134,
+   "text": "rio de janeiro lies beneath sugar loaf mountain on the coast of brazil"
+  },
+  {
+   "i": 56,
+   "ms": 1.8199820005975198,
+   "text": "who is the girl in the stone sour video say you'll haunt me"
+  },
+  {
+   "i": 488,
+   "ms": 1.8121199973393232,
+   "text": "is there a lloyds bank in northern ireland"
+  },
+  {
+   "i": 551,
+   "ms": 1.8099659973813687,
+   "text": "when does jo come in grey's anatomy"
+  },
+  {
+   "i": 1070,
+   "ms": 1.8063770003209356,
+   "text": "auditing is the process of verifying the accuracy of the financial statements"
+  }
+ ],
+ "peak_gpu_allocated_mib": 214.1
+}
+[2026-11-24 00:28:38] OK    service time, CUDA Graph on
+[2026-11-24 00:28:38] START service time, CUDA Graph off
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 13547.58it/s]
+{
+ "what": "non-official live latency study; realtime mode replays bench.py's live() timing",
+ "mode": "service",
+ "n": 1500,
+ "setup_s": 108.67,
+ "service_ms": {
+  "p50": 2.4949580001703,
+  "p90": 2.6675554021494463,
+  "p95": 2.7261938486844883,
+  "p99": 3.060312700545181,
+  "mean": 2.5200359059963375,
+  "max": 5.28104099794291
+ },
+ "min_cosine": 0.9999966621398926,
+ "violations_0.999": 0,
+ "slowest_service": [
+  {
+   "i": 336,
+   "ms": 5.28104099794291,
+   "text": "when did the wall come down in berlin"
+  },
+  {
+   "i": 1440,
+   "ms": 4.441977998794755,
+   "text": "what is the salary of us secretary of state"
+  },
+  {
+   "i": 610,
+   "ms": 4.289003001758829,
+   "text": "why does overexpression of rtks lead to cancer development"
+  },
+  {
+   "i": 110,
+   "ms": 4.195091998553835,
+   "text": "name the cell which is attached to the lateral side of sieve tube"
+  },
+  {
+   "i": 114,
+   "ms": 3.953830000682501,
+   "text": "where is this years army navy game played"
+  }
+ ],
+ "peak_gpu_allocated_mib": 215.7
+}
+[2026-11-24 00:30:32] OK    service time, CUDA Graph off
+[2026-11-24 00:30:32] START real-time trace replay (~4 min)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 16802.21it/s]
+{
+ "what": "non-official live latency study; realtime mode replays bench.py's live() timing",
+ "mode": "realtime",
+ "n": 1500,
+ "setup_s": 9.74,
+ "service_ms": {
+  "p50": 2.1846940016985172,
+  "p90": 2.3392517996398965,
+  "p95": 2.372100350294204,
+  "p99": 2.4318911609589122,
+  "mean": 2.198874692672689,
+  "max": 2.7087999987998046
+ },
+ "min_cosine": 0.9999970197677612,
+ "violations_0.999": 0,
+ "slowest_service": [
+  {
+   "i": 517,
+   "ms": 2.7087999987998046,
+   "text": "billy ocean when the going gets tough movie"
+  },
+  {
+   "i": 499,
+   "ms": 2.542493999499129,
+   "text": "who is the lead singer of depeche mode"
+  },
+  {
+   "i": 321,
+   "ms": 2.534645002015168,
+   "text": "the mughal garden of rashtrapati bhavan is modelled on which garden"
+  },
+  {
+   "i": 448,
+   "ms": 2.5263869974878617,
+   "text": "rio de janeiro lies beneath sugar loaf mountain on the coast of brazil"
+  },
+  {
+   "i": 617,
+   "ms": 2.5014839993673377,
+   "text": "where was the tv show in the heat of the night filmed"
+  }
+ ],
+ "latency_ms": {
+  "p50": 2.2933964980893506,
+  "p90": 2.5002219984834544,
+  "p95": 2.635952250645168,
+  "p99": 3.9131425381117424,
+  "mean": 2.3578789282702988,
+  "max": 4.871253000942488
+ },
+ "queue_ms": {
+  "p50": 0.08675450101236493,
+  "p90": 0.22886519814626655,
+  "p95": 0.42697625067411554,
+  "p99": 1.9290600586634807,
+  "mean": 0.15900423559760976,
+  "max": 2.950468999529221
+ },
+ "p99_explained": "slow individual calls",
+ "queries_per_second_capacity": 454.7780750455223,
+ "peak_gpu_allocated_mib": 214.1
+}
+[2026-11-24 00:34:45] OK    real-time trace replay (~4 min)
+[2026-11-24 00:34:45] START profile reference (2,000 passages)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 13030.26it/s]
+USDT:2026-11-24 00:34:52 95128:95128 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 00:36:02 95128:95128 SyncActivityProfilerHandler.cpp:46] profiler_stop
+{
+ "which": "reference",
+ "n": 2000,
+ "wall_s": 70.6989483590005,
+ "passages_per_s": 28.28896392976382,
+ "gpu_kernel_ms": 139885.66366000104,
+ "gpu_busy_fraction": 1.9786102467844213,
+ "gpu_time_share": {
+  "other": 0.5019286192161566,
+  "gemm": 0.46265487126187704,
+  "norm+elementwise": 0.03538837344355671,
+  "memcpy": 2.8136078402365464e-05
+ },
+ "gpu_ms_by_category": {
+  "other": 70212.61800900001,
+  "gemm": 64718.78371200001,
+  "norm+elementwise": 4950.326104999886,
+  "memcpy": 3.9358340001047143
+ },
+ "timeline": {
+  "device_span_ms": 70211.934251,
+  "device_busy_ms": 70211.934251,
+  "device_busy_fraction_of_span": 1.0,
+  "idle_gaps": 0,
+  "idle_total_ms": 0.0,
+  "idle_gaps_over_100us": 0,
+  "largest_gaps_ms": [
+   0.0
+  ],
+  "kernels_per_passage": 7.4585
+ },
+ "tokenise_only_s": 0.4641832429988426,
+ "tokenise_share_of_wall": 0.006565631508997526,
+ "note": "wall_s is measured under the profiler (adds overhead); use bench.py for throughput claims",
+ "peak_gpu_allocated_mib": 1003.1,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU"
+}
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                       encode_reference         0.00%       0.000us         0.00%       0.000us       0.000us       70.212s       100.77%       70.212s       70.212s             1  
+                                       encode_reference         0.90%     630.971ms       100.00%       70.222s       70.222s       0.000us         0.00%       69.674s       69.674s             1  
+                                           aten::linear         0.02%      13.150ms         0.12%      86.728ms      18.858us       0.000us         0.00%       52.216s      11.354ms          4599  
+                                            aten::addmm         0.07%      45.979ms         0.09%      60.710ms      13.201us       52.216s        74.94%       52.216s      11.354ms          4599  
+                                 ampere_sgemm_128x64_tn         0.00%       0.000us         0.00%       0.000us       0.000us       39.631s        56.88%       39.631s      10.451ms          3792  
+                     aten::scaled_dot_product_attention         0.01%       7.354ms         0.09%      66.018ms      87.326us       0.000us         0.00%       12.717s      16.821ms           756  
+                                  ampere_sgemm_64x64_tn         0.00%       0.000us         0.00%       0.000us       0.000us       12.583s        18.06%       12.583s      16.913ms           744  
+          aten::_scaled_dot_product_efficient_attention         0.00%       3.238ms         0.04%      29.513ms      39.038us       0.000us         0.00%       12.504s      16.539ms           756  
+                     aten::_efficient_attention_forward         0.01%       6.057ms         0.03%      23.341ms      30.875us       12.503s        17.94%       12.504s      16.539ms           756  
+fmha_cutlassF_f32_aligned_64x64_rf_sm80(PyTorchMemEf...         0.00%       0.000us         0.00%       0.000us       0.000us       12.503s        17.94%       12.503s      16.538ms           756  
+                                             aten::gelu         0.01%       4.496ms         0.01%       6.692ms       8.852us        1.918s         2.75%        1.918s       2.537ms           756  
+void at::native::vectorized_elementwise_kernel<4, at...         0.00%       0.000us         0.00%       0.000us       0.000us        1.918s         2.75%        1.918s       2.537ms           756  
+                             
+[2026-11-24 00:36:10] OK    profile reference (2,000 passages)
+[2026-11-24 00:36:10] START profile stage 1
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 14242.73it/s]
+USDT:2026-11-24 00:36:22 95274:95274 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 00:36:40 95274:95274 SyncActivityProfilerHandler.cpp:46] profiler_stop
+{
+ "which": "team",
+ "n": 2000,
+ "wall_s": 18.045641287000763,
+ "passages_per_s": 110.83008734306975,
+ "gpu_kernel_ms": 35218.97633400046,
+ "gpu_busy_fraction": 1.9516611116153886,
+ "gpu_time_share": {
+  "other": 0.5006118460910227,
+  "gemm": 0.37950520086799455,
+  "norm+elementwise": 0.11978942613181744,
+  "memcpy": 9.352690915236385e-05
+ },
+ "gpu_ms_by_category": {
+  "other": 17631.03676000001,
+  "gemm": 13365.784687999992,
+  "norm+elementwise": 4218.860963999975,
+  "memcpy": 3.2939220000293137
+ },
+ "timeline": {
+  "device_span_ms": 17630.648022,
+  "device_busy_ms": 17630.648022,
+  "device_busy_fraction_of_span": 1.0,
+  "idle_gaps": 0,
+  "idle_total_ms": 0.0,
+  "idle_gaps_over_100us": 0,
+  "largest_gaps_ms": [
+   0.0
+  ],
+  "kernels_per_passage": 5.8285
+ },
+ "tokenise_only_s": 0.04930976800096687,
+ "tokenise_share_of_wall": 0.002732502947206832,
+ "note": "wall_s is measured under the profiler (adds overhead); use bench.py for throughput claims",
+ "peak_gpu_allocated_mib": 628.2,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "stage": 1,
+ "cfg": {
+  "fp16": 1,
+  "sort": 0,
+  "budget": 0,
+  "bucket": 0,
+  "overlap": 0,
+  "cls_only": 0,
+  "compile": 0,
+  "graph": 0
+ },
+ "token_budget": 65536,
+ "runtime": {
+  "stage": 1,
+  "cfg": {
+   "fp16": 1,
+   "sort": 0,
+   "budget": 0,
+   "bucket": 0,
+   "overlap": 0,
+   "cls_only": 0,
+   "compile": 0,
+   "graph": 0
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ }
+}
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            encode_team         0.00%       0.000us         0.00%       0.000us       0.000us       17.631s       100.24%       17.631s       17.631s             1  
+                                            encode_team         0.62%     108.967ms       100.00%       17.681s       17.681s       0.000us         0.00%       17.588s       17.588s             1  
+                                           aten::linear         0.05%       8.836ms         0.31%      55.602ms      18.387us       0.000us         0.00%       11.507s       3.805ms          3024  
+                                            aten::addmm         0.17%      30.444ms         0.22%      39.063ms      12.918us       11.507s        65.42%       11.507s       3.805ms          3024  
+ampere_fp16_s16816gemm_fp16_256x128_ldg8_relu_f2f_st...         0.00%       0.000us         0.00%       0.000us       0.000us        7.869s        44.74%        7.869s       3.469ms          2268  
+void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816...         0.00%       0.000us         0.00%       0.000us       0.000us        3.638s        20.69%        3.638s       4.813ms           756  
+                     aten::scaled_dot_product_attention         0.03%       4.708ms         0.19%      33.592ms      44.434us       0.000us         0.00%        1.860s       2.460ms           756  
+          aten::_scaled_dot_product_efficient_attention         0.02%       3.080ms         0.16%      27.927ms      36.940us       0.000us         0.00%        1.860s       2.460ms           756  
+                     aten::_efficient_attention_forward         0.03%       5.751ms         0.12%      21.770ms      28.796us        1.859s        10.57%        1.860s       2.460ms           756  
+fmha_cutlassF_f16_aligned_64x64_rf_sm80(PyTorchMemEf...         0.00%       0.000us         0.00%       0.000us       0.000us        1.859s        10.57%        1.859s       2.459ms           756  
+                                              aten::add         0.04%       7.755ms         0.07%      11.869ms       7.246us        1.286s         7.31%        1.286s     785.142us          1638  
+                                       aten::layer_norm         0.01%       2.407ms         0.16%      27.599ms      17.523us       0.000us         0.00%        1.209s     767.609us          1575  
+                             
+[2026-11-24 00:36:47] OK    profile stage 1
+[2026-11-24 00:36:47] START profile stage 2
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 12876.09it/s]
+USDT:2026-11-24 00:36:58 95382:95382 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 00:37:02 95382:95382 SyncActivityProfilerHandler.cpp:46] profiler_stop
+{
+ "which": "team",
+ "n": 2000,
+ "wall_s": 3.9191588120011147,
+ "passages_per_s": 510.31358920074075,
+ "gpu_kernel_ms": 7485.694496999923,
+ "gpu_busy_fraction": 1.9100258132121324,
+ "gpu_time_share": {
+  "other": 0.5011324013427794,
+  "gemm": 0.3740958513765577,
+  "norm+elementwise": 0.12457501670335733,
+  "memcpy": 0.00019673057731486922
+ },
+ "gpu_ms_by_category": {
+  "other": 3751.3240590000005,
+  "gemm": 2800.367255999999,
+  "norm+elementwise": 932.5305169999955,
+  "memcpy": 1.4726649999975343
+ },
+ "timeline": {
+  "device_span_ms": 3751.179707,
+  "device_busy_ms": 3751.179707,
+  "device_busy_fraction_of_span": 1.0,
+  "idle_gaps": 0,
+  "idle_total_ms": 0.0,
+  "idle_gaps_over_100us": 0,
+  "largest_gaps_ms": [
+   0.0
+  ],
+  "kernels_per_passage": 1.7585
+ },
+ "tokenise_only_s": 0.05219946500074002,
+ "tokenise_share_of_wall": 0.013319048169443043,
+ "note": "wall_s is measured under the profiler (adds overhead); use bench.py for throughput claims",
+ "peak_gpu_allocated_mib": 531.3,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "stage": 2,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 0,
+  "cls_only": 0,
+  "compile": 0,
+  "graph": 0
+ },
+ "token_budget": 65536,
+ "runtime": {
+  "stage": 2,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 0,
+   "cls_only": 0,
+   "compile": 0,
+   "graph": 0
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ }
+}
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            encode_team         0.00%       0.000us         0.00%       0.000us       0.000us        3.751s       100.45%        3.751s        3.751s             1  
+                                            encode_team         1.93%      73.511ms       100.00%        3.805s        3.805s       0.000us         0.00%        3.735s        3.735s             1  
+                                           aten::linear         0.07%       2.633ms         0.46%      17.461ms      19.146us       0.000us         0.00%        2.565s       2.813ms           912  
+                                            aten::addmm         0.26%       9.910ms         0.33%      12.518ms      13.726us        2.565s        68.69%        2.565s       2.813ms           912  
+ampere_fp16_s16816gemm_fp16_256x128_ldg8_relu_f2f_st...         0.00%       0.000us         0.00%       0.000us       0.000us        1.724s        46.16%        1.724s       2.660ms           648  
+void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816...         0.00%       0.000us         0.00%       0.000us       0.000us     798.750ms        21.39%     798.750ms       3.698ms           216  
+                                              aten::add         0.06%       2.395ms         0.10%       3.655ms       7.399us     284.091ms         7.61%     284.091ms     575.084us           494  
+                                       aten::layer_norm         0.02%     703.781us         0.22%       8.378ms      17.639us       0.000us         0.00%     266.289ms     560.609us           475  
+                                aten::native_layer_norm         0.09%       3.244ms         0.20%       7.675ms      16.157us     266.289ms         7.13%     266.289ms     560.609us           475  
+void at::native::(anonymous namespace)::vectorized_l...         0.00%       0.000us         0.00%       0.000us       0.000us     266.289ms         7.13%     266.289ms     560.609us           475  
+void at::native::unrolled_elementwise_kernel<at::nat...         0.00%       0.000us         0.00%       0.000us       0.000us     263.520ms         7.06%     263.520ms     577.894us           456  
+                     aten::scaled_dot_product_attention         0.04%       1.444ms         0.27%      10.314ms      45.235us       0.000us         0.00%     235.500ms       1.033ms           228  
+          aten::_scaled_dot_p
+[2026-11-24 00:37:05] OK    profile stage 2
+[2026-11-24 00:37:05] START profile submitted default
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 15719.65it/s]
+USDT:2026-11-24 00:37:16 95473:95473 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 00:37:20 95473:95473 SyncActivityProfilerHandler.cpp:46] profiler_stop
+{
+ "which": "team",
+ "n": 2000,
+ "wall_s": 3.667221007999615,
+ "passages_per_s": 545.3720939199555,
+ "gpu_kernel_ms": 6979.148869999973,
+ "gpu_busy_fraction": 1.9031165165054884,
+ "gpu_time_share": {
+  "other": 0.500501751583931,
+  "gemm": 0.3751503059713363,
+  "norm+elementwise": 0.12408937251971919,
+  "memcpy": 0.0002585699250180199
+ },
+ "gpu_ms_by_category": {
+  "other": 3493.0762339999987,
+  "gemm": 2618.229833999996,
+  "norm+elementwise": 866.0382040000038,
+  "memcpy": 1.8045980000054915
+ },
+ "timeline": {
+  "device_span_ms": 3492.990442,
+  "device_busy_ms": 3492.990442,
+  "device_busy_fraction_of_span": 1.0,
+  "idle_gaps": 0,
+  "idle_total_ms": 0.0,
+  "idle_gaps_over_100us": 0,
+  "largest_gaps_ms": [
+   0.0
+  ],
+  "kernels_per_passage": 1.783
+ },
+ "tokenise_only_s": 0.04937067799983197,
+ "tokenise_share_of_wall": 0.013462695019508123,
+ "note": "wall_s is measured under the profiler (adds overhead); use bench.py for throughput claims",
+ "peak_gpu_allocated_mib": 532.9,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "stage": 4,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 1,
+  "cls_only": 1,
+  "compile": 0,
+  "graph": 1
+ },
+ "token_budget": 65536,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ }
+}
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                            encode_team         0.00%       0.000us         0.00%       0.000us       0.000us        3.493s       100.20%        3.493s        3.493s             1  
+                                            encode_team         1.98%      70.295ms       100.00%        3.546s        3.546s       0.000us         0.00%        3.486s        3.486s             1  
+                                           aten::linear         0.10%       3.485ms        44.43%        1.575s       1.692ms       0.000us         0.00%        2.397s       2.574ms           931  
+                                            aten::addmm         0.39%      13.961ms        43.60%        1.546s       1.695ms        2.396s        68.73%        2.396s       2.627ms           912  
+ampere_fp16_s16816gemm_fp16_256x128_ldg8_relu_f2f_st...         0.00%       0.000us         0.00%       0.000us       0.000us        1.621s        46.49%        1.621s       2.644ms           613  
+void cutlass::Kernel2<cutlass_80_tensorop_f16_s16816...         0.00%       0.000us         0.00%       0.000us       0.000us     733.793ms        21.05%     733.793ms       3.706ms           198  
+                                              aten::add         0.09%       3.243ms         4.42%     156.808ms     317.425us     262.501ms         7.53%     262.501ms     531.379us           494  
+                                       aten::layer_norm         0.03%     940.124us         5.39%     190.955ms     402.010us       0.000us         0.00%     244.985ms     515.758us           475  
+                                aten::native_layer_norm         0.11%       3.840ms         5.36%     190.015ms     400.031us     244.985ms         7.03%     244.985ms     515.758us           475  
+void at::native::(anonymous namespace)::vectorized_l...         0.00%       0.000us         0.00%       0.000us       0.000us     244.985ms         7.03%     244.985ms     515.758us           475  
+void at::native::unrolled_elementwise_kernel<at::nat...         0.00%       0.000us         0.00%       0.000us       0.000us     241.796ms         6.94%     241.796ms     553.309us           437  
+                     aten::scaled_dot_product_attention         0.06%       2.093ms         9.35%     331.625ms       1.454ms       0.000us         0.00%     221.967ms     973.540us           228  
+          aten::_scaled_dot_p
+[2026-11-24 00:37:22] OK    profile submitted default
+# PS-09 results summary (results_gpu)
+
+Generated from result files by scripts/collect_results.py.
+
+## Hardware and baseline (measured)
+
+- GPU: NVIDIA GeForce RTX 3050 6GB Laptop GPU (compute 8.6, 5.69 GiB, 20 SMs, BF16 True)
+- Software: Python 3.14.10, torch 2.15.0+cu132 (CUDA 13.2), transformers 5.24.0, tokenizers 0.23.3; OS Linux-7.3.5-arch1-1-x86_64-with-glibc2.44
+- Reference baseline: **28.4 passages/s** (reference.py, FP32, pad 512, first 5000 passages, 176 s)
+
+## Accuracy on the official references (measured)
+
+| Run | Passages min cos | Passages mean | Queries min cos | Max abs err | Verdict |
+|---|---|---|---|---|---|
+| validate_default | 0.999991 | 0.9999998 | 0.999997 | 0.00062 | PASS |
+| validate_fp16_plain | 0.999663 | 0.9999993 | 0.999982 | 0.00316 | PASS |
+| validate_bf16 | 0.997342 | 0.9999801 | 0.998891 | 0.00768 | FAIL |
+| validate_lax_reduction | 0.999991 | 0.9999998 | 0.999997 | 0.00062 | PASS |
+| validate_fp16_accum | 0.999636 | 0.9999962 | 0.999972 | 0.00325 | PASS |
+
+Edge-case suite: ALL PASS
+
+## Ablation (official bench.py)
+
+| Stage | Tag | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 | Live p99 | Peak MiB | Status |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ablation 20k | fp16 res32 | 20000 | 65536 | 85.9 | 3.02 | 0.999991 | 0 |  |  | 2650 | ok |
+| 2 | ablation 20k | fp16 sort budget bucket res32 | 20000 | 65536 | 427.3 | 15.04 | 0.999991 | 0 |  |  | 2650 | ok |
+| 3 | ablation 20k + live | fp16 sort budget bucket overlap graph res32 | 20000 | 65536 | 426.5 | 15.02 | 0.999991 | 0 | 3.34 | 5.64 | 5496 | ok |
+| 4 | ablation 20k + live | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 65536 | 460.4 | 16.21 | 0.999991 | 0 | 3.34 | 5.77 | 5500 | ok |
+| 5 | ablation 20k + live | fp16 sort budget bucket overlap cls_only compile graph res32 | 20000 | 65536 | 493.7 | 17.38 | 0.99986 | 0 | 3.31 | 5.65 | 3228 | ok |
+| 4 | RES32 off | fp16 sort budget bucket overlap cls_only graph | 20000 | 65536 | 511.9 | 18.02 | 0.999663 | 0 |  |  | 5556 | ok |
+| 4 | O2b off | fp16 sort budget overlap cls_only graph res32 | 20000 | 65536 | 569.4 | 20.04 | 0.999991 | 0 |  |  | 2752 | ok |
+
+## Token-budget sweep (official bench.py, stage 4)
+
+| Stage | Tag | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 | Live p99 | Peak MiB | Status |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 8192 | 621.1 | 21.87 | 0.999991 | 0 |  |  | 736 | ok |
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 16384 | 626.6 | 22.06 | 0.999991 | 0 |  |  | 1096 | ok |
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 32768 | 623.5 | 21.95 | 0.999991 | 0 |  |  | 2326 | ok |
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 65536 | 617.1 | 21.73 | 0.999991 | 0 |  |  | 5500 | ok |
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 131072 | 609.5 | 21.46 | 0.999991 | 0 |  |  | 4958 | ok |
+
+## Final run (official bench.py)
+
+PENDING
+
+## Live-query latency detail (non-official replay of bench.py timing)
+
+| Run | p50 ms | p90 | p95 | p99 | max | service p50 | service p99 | min cos |
+|---|---|---|---|---|---|---|---|---|
+| realtime_default | 2.29 | 2.50 | 2.64 | 3.91 | 4.87 | 2.18 | 2.43 | 0.999997 |
+| service_graph_on | - | - | - | - | - | 1.76 | 1.79 | 0.999997 |
+| service_graph_off | - | - | - | - | - | 2.49 | 3.06 | 0.999997 |
+
+## Profiler (torch.profiler, 2,000 passages; wall time includes profiler overhead)
+
+| Run | GPU kernel ms | GEMM | Attention | Norm+elementwise | Memcpy | Other | Device busy | Idle gaps >100us | Tokenise share |
+|---|---|---|---|---|---|---|---|---|---|
+| reference | 139886 | 46.3% | 0.0% | 3.5% | 0.0% | 50.2% | 1.000 | 0 | 0.007 |
+| stage1 | 35219 | 38.0% | 0.0% | 12.0% | 0.0% | 50.1% | 1.000 | 0 | 0.003 |
+| stage2 | 7486 | 37.4% | 0.0% | 12.5% | 0.0% | 50.1% | 1.000 | 0 | 0.013 |
+| default | 6979 | 37.5% | 0.0% | 12.4% | 0.0% | 50.1% | 1.000 | 0 | 0.013 |
+
+## Full 100k accuracy check (non-official)
+
+PENDING (`bash run_all.sh --step full`)
+
+[2026-11-24 00:37:23] done. Copy the whole results_gpu/ folder back (it is small; *.npy files are git-ignored).

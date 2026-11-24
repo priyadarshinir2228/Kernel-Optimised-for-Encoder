@@ -1,0 +1,92 @@
+{
+ "which": "team",
+ "n": 2000,
+ "wall_s": 3.7157233510006336,
+ "passages_per_s": 538.2532043084977,
+ "gpu_kernel_ms": 3325.0519230000186,
+ "gpu_busy_fraction": 0.8948599672460674,
+ "gpu_time_share": {
+  "gemm": 0.7900800374960016,
+  "norm+elementwise": 0.13563754174193024,
+  "attention": 0.07346163297793368,
+  "memcpy": 0.0007502631711534919,
+  "other": 7.05246129775997e-05
+ },
+ "gpu_ms_by_category": {
+  "gemm": 2627.057148000007,
+  "norm+elementwise": 451.00186900000045,
+  "attention": 244.26374399999997,
+  "memcpy": 2.4946640000000104,
+  "other": 0.23449799999999996
+ },
+ "timeline": {
+  "device_span_ms": 3335.5466435546873,
+  "device_busy_ms": 3325.052076171875,
+  "device_busy_fraction_of_span": 0.9968537188939957,
+  "idle_gaps": 9624,
+  "idle_total_ms": 10.4945673828125,
+  "idle_gaps_over_100us": 7,
+  "largest_gaps_ms": [
+   0.235,
+   0.18,
+   0.172,
+   0.157,
+   0.143
+  ],
+  "kernels_per_passage": 3.958
+ },
+ "tokenise_only_s": 0.05029308400116861,
+ "tokenise_share_of_wall": 0.013535206809092724,
+ "note": "wall_s is measured under the profiler (adds overhead); use bench.py for throughput claims",
+ "peak_gpu_allocated_mib": 821.5,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "stage": 4,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 1,
+  "cls_only": 1,
+  "compile": 0,
+  "graph": 1
+ },
+ "token_budget": 8192,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 8192,
+  "short_fp32": 32,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": false,
+  "short_fp32_active": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 0.944,
+  "strict_reduction": true
+ },
+ "fp32_gemm_share": 0.164955130236021,
+ "breakdown_version": 2
+}

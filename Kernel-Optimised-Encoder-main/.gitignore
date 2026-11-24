@@ -1,0 +1,10 @@
+.venv/
+data/
+__pycache__/
+*.npy
+*.pyc
+data/.cache/
+results/
+results_gpu/**/trace.json
+results_gpu/**/*.nsys-rep
+results_gpu/**/*.sqlite

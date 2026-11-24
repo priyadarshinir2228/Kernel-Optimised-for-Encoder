@@ -1,0 +1,26 @@
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3397.40it/s]
+W1124 00:15:41.484000 84808 /home/aravinds/Desktop/ps09/.venv/lib/python3.14/site-packages/torch/_inductor/utils.py:2143] [0/0_1] Not enough SMs to use max_autotune_gemm mode
+/home/aravinds/Kernel-Optimisation-for-Encoder/.venv/lib/python3.14/site-packages/triton/knobs.py:504: UserWarning: TRITON_DEFAULT_FP_FUSION is unset: defaulting to FP fusion ENABLED for backward compatibility in Triton 3.9. The default will change to DISABLED in Triton 3.10; set TRITON_DEFAULT_FP_FUSION=1 to keep fusion enabled or =0 to adopt the new default early and silence this warning.
+  warn_once(FP_FUSION_DEFAULT_WARNING)
+{
+ "n_passages": 20000,
+ "seconds": 40.51316657499774,
+ "passages_per_second": 493.6666691549799,
+ "setup_seconds": 196.60306572914124,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9998595118522644,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 17.37966150607145,
+ "live": {
+  "n": 1500,
+  "p50_ms": 3.313369500119734,
+  "p99_ms": 5.649010700616373,
+  "shape_ok": true,
+  "n_violations": 0,
+  "min_cosine": 0.9999970197677612
+ }
+}

@@ -1,0 +1,194 @@
+{
+ "stage": 4,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 1,
+  "cls_only": 1,
+  "compile": 0,
+  "graph": 1
+ },
+ "token_budget": 65536,
+ "setup_s": 15.63017463684082,
+ "encode_s": 4.939881324768066,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ },
+ "passages": {
+  "n": 2000,
+  "min": 0.999991408855969,
+  "p0.1": 0.9999941129733627,
+  "mean": 0.9999997845538345,
+  "max_abs_error": 0.000616591889411211,
+  "violations_0.999": 0,
+  "below_gate": 0,
+  "worst": [
+   {
+    "i": 657,
+    "cos": 0.999991408855969,
+    "tokens": 12,
+    "text": "Portuguese non-fiction books 1991 non-fiction books"
+   },
+   {
+    "i": 1170,
+    "cos": 0.9999934371372226,
+    "tokens": 15,
+    "text": "1934 Connecticut Open Results in major championships NYF = Tournament not yet"
+   },
+   {
+    "i": 1851,
+    "cos": 0.9999941136498753,
+    "tokens": 15,
+    "text": "Year of birth missing (living people) 20th-century Canadian lawyers"
+   },
+   {
+    "i": 613,
+    "cos": 0.9999951613456401,
+    "tokens": 17,
+    "text": "Ceremonial magic Hermetic Order of the Golden Dawn Magic rituals Thelema"
+   },
+   {
+    "i": 826,
+    "cos": 0.9999964134318718,
+    "tokens": 25,
+    "text": "German expatriates in China Members of the Prussian House of Representatives Peo"
+   },
+   {
+    "i": 1707,
+    "cos": 0.9999966484782988,
+    "tokens": 7,
+    "text": "Tottenham District centres of London"
+   },
+   {
+    "i": 788,
+    "cos": 0.9999972477208217,
+    "tokens": 15,
+    "text": "Welsh bass guitarists People from Aberdare 21st-century bass guitarists"
+   },
+   {
+    "i": 930,
+    "cos": 0.9999980036521298,
+    "tokens": 15,
+    "text": "Royal reburials Royalty who died as children Sons of kings"
+   },
+   {
+    "i": 37,
+    "cos": 0.9999980325761768,
+    "tokens": 7,
+    "text": "| align=center|"
+   },
+   {
+    "i": 1984,
+    "cos": 0.9999984371944985,
+    "tokens": 13,
+    "text": "FK Plikiai won 2001/2002 the LFF"
+   }
+  ]
+ },
+ "queries": {
+  "n": 1500,
+  "min": 0.9999969190459355,
+  "p0.1": 0.9999987696681475,
+  "mean": 0.9999998317009448,
+  "max_abs_error": 0.00028219074010849,
+  "violations_0.999": 0,
+  "below_gate": 0,
+  "worst": [
+   {
+    "i": 1289,
+    "cos": 0.9999969190459355,
+    "tokens": 11,
+    "text": "grey's anatomy the episode with the bomb"
+   },
+   {
+    "i": 1286,
+    "cos": 0.9999980909931458,
+    "tokens": 10,
+    "text": "i do i do i do movie plot"
+   },
+   {
+    "i": 384,
+    "cos": 0.9999994510632894,
+    "tokens": 11,
+    "text": "star trek the next generation season 3 episode 24"
+   },
+   {
+    "i": 811,
+    "cos": 0.9999994596703968,
+    "tokens": 13,
+    "text": "latest season on keeping up with the kardashians"
+   },
+   {
+    "i": 890,
+    "cos": 0.9999995140317578,
+    "tokens": 10,
+    "text": "who did the chiefs play in the playoffs"
+   },
+   {
+    "i": 1258,
+    "cos": 0.9999995796451222,
+    "tokens": 10,
+    "text": "who won the champions league final in 2016"
+   },
+   {
+    "i": 836,
+    "cos": 0.9999996130004234,
+    "tokens": 10,
+    "text": "how i met your mother the goat episode"
+   },
+   {
+    "i": 386,
+    "cos": 0.9999996466465325,
+    "tokens": 11,
+    "text": "who died in the plane crash greys anatomy"
+   },
+   {
+    "i": 6,
+    "cos": 0.999999647236024,
+    "tokens": 12,
+    "text": "when was the suite life of zack and cody made"
+   },
+   {
+    "i": 628,
+    "cos": 0.9999996677256472,
+    "tokens": 11,
+    "text": "ethiopia flight 961 crashes in to the sea"
+   }
+  ]
+ },
+ "peak_gpu_allocated_mib": 532.9,
+ "max_abs_activation": 15.898550033569336,
+ "verdict": "PASS"
+}

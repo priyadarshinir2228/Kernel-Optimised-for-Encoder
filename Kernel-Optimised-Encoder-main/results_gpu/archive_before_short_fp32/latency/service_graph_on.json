@@ -1,0 +1,77 @@
+{
+ "what": "non-official live latency study; realtime mode replays bench.py's live() timing",
+ "mode": "service",
+ "n": 1500,
+ "setup_s": 9.75,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ },
+ "service_ms": {
+  "p50": 1.7590000006748596,
+  "p90": 1.7743977979989722,
+  "p95": 1.7814673479733756,
+  "p99": 1.79375272247853,
+  "mean": 1.7614046079858479,
+  "max": 2.0724229980260134
+ },
+ "min_cosine": 0.9999970197677612,
+ "violations_0.999": 0,
+ "slowest_service": [
+  {
+   "i": 448,
+   "ms": 2.0724229980260134,
+   "text": "rio de janeiro lies beneath sugar loaf mountain on the coast of brazil"
+  },
+  {
+   "i": 56,
+   "ms": 1.8199820005975198,
+   "text": "who is the girl in the stone sour video say you'll haunt me"
+  },
+  {
+   "i": 488,
+   "ms": 1.8121199973393232,
+   "text": "is there a lloyds bank in northern ireland"
+  },
+  {
+   "i": 551,
+   "ms": 1.8099659973813687,
+   "text": "when does jo come in grey's anatomy"
+  },
+  {
+   "i": 1070,
+   "ms": 1.8063770003209356,
+   "text": "auditing is the process of verifying the accuracy of the financial statements"
+  }
+ ],
+ "peak_gpu_allocated_mib": 214.1
+}

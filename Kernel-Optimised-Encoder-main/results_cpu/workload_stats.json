@@ -1,0 +1,351 @@
+{
+ "what": "exact workload analysis (tokenizer only, no model run)",
+ "n_passages": 100000,
+ "tokenise_seconds_single_call": 6.21,
+ "cpu_count": 16,
+ "passage_tokens": {
+  "mean": 100.24017,
+  "median": 67.0,
+  "p10": 11.0,
+  "p90": 249.0,
+  "p99": 459.0,
+  "max": 502,
+  "truncated_at_512": 0,
+  "histogram": {
+   "0-15": 0.15287,
+   "16-31": 0.16716,
+   "32-63": 0.16522,
+   "64-127": 0.23892,
+   "128-255": 0.18152,
+   "256-383": 0.06674,
+   "384-512": 0.02757
+  }
+ },
+ "first_20k_vs_all_mean_tokens": [
+  99.62225,
+  100.24017
+ ],
+ "queries": {
+  "n": 1500,
+  "mean_tokens": 11.906666666666666,
+  "max_tokens": 25,
+  "duration_s": 241.6259,
+  "mean_gap_ms": 160.87771847898603,
+  "gaps_under_10ms": 233,
+  "bucket_coverage": {
+   "16": 0.9533333333333334,
+   "32": 1.0,
+   "64": 1.0,
+   "128": 1.0
+  }
+ },
+ "reference_token_positions": 51200000,
+ "reference_padding_fraction": 0.8042184179687499,
+ "reference_gflops": 9663676.416,
+ "stages_at_budget_65536": {
+  "0": {
+   "batches": 3125,
+   "token_positions": 51200000,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.8042184179687499,
+   "gflops_total": 9663676.416,
+   "largest_batch_rows": 32,
+   "largest_batch_tokens": 16384,
+   "flop_reduction_vs_reference": 1.0
+  },
+  "1": {
+   "batches": 3125,
+   "token_positions": 51200000,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.8042184179687499,
+   "gflops_total": 9663676.416,
+   "largest_batch_rows": 32,
+   "largest_batch_tokens": 16384,
+   "flop_reduction_vs_reference": 1.0
+  },
+  "2": {
+   "batches": 190,
+   "token_positions": 10376288,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.033949616664456506,
+   "gflops_total": 1840447.848185856,
+   "largest_batch_rows": 6181,
+   "largest_batch_tokens": 65536,
+   "flop_reduction_vs_reference": 5.2507200492127835
+  },
+  "3": {
+   "batches": 379,
+   "token_positions": 10409528,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.037034436143502325,
+   "gflops_total": 1846849.875738624,
+   "largest_batch_rows": 1727,
+   "largest_batch_tokens": 52200,
+   "flop_reduction_vs_reference": 5.232518648617899
+  },
+  "4": {
+   "batches": 379,
+   "token_positions": 10409528,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.037034436143502325,
+   "gflops_total": 1718716.503269376,
+   "largest_batch_rows": 1727,
+   "largest_batch_tokens": 52200,
+   "flop_reduction_vs_reference": 5.622612221164785
+  }
+ },
+ "budget_sweep_stage4": {
+  "8192": {
+   "batches": 1488,
+   "token_positions": 10374816,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.03381255147079232,
+   "gflops_total": 1712496.45699072,
+   "largest_batch_rows": 1024,
+   "largest_batch_tokens": 8192,
+   "flop_reduction_vs_reference": 5.643034399604814
+  },
+  "16384": {
+   "batches": 805,
+   "token_positions": 10385064,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.03476598699825062,
+   "gflops_total": 1714204.390514688,
+   "largest_batch_rows": 1042,
+   "largest_batch_tokens": 16384,
+   "flop_reduction_vs_reference": 5.637412008435289
+  },
+  "32768": {
+   "batches": 514,
+   "token_positions": 10411872,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.0372512262924477,
+   "gflops_total": 1718579.872038912,
+   "largest_batch_rows": 1727,
+   "largest_batch_tokens": 32768,
+   "flop_reduction_vs_reference": 5.623059232350415
+  },
+  "65536": {
+   "batches": 379,
+   "token_positions": 10409528,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.037034436143502325,
+   "gflops_total": 1718716.503269376,
+   "largest_batch_rows": 1727,
+   "largest_batch_tokens": 52200,
+   "flop_reduction_vs_reference": 5.622612221164785
+  },
+  "131072": {
+   "batches": 314,
+   "token_positions": 10545720,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.049470590912711554,
+   "gflops_total": 1742228.534697984,
+   "largest_batch_rows": 2048,
+   "largest_batch_tokens": 52200,
+   "flop_reduction_vs_reference": 5.5467329477961975
+  }
+ },
+ "bucket_ablation_stage4": {
+  "budget=8192 bucket=0 min_fill=-": {
+   "batches": 1296,
+   "token_positions": 10470880,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.042676737771801365,
+   "gflops_total": 1728484.360617984,
+   "largest_batch_rows": 1005,
+   "largest_batch_tokens": 8192,
+   "flop_reduction_vs_reference": 5.590838214205739
+  },
+  "budget=8192 bucket=1 min_fill=0.125": {
+   "batches": 1497,
+   "token_positions": 10371568,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.033509976504999095,
+   "gflops_total": 1711943.721762816,
+   "largest_batch_rows": 1024,
+   "largest_batch_tokens": 8192,
+   "flop_reduction_vs_reference": 5.644856365984483
+  },
+  "budget=8192 bucket=1 min_fill=0.25": {
+   "batches": 1488,
+   "token_positions": 10374816,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.03381255147079232,
+   "gflops_total": 1712496.45699072,
+   "largest_batch_rows": 1024,
+   "largest_batch_tokens": 8192,
+   "flop_reduction_vs_reference": 5.643034399604814
+  },
+  "budget=8192 bucket=1 min_fill=0.5": {
+   "batches": 1449,
+   "token_positions": 10401376,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.03627971914485162,
+   "gflops_total": 1716880.77115392,
+   "largest_batch_rows": 902,
+   "largest_batch_tokens": 8192,
+   "flop_reduction_vs_reference": 5.628624059610742
+  },
+  "budget=16384 bucket=0 min_fill=-": {
+   "batches": 655,
+   "token_positions": 10592208,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.05364235672109163,
+   "gflops_total": 1748656.050388992,
+   "largest_batch_rows": 1024,
+   "largest_batch_tokens": 16384,
+   "flop_reduction_vs_reference": 5.526344882888945
+  },
+  "budget=16384 bucket=1 min_fill=0.125": {
+   "batches": 828,
+   "token_positions": 10373112,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.03365383503041319,
+   "gflops_total": 1712210.56622592,
+   "largest_batch_rows": 1042,
+   "largest_batch_tokens": 16384,
+   "flop_reduction_vs_reference": 5.643976626835576
+  },
+  "budget=16384 bucket=1 min_fill=0.25": {
+   "batches": 805,
+   "token_positions": 10385064,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.03476598699825062,
+   "gflops_total": 1714204.390514688,
+   "largest_batch_rows": 1042,
+   "largest_batch_tokens": 16384,
+   "flop_reduction_vs_reference": 5.637412008435289
+  },
+  "budget=16384 bucket=1 min_fill=0.5": {
+   "batches": 770,
+   "token_positions": 10421672,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.038156545322094226,
+   "gflops_total": 1720255.435825152,
+   "largest_batch_rows": 1042,
+   "largest_batch_tokens": 16384,
+   "flop_reduction_vs_reference": 5.617582258279358
+  },
+  "budget=32768 bucket=0 min_fill=-": {
+   "batches": 332,
+   "token_positions": 10783080,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.07039389487975611,
+   "gflops_total": 1780844.85869568,
+   "largest_batch_rows": 2048,
+   "largest_batch_tokens": 32768,
+   "flop_reduction_vs_reference": 5.426456082804335
+  },
+  "budget=32768 bucket=1 min_fill=0.125": {
+   "batches": 541,
+   "token_positions": 10381800,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.034462520950124254,
+   "gflops_total": 1713646.846599168,
+   "largest_batch_rows": 1687,
+   "largest_batch_tokens": 32768,
+   "flop_reduction_vs_reference": 5.639246169756697
+  },
+  "budget=32768 bucket=1 min_fill=0.25": {
+   "batches": 514,
+   "token_positions": 10411872,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.0372512262924477,
+   "gflops_total": 1718579.872038912,
+   "largest_batch_rows": 1727,
+   "largest_batch_tokens": 32768,
+   "flop_reduction_vs_reference": 5.623059232350415
+  },
+  "budget=32768 bucket=1 min_fill=0.5": {
+   "batches": 469,
+   "token_positions": 10496544,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.045017388580469886,
+   "gflops_total": 1733037.830012928,
+   "largest_batch_rows": 1727,
+   "largest_batch_tokens": 32768,
+   "flop_reduction_vs_reference": 5.576148569086868
+  },
+  "budget=65536 bucket=0 min_fill=-": {
+   "batches": 175,
+   "token_positions": 11135424,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.09980823361553182,
+   "gflops_total": 1839963.602092032,
+   "largest_batch_rows": 2730,
+   "largest_batch_tokens": 65536,
+   "flop_reduction_vs_reference": 5.252101946480046
+  },
+  "budget=65536 bucket=1 min_fill=0.125": {
+   "batches": 414,
+   "token_positions": 10379784,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.03427499069344797,
+   "gflops_total": 1713316.997455872,
+   "largest_batch_rows": 1727,
+   "largest_batch_tokens": 52200,
+   "flop_reduction_vs_reference": 5.640331841888995
+  },
+  "budget=65536 bucket=1 min_fill=0.25": {
+   "batches": 379,
+   "token_positions": 10409528,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.037034436143502325,
+   "gflops_total": 1718716.503269376,
+   "largest_batch_rows": 1727,
+   "largest_batch_tokens": 52200,
+   "flop_reduction_vs_reference": 5.622612221164785
+  },
+  "budget=65536 bucket=1 min_fill=0.5": {
+   "batches": 305,
+   "token_positions": 10559936,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.05075021288007808,
+   "gflops_total": 1744625.371643904,
+   "largest_batch_rows": 2048,
+   "largest_batch_tokens": 52200,
+   "flop_reduction_vs_reference": 5.539112621579171
+  },
+  "budget=131072 bucket=0 min_fill=-": {
+   "batches": 93,
+   "token_positions": 11806928,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.15100549440125322,
+   "gflops_total": 1953679.401664512,
+   "largest_batch_rows": 3806,
+   "largest_batch_tokens": 131072,
+   "flop_reduction_vs_reference": 4.946398271777171
+  },
+  "budget=131072 bucket=1 min_fill=0.125": {
+   "batches": 396,
+   "token_positions": 10402328,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.0363679168739921,
+   "gflops_total": 1717494.444466176,
+   "largest_batch_rows": 1727,
+   "largest_batch_tokens": 52200,
+   "flop_reduction_vs_reference": 5.6266129111140275
+  },
+  "budget=131072 bucket=1 min_fill=0.25": {
+   "batches": 314,
+   "token_positions": 10545720,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.049470590912711554,
+   "gflops_total": 1742228.534697984,
+   "largest_batch_rows": 2048,
+   "largest_batch_tokens": 52200,
+   "flop_reduction_vs_reference": 5.5467329477961975
+  },
+  "budget=131072 bucket=1 min_fill=0.5": {
+   "batches": 180,
+   "token_positions": 11078344,
+   "real_tokens": 10024017,
+   "padding_fraction": 0.0951700904034033,
+   "gflops_total": 1830231.641972736,
+   "largest_batch_rows": 2730,
+   "largest_batch_tokens": 65536,
+   "flop_reduction_vs_reference": 5.280029147340003
+  }
+ }
+}

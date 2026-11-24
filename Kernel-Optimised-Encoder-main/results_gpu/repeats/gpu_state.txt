@@ -1,0 +1,9 @@
+r1 default exit=0 59.75, 1912 MHz, 30.88 W
+r1 res32off exit=0 62.84, 1905 MHz, 33.59 W
+r1 bucketoff exit=0 64.78, 1905 MHz, 30.69 W
+r2 default exit=0 66.31, 1897 MHz, 32.79 W
+r2 res32off exit=0 67.03, 1897 MHz, 32.10 W
+r2 bucketoff exit=0 68.16, 1897 MHz, 33.08 W
+r3 default exit=0 68.00, 1897 MHz, 30.78 W
+r3 res32off exit=0 67.94, 1897 MHz, 36.22 W
+r3 bucketoff exit=0 67.44, 1897 MHz, 34.52 W

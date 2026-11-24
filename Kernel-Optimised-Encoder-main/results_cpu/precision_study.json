@@ -1,0 +1,433 @@
+{
+ "what": "CPU emulation of GPU FP16/BF16 numerics (non-official diagnostic)",
+ "torch": "2.15.0+cpu",
+ "n_passages": 2000,
+ "n_queries": 1500,
+ "variants": {
+  "fp32": {
+   "seconds": 486.4,
+   "passages": {
+    "n": 2000,
+    "min": 0.9999999998578681,
+    "p0.1": 0.9999999999926229,
+    "p1": 0.9999999999988188,
+    "mean": 0.9999999999994824,
+    "below_0.9995": 0,
+    "below_0.999": 0,
+    "worst": [
+     {
+      "i": 1170,
+      "cos": 0.9999999998578681,
+      "tokens": 15,
+      "text": "1934 Connecticut Open Results in major championships NYF = Tournament not yet"
+     },
+     {
+      "i": 19,
+      "cos": 0.9999999999636582,
+      "tokens": 8,
+      "text": "(band) albums 1992 albums"
+     },
+     {
+      "i": 657,
+      "cos": 0.9999999999926519,
+      "tokens": 12,
+      "text": "Portuguese non-fiction books 1991 non-fiction books"
+     },
+     {
+      "i": 930,
+      "cos": 0.9999999999946299,
+      "tokens": 15,
+      "text": "Royal reburials Royalty who died as children Sons of kings"
+     },
+     {
+      "i": 1851,
+      "cos": 0.9999999999950608,
+      "tokens": 15,
+      "text": "Year of birth missing (living people) 20th-century Canadian lawyers"
+     }
+    ]
+   },
+   "queries": {
+    "n": 1500,
+    "min": 0.9999999999865645,
+    "p0.1": 0.9999999999982931,
+    "p1": 0.9999999999990834,
+    "mean": 0.9999999999996142,
+    "below_0.9995": 0,
+    "below_0.999": 0,
+    "worst": [
+     {
+      "i": 1289,
+      "cos": 0.9999999999865645,
+      "tokens": 11,
+      "text": "grey's anatomy the episode with the bomb"
+     },
+     {
+      "i": 133,
+      "cos": 0.9999999999982585,
+      "tokens": 20,
+      "text": "which type of hematoma is a result of torn bridging meningeal veins"
+     },
+     {
+      "i": 10,
+      "cos": 0.999999999998328,
+      "tokens": 10,
+      "text": "where does the phrase blue moon come from"
+     },
+     {
+      "i": 1320,
+      "cos": 0.9999999999985221,
+      "tokens": 11,
+      "text": "who sings she's like the wind lyrics"
+     },
+     {
+      "i": 1244,
+      "cos": 0.9999999999987017,
+      "tokens": 13,
+      "text": "how does montgomery died in the island of dr moreau"
+     }
+    ]
+   }
+  },
+  "fp16": {
+   "seconds": 188.9,
+   "passages": {
+    "n": 2000,
+    "min": 0.999879421159275,
+    "p0.1": 0.9999298320414526,
+    "p1": 0.9999986695160389,
+    "mean": 0.9999993569087848,
+    "below_0.9995": 0,
+    "below_0.999": 0,
+    "worst": [
+     {
+      "i": 19,
+      "cos": 0.999879421159275,
+      "tokens": 8,
+      "text": "(band) albums 1992 albums"
+     },
+     {
+      "i": 826,
+      "cos": 0.9998943172358443,
+      "tokens": 25,
+      "text": "German expatriates in China Members of the Prussian House of Representatives People associated with "
+     },
+     {
+      "i": 1170,
+      "cos": 0.9999298675918086,
+      "tokens": 15,
+      "text": "1934 Connecticut Open Results in major championships NYF = Tournament not yet"
+     },
+     {
+      "i": 657,
+      "cos": 0.9999517083903472,
+      "tokens": 12,
+      "text": "Portuguese non-fiction books 1991 non-fiction books"
+     },
+     {
+      "i": 37,
+      "cos": 0.9999886529958739,
+      "tokens": 7,
+      "text": "| align=center|"
+     }
+    ]
+   },
+   "queries": {
+    "n": 1500,
+    "min": 0.9999935172830791,
+    "p0.1": 0.9999962930286509,
+    "p1": 0.9999992892654818,
+    "mean": 0.9999995695511934,
+    "below_0.9995": 0,
+    "below_0.999": 0,
+    "worst": [
+     {
+      "i": 1289,
+      "cos": 0.9999935172830791,
+      "tokens": 11,
+      "text": "grey's anatomy the episode with the bomb"
+     },
+     {
+      "i": 1286,
+      "cos": 0.9999961356589361,
+      "tokens": 10,
+      "text": "i do i do i do movie plot"
+     },
+     {
+      "i": 384,
+      "cos": 0.999996451029106,
+      "tokens": 11,
+      "text": "star trek the next generation season 3 episode 24"
+     },
+     {
+      "i": 1290,
+      "cos": 0.9999973109759925,
+      "tokens": 10,
+      "text": "batman and robin episode only fools and horses"
+     },
+     {
+      "i": 1428,
+      "cos": 0.9999984573611665,
+      "tokens": 12,
+      "text": "royal society for the protection of birds number of members"
+     }
+    ]
+   }
+  },
+  "fp16_last32": {
+   "seconds": 176.3,
+   "passages": {
+    "n": 2000,
+    "min": 0.9998793300558921,
+    "p0.1": 0.9999302527967653,
+    "p1": 0.9999988128183576,
+    "mean": 0.9999994760751398,
+    "below_0.9995": 0,
+    "below_0.999": 0,
+    "worst": [
+     {
+      "i": 19,
+      "cos": 0.9998793300558921,
+      "tokens": 8,
+      "text": "(band) albums 1992 albums"
+     },
+     {
+      "i": 826,
+      "cos": 0.9998944701658158,
+      "tokens": 25,
+      "text": "German expatriates in China Members of the Prussian House of Representatives People associated with "
+     },
+     {
+      "i": 1170,
+      "cos": 0.9999302886152147,
+      "tokens": 15,
+      "text": "1934 Connecticut Open Results in major championships NYF = Tournament not yet"
+     },
+     {
+      "i": 657,
+      "cos": 0.9999517128964102,
+      "tokens": 12,
+      "text": "Portuguese non-fiction books 1991 non-fiction books"
+     },
+     {
+      "i": 37,
+      "cos": 0.9999887762181933,
+      "tokens": 7,
+      "text": "| align=center|"
+     }
+    ]
+   },
+   "queries": {
+    "n": 1500,
+    "min": 0.9999936977803944,
+    "p0.1": 0.999996463901491,
+    "p1": 0.9999994183454313,
+    "mean": 0.9999996908529235,
+    "below_0.9995": 0,
+    "below_0.999": 0,
+    "worst": [
+     {
+      "i": 1289,
+      "cos": 0.9999936977803944,
+      "tokens": 11,
+      "text": "grey's anatomy the episode with the bomb"
+     },
+     {
+      "i": 1286,
+      "cos": 0.9999963498224923,
+      "tokens": 10,
+      "text": "i do i do i do movie plot"
+     },
+     {
+      "i": 384,
+      "cos": 0.9999965784377202,
+      "tokens": 11,
+      "text": "star trek the next generation season 3 episode 24"
+     },
+     {
+      "i": 1290,
+      "cos": 0.9999974836947884,
+      "tokens": 10,
+      "text": "batman and robin episode only fools and horses"
+     },
+     {
+      "i": 1428,
+      "cos": 0.9999985643017363,
+      "tokens": 12,
+      "text": "royal society for the protection of birds number of members"
+     }
+    ]
+   }
+  },
+  "fp16_res32": {
+   "seconds": 155.1,
+   "passages": {
+    "n": 2000,
+    "min": 0.9999670416494796,
+    "p0.1": 0.9999845461070591,
+    "p1": 0.9999993847075719,
+    "mean": 0.9999997688662773,
+    "below_0.9995": 0,
+    "below_0.999": 0,
+    "worst": [
+     {
+      "i": 19,
+      "cos": 0.9999670416494796,
+      "tokens": 8,
+      "text": "(band) albums 1992 albums"
+     },
+     {
+      "i": 1170,
+      "cos": 0.9999811914934923,
+      "tokens": 15,
+      "text": "1934 Connecticut Open Results in major championships NYF = Tournament not yet"
+     },
+     {
+      "i": 657,
+      "cos": 0.9999845494650307,
+      "tokens": 12,
+      "text": "Portuguese non-fiction books 1991 non-fiction books"
+     },
+     {
+      "i": 1851,
+      "cos": 0.9999951959724642,
+      "tokens": 15,
+      "text": "Year of birth missing (living people) 20th-century Canadian lawyers"
+     },
+     {
+      "i": 613,
+      "cos": 0.9999969507618793,
+      "tokens": 17,
+      "text": "Ceremonial magic Hermetic Order of the Golden Dawn Magic rituals Thelema"
+     }
+    ]
+   },
+   "queries": {
+    "n": 1500,
+    "min": 0.9999875551178098,
+    "p0.1": 0.9999991025174525,
+    "p1": 0.9999997062811578,
+    "mean": 0.9999998284402248,
+    "below_0.9995": 0,
+    "below_0.999": 0,
+    "worst": [
+     {
+      "i": 1289,
+      "cos": 0.9999875551178098,
+      "tokens": 11,
+      "text": "grey's anatomy the episode with the bomb"
+     },
+     {
+      "i": 836,
+      "cos": 0.9999988501448345,
+      "tokens": 10,
+      "text": "how i met your mother the goat episode"
+     },
+     {
+      "i": 1290,
+      "cos": 0.999999355901584,
+      "tokens": 10,
+      "text": "batman and robin episode only fools and horses"
+     },
+     {
+      "i": 383,
+      "cos": 0.9999996094615199,
+      "tokens": 11,
+      "text": "what kind of national legislature did the constitution created"
+     },
+     {
+      "i": 884,
+      "cos": 0.999999622575765,
+      "tokens": 11,
+      "text": "who sings blame it on the bossa nova"
+     }
+    ]
+   }
+  },
+  "bf16": {
+   "seconds": 163.4,
+   "passages": {
+    "n": 2000,
+    "min": 0.9918310000786366,
+    "p0.1": 0.9972506415858606,
+    "p1": 0.9998913628221355,
+    "mean": 0.9999459016548601,
+    "below_0.9995": 8,
+    "below_0.999": 6,
+    "worst": [
+     {
+      "i": 826,
+      "cos": 0.9918310000786366,
+      "tokens": 25,
+      "text": "German expatriates in China Members of the Prussian House of Representatives People associated with "
+     },
+     {
+      "i": 19,
+      "cos": 0.9945328389839125,
+      "tokens": 8,
+      "text": "(band) albums 1992 albums"
+     },
+     {
+      "i": 1851,
+      "cos": 0.9972533621089857,
+      "tokens": 15,
+      "text": "Year of birth missing (living people) 20th-century Canadian lawyers"
+     },
+     {
+      "i": 1170,
+      "cos": 0.997524428303236,
+      "tokens": 15,
+      "text": "1934 Connecticut Open Results in major championships NYF = Tournament not yet"
+     },
+     {
+      "i": 1707,
+      "cos": 0.9984308599676232,
+      "tokens": 7,
+      "text": "Tottenham District centres of London"
+     }
+    ]
+   },
+   "queries": {
+    "n": 1500,
+    "min": 0.9972702730760288,
+    "p0.1": 0.9999064734286635,
+    "p1": 0.9999430912039247,
+    "mean": 0.9999602623820523,
+    "below_0.9995": 1,
+    "below_0.999": 1,
+    "worst": [
+     {
+      "i": 1289,
+      "cos": 0.9972702730760288,
+      "tokens": 11,
+      "text": "grey's anatomy the episode with the bomb"
+     },
+     {
+      "i": 1258,
+      "cos": 0.9998960276407907,
+      "tokens": 10,
+      "text": "who won the champions league final in 2016"
+     },
+     {
+      "i": 384,
+      "cos": 0.9999169610834215,
+      "tokens": 11,
+      "text": "star trek the next generation season 3 episode 24"
+     },
+     {
+      "i": 1142,
+      "cos": 0.9999322868963699,
+      "tokens": 11,
+      "text": "who wrote ain't living long like this"
+     },
+     {
+      "i": 370,
+      "cos": 0.999936103423396,
+      "tokens": 10,
+      "text": "what is the movie dazed and confused about"
+     }
+    ]
+   }
+  }
+ }
+}

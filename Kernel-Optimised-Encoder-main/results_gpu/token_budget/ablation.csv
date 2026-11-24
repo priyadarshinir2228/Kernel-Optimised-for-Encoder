@@ -1,0 +1,6 @@
+when,stage,name,tag,flags,status,n_passages,passages_per_s,seconds,speedup,min_cos,violations,live_p50_ms,live_p99_ms,live_min_cos,live_violations,peak_gpu_mib,setup_s,token_budget,wall_s,result_file
+2026-11-24 00:25,4,S4 + CLS-only last layer,budget sweep,fp16 sort budget bucket overlap cls_only graph res32,ok,20000,621.1,32.2,21.87,0.999991,0,,,,,736,3.8,8192,37.9,results_gpu/token_budget/bench_stage4_b8192_n20000.json
+2026-11-24 00:26,4,S4 + CLS-only last layer,budget sweep,fp16 sort budget bucket overlap cls_only graph res32,ok,20000,626.6,31.92,22.06,0.999991,0,,,,,1096,4.7,16384,38.5,results_gpu/token_budget/bench_stage4_b16384_n20000.json
+2026-11-24 00:26,4,S4 + CLS-only last layer,budget sweep,fp16 sort budget bucket overlap cls_only graph res32,ok,20000,623.5,32.07,21.95,0.999991,0,,,,,2326,6.4,32768,40.3,results_gpu/token_budget/bench_stage4_b32768_n20000.json
+2026-11-24 00:27,4,S4 + CLS-only last layer,budget sweep,fp16 sort budget bucket overlap cls_only graph res32,ok,20000,617.1,32.41,21.73,0.999991,0,,,,,5500,10.0,65536,44.2,results_gpu/token_budget/bench_stage4_b65536_n20000.json
+2026-11-24 00:28,4,S4 + CLS-only last layer,budget sweep,fp16 sort budget bucket overlap cls_only graph res32,ok,20000,609.5,32.81,21.46,0.999991,0,,,,,4958,16.6,131072,51.2,results_gpu/token_budget/bench_stage4_b131072_n20000.json

@@ -1,0 +1,4 @@
+# Shell scripts must keep LF endings on every checkout (they run on Linux)
+*.sh text eol=lf
+*.pdf binary
+*.npy binary

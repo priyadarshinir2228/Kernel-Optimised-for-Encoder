@@ -1,0 +1,8 @@
+when,stage,name,tag,flags,status,n_passages,passages_per_s,seconds,speedup,min_cos,violations,live_p50_ms,live_p99_ms,live_min_cos,live_violations,peak_gpu_mib,setup_s,token_budget,wall_s,result_file
+2026-11-24 00:03,1,"S1 + FP16, fused QKV, SDPA",ablation 20k,fp16 res32,ok,20000,85.9,232.92,3.02,0.999991,0,,,,,2650,17.5,65536,256.3,results_gpu/ablation/bench_stage1_n20000.json
+2026-11-24 00:04,2,S2 + length-aware token-budget scheduler,ablation 20k,fp16 sort budget bucket res32,ok,20000,427.3,46.81,15.04,0.999991,0,,,,,2650,18.0,65536,71.0,results_gpu/ablation/bench_stage2_n20000.json
+2026-11-24 00:09,3,"S3 + async host pipeline, CUDA Graph live path",ablation 20k + live,fp16 sort budget bucket overlap graph res32,ok,20000,426.5,46.89,15.02,0.999991,0,3.34,5.64,0.999997,0,5496,17.5,65536,312.7,results_gpu/ablation/bench_stage3_n20000.json
+2026-11-24 00:14,4,S4 + CLS-only last layer,ablation 20k + live,fp16 sort budget bucket overlap cls_only graph res32,ok,20000,460.4,43.44,16.21,0.999991,0,3.34,5.77,0.999997,0,5500,16.7,65536,308.2,results_gpu/ablation/bench_stage4_n20000.json
+2026-11-24 00:22,5,S5 + torch.compile,ablation 20k + live,fp16 sort budget bucket overlap cls_only compile graph res32,ok,20000,493.7,40.51,17.38,0.99986,0,3.31,5.65,0.999997,0,3228,196.6,65536,488.0,results_gpu/ablation/bench_stage5_n20000.json
+2026-11-24 00:23,4,S4 + CLS-only last layer,RES32 off,fp16 sort budget bucket overlap cls_only graph,ok,20000,511.9,39.07,18.02,0.999663,0,,,,,5556,16.3,65536,61.0,results_gpu/ablation/bench_stage4_n20000.json
+2026-11-24 00:24,4,S4 + CLS-only last layer,O2b off,fp16 sort budget overlap cls_only graph res32,ok,20000,569.4,35.13,20.04,0.999991,0,,,,,2752,14.3,65536,52.5,results_gpu/ablation/bench_stage4_n20000.json

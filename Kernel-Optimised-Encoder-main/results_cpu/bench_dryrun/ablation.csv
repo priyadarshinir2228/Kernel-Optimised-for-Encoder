@@ -1,0 +1,6 @@
+when,stage,name,tag,flags,status,n_passages,passages_per_s,seconds,speedup,min_cos,violations,live_p50_ms,live_p99_ms,live_min_cos,live_violations,peak_gpu_mib,setup_s,token_budget,wall_s,result_file
+2026-11-23 22:09,0,"S0 reference-like (FP32, pad 512, batch 32)",CPU dry run,,ok,300,3.5,86.29,0.97,1.0,0,,,,,,3.5,8192,91.8,results_cpu\bench_dryrun\bench_stage0_b8192_n300.json
+2026-11-23 22:10,2,S2 + length-aware token-budget scheduler,CPU dry run,fp16 sort budget bucket res32,ok,300,17.8,16.87,4.94,1.0,0,,,,,,3.6,8192,22.5,results_cpu\bench_dryrun\bench_stage2_b8192_n300.json
+2026-11-23 22:10,4,S4 + CLS-only last layer,CPU dry run,fp16 sort budget bucket overlap cls_only graph res32,ok,300,18.6,16.11,5.17,1.0,0,,,,,,3.8,8192,21.7,results_cpu\bench_dryrun\bench_stage4_b8192_n300.json
+2026-11-23 22:19,2,S2 + length-aware token-budget scheduler,"CPU dry run, after small-call plan fix",fp16 sort budget bucket res32,ok,300,18.2,16.52,5.05,1.0,0,,,,,,3.8,8192,22.5,results_cpu\bench_dryrun\bench_stage2_b8192_n300.json
+2026-11-23 22:19,4,S4 + CLS-only last layer,"CPU dry run, after small-call plan fix",fp16 sort budget bucket overlap cls_only graph res32,ok,300,19.1,15.67,5.32,1.0,0,,,,,,3.7,8192,21.4,results_cpu\bench_dryrun\bench_stage4_b8192_n300.json

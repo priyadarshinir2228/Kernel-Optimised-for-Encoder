@@ -1,0 +1,10 @@
+# CPU development / validation (Windows laptop without an NVIDIA GPU, or any Linux box).
+# Exact versions verified on Windows 11 + Python 3.12.10 are in requirements-verified-windows-cpu.txt.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.1          # SDPA (scaled_dot_product_attention) needs >= 2.0
+transformers>=4.40  # verified with 5.24.0; team.py reads BertModel weights directly
+tokenizers>=0.15
+numpy
+huggingface_hub
+matplotlib          # report charts (scripts/make_report.py)
+markdown            # report HTML (scripts/make_report.py)

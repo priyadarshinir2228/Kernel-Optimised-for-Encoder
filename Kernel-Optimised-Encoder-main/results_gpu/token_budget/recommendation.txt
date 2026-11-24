@@ -1,0 +1,9 @@
+reject budget 65536: peak 5500 MiB > 70% of 5825 MiB
+reject budget 131072: peak 4958 MiB > 70% of 5825 MiB
+| budget | passages/s | min cos | peak GPU MiB |
+|---|---|---|---|
+| 8192 | 621.1 | 0.999991 | 736 |
+| 16384 | 626.6 | 0.999991 | 1096 |
+| 32768 | 623.5 | 0.999991 | 2326 |
+
+RECOMMENDED: stage 4, token budget 8192 (621.1 p/s; fastest was 626.6 p/s; ties within 2% go to the smaller budget)

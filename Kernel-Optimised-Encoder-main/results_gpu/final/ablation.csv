@@ -1,0 +1,2 @@
+when,stage,name,tag,flags,status,n_passages,passages_per_s,seconds,speedup,min_cos,violations,live_p50_ms,live_p99_ms,live_min_cos,live_violations,peak_gpu_mib,setup_s,token_budget,wall_s,result_file
+2026-11-24 04:56,4,S4 + CLS-only last layer,final 100k,fp16 sort budget bucket overlap cls_only graph short32<=32,ok,100000,604.9,165.31,21.3,0.999999,0,4.4,8.24,1.0,0,1622,5.3,8192,414.0,results_gpu/final/bench_stage4.json

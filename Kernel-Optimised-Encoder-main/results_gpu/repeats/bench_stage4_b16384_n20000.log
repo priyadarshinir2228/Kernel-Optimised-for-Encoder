@@ -1,0 +1,15 @@
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 16545.74it/s]
+{
+ "n_passages": 20000,
+ "seconds": 32.8588374059982,
+ "passages_per_second": 608.6642613943824,
+ "setup_seconds": 4.628696441650391,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 21.42818118951519
+}

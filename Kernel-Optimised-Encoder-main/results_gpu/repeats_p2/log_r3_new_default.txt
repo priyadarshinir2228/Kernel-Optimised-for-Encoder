@@ -1,0 +1,24 @@
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=8192 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/repeats_p2/bench_stage4_n20000.json --limit 20000 --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 14680.10it/s]
+{
+ "n_passages": 20000,
+ "seconds": 33.42470710299676,
+ "passages_per_second": 598.3597683704716,
+ "setup_seconds": 5.0850818157196045,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999988079071045,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 21.06540887382737
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 + CLS-only last layer | fp16 sort budget bucket overlap cls_only graph short32<=32 | 20000 | 8192 | 598.4 | 21.07 | 0.999999 | 0 |  |  |  | 1388 |

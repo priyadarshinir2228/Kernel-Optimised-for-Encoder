@@ -1,0 +1,14 @@
+{
+ "n_passages": 300,
+ "seconds": 16.879138729000033,
+ "passages_per_second": 17.773418704389833,
+ "setup_seconds": 1.7100555896759033,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999998807907104,
+ "n_checked": 300,
+ "reference_passages_per_second": 3.9056132174250466,
+ "speedup": 4.550737032815494
+}

@@ -1,0 +1,86 @@
+{
+ "which": "team",
+ "n": 2000,
+ "wall_s": 3.9191588120011147,
+ "passages_per_s": 510.31358920074075,
+ "gpu_kernel_ms": 3734.514790000003,
+ "gpu_busy_fraction": 0.9528868404072248,
+ "gpu_time_share": {
+  "gemm": 0.686885303244441,
+  "norm+elementwise": 0.24970593756839868,
+  "attention": 0.06297576665910053,
+  "memcpy": 0.00039433904611741973,
+  "other": 3.8653481942697004e-05
+ },
+ "gpu_ms_by_category": {
+  "gemm": 2565.183324000002,
+  "norm+elementwise": 932.5305170000022,
+  "attention": 235.183932,
+  "memcpy": 1.4726649999999972,
+  "other": 0.144352
+ },
+ "timeline": {
+  "device_span_ms": 3751.17970703125,
+  "device_busy_ms": 3734.514857421875,
+  "device_busy_fraction_of_span": 0.9955574376833671,
+  "idle_gaps": 3515,
+  "idle_total_ms": 16.664849609375,
+  "idle_gaps_over_100us": 29,
+  "largest_gaps_ms": [
+   0.718,
+   0.715,
+   0.671,
+   0.636,
+   0.634
+  ],
+  "kernels_per_passage": 1.501
+ },
+ "tokenise_only_s": 0.05219946500074002,
+ "tokenise_share_of_wall": 0.013319048169443043,
+ "note": "wall_s is measured under the profiler (adds overhead); use bench.py for throughput claims",
+ "peak_gpu_allocated_mib": 531.3,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "stage": 2,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 0,
+  "cls_only": 0,
+  "compile": 0,
+  "graph": 0
+ },
+ "token_budget": 65536,
+ "runtime": {
+  "stage": 2,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 0,
+   "cls_only": 0,
+   "compile": 0,
+   "graph": 0
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ },
+ "fp32_gemm_share": 0.0,
+ "breakdown_version": 2
+}

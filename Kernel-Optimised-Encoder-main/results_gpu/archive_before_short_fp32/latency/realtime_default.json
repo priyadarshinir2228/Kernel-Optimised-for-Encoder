@@ -1,0 +1,95 @@
+{
+ "what": "non-official live latency study; realtime mode replays bench.py's live() timing",
+ "mode": "realtime",
+ "n": 1500,
+ "setup_s": 9.74,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ },
+ "service_ms": {
+  "p50": 2.1846940016985172,
+  "p90": 2.3392517996398965,
+  "p95": 2.372100350294204,
+  "p99": 2.4318911609589122,
+  "mean": 2.198874692672689,
+  "max": 2.7087999987998046
+ },
+ "min_cosine": 0.9999970197677612,
+ "violations_0.999": 0,
+ "slowest_service": [
+  {
+   "i": 517,
+   "ms": 2.7087999987998046,
+   "text": "billy ocean when the going gets tough movie"
+  },
+  {
+   "i": 499,
+   "ms": 2.542493999499129,
+   "text": "who is the lead singer of depeche mode"
+  },
+  {
+   "i": 321,
+   "ms": 2.534645002015168,
+   "text": "the mughal garden of rashtrapati bhavan is modelled on which garden"
+  },
+  {
+   "i": 448,
+   "ms": 2.5263869974878617,
+   "text": "rio de janeiro lies beneath sugar loaf mountain on the coast of brazil"
+  },
+  {
+   "i": 617,
+   "ms": 2.5014839993673377,
+   "text": "where was the tv show in the heat of the night filmed"
+  }
+ ],
+ "latency_ms": {
+  "p50": 2.2933964980893506,
+  "p90": 2.5002219984834544,
+  "p95": 2.635952250645168,
+  "p99": 3.9131425381117424,
+  "mean": 2.3578789282702988,
+  "max": 4.871253000942488
+ },
+ "queue_ms": {
+  "p50": 0.08675450101236493,
+  "p90": 0.22886519814626655,
+  "p95": 0.42697625067411554,
+  "p99": 1.9290600586634807,
+  "mean": 0.15900423559760976,
+  "max": 2.950468999529221
+ },
+ "p99_explained": "slow individual calls",
+ "queries_per_second_capacity": 454.7780750455223,
+ "peak_gpu_allocated_mib": 214.1
+}

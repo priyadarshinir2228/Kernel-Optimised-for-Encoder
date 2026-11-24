@@ -1,0 +1,22 @@
+{
+ "n_passages": 20000,
+ "seconds": 32.669658016999165,
+ "passages_per_second": 612.188838634102,
+ "setup_seconds": 6.0160346031188965,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9996625781059265,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 21.55226483381547,
+ "live": {
+  "n": 1500,
+  "p50_ms": 2.1974039979966165,
+  "p99_ms": 3.669644939997738,
+  "shape_ok": true,
+  "n_violations": 0,
+  "min_cosine": 0.9999818801879883
+ }
+}

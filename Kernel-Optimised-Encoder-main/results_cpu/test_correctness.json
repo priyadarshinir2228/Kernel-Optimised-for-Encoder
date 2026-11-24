@@ -1,0 +1,59 @@
+{
+ "cuda": false,
+ "torch": "2.15.0+cpu",
+ "n_cases": 29,
+ "stages": [
+  {
+   "stage": 0,
+   "cfg": {
+    "fp16": 0,
+    "sort": 0,
+    "budget": 0,
+    "bucket": 0,
+    "overlap": 0,
+    "cls_only": 0,
+    "compile": 0,
+    "graph": 0
+   },
+   "setup_s": 1.66,
+   "batch_min_cos": 0.9999999999999998,
+   "batch_worst": "len127",
+   "single_min_cos": 0.9999999999999998
+  },
+  {
+   "stage": 2,
+   "cfg": {
+    "fp16": 1,
+    "sort": 1,
+    "budget": 1,
+    "bucket": 1,
+    "overlap": 0,
+    "cls_only": 0,
+    "compile": 0,
+    "graph": 0
+   },
+   "setup_s": 1.5,
+   "batch_min_cos": 0.9999999999985321,
+   "batch_worst": "one_word",
+   "single_min_cos": 0.9999999999983084
+  },
+  {
+   "stage": 4,
+   "cfg": {
+    "fp16": 1,
+    "sort": 1,
+    "budget": 1,
+    "bucket": 1,
+    "overlap": 1,
+    "cls_only": 1,
+    "compile": 0,
+    "graph": 1
+   },
+   "setup_s": 1.55,
+   "batch_min_cos": 0.9999999999985353,
+   "batch_worst": "one_word",
+   "single_min_cos": 0.999999999998407
+  }
+ ],
+ "failed": []
+}

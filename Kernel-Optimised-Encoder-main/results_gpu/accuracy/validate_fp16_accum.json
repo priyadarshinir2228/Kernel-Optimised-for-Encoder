@@ -1,0 +1,193 @@
+{
+ "stage": 4,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 1,
+  "cls_only": 1,
+  "compile": 0,
+  "graph": 1
+ },
+ "token_budget": 65536,
+ "setup_s": 14.507760286331177,
+ "encode_s": 3.907158851623535,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ },
+ "passages": {
+  "n": 2000,
+  "min": 0.9996361581013617,
+  "p0.1": 0.999878410379914,
+  "mean": 0.9999961899430623,
+  "max_abs_error": 0.003247871994972229,
+  "violations_0.999": 0,
+  "below_gate": 0,
+  "worst": [
+   {
+    "i": 1170,
+    "cos": 0.9996361581013617,
+    "tokens": 15,
+    "text": "1934 Connecticut Open Results in major championships NYF = Tournament not yet"
+   },
+   {
+    "i": 657,
+    "cos": 0.9997231002977315,
+    "tokens": 12,
+    "text": "Portuguese non-fiction books 1991 non-fiction books"
+   },
+   {
+    "i": 1707,
+    "cos": 0.9998785658454618,
+    "tokens": 7,
+    "text": "Tottenham District centres of London"
+   },
+   {
+    "i": 19,
+    "cos": 0.9999295293938084,
+    "tokens": 8,
+    "text": "(band) albums 1992 albums"
+   },
+   {
+    "i": 1987,
+    "cos": 0.9999372948066234,
+    "tokens": 10,
+    "text": "1977 archaeological discoveries 4th-millennium BC establishments"
+   },
+   {
+    "i": 714,
+    "cos": 0.9999458941788678,
+    "tokens": 6,
+    "text": "1991 beauty pageant contestants"
+   },
+   {
+    "i": 517,
+    "cos": 0.9999598018894215,
+    "tokens": 15,
+    "text": "FC Sochaux-Montb\u00e9liard players Le Mans FC players"
+   },
+   {
+    "i": 835,
+    "cos": 0.9999619979191051,
+    "tokens": 14,
+    "text": "High school sports associations in the United States 1921 establishments in Colo"
+   },
+   {
+    "i": 1984,
+    "cos": 0.9999711495782719,
+    "tokens": 13,
+    "text": "FK Plikiai won 2001/2002 the LFF"
+   },
+   {
+    "i": 452,
+    "cos": 0.9999758687287084,
+    "tokens": 12,
+    "text": "Northamptonshire cricketers Cambridgeshire cricketers Cricketers from Hammersmit"
+   }
+  ]
+ },
+ "queries": {
+  "n": 1500,
+  "min": 0.9999715535098589,
+  "p0.1": 0.9999900368014805,
+  "mean": 0.9999976104624951,
+  "max_abs_error": 0.0008842013776302338,
+  "violations_0.999": 0,
+  "below_gate": 0,
+  "worst": [
+   {
+    "i": 836,
+    "cos": 0.9999715535098589,
+    "tokens": 10,
+    "text": "how i met your mother the goat episode"
+   },
+   {
+    "i": 384,
+    "cos": 0.9999898819630245,
+    "tokens": 11,
+    "text": "star trek the next generation season 3 episode 24"
+   },
+   {
+    "i": 811,
+    "cos": 0.9999901922605314,
+    "tokens": 13,
+    "text": "latest season on keeping up with the kardashians"
+   },
+   {
+    "i": 1428,
+    "cos": 0.999990433424085,
+    "tokens": 12,
+    "text": "royal society for the protection of birds number of members"
+   },
+   {
+    "i": 1435,
+    "cos": 0.9999913042465624,
+    "tokens": 14,
+    "text": "only player to play for manchester united manchester city liverpool and everton"
+   },
+   {
+    "i": 1289,
+    "cos": 0.9999935134121886,
+    "tokens": 11,
+    "text": "grey's anatomy the episode with the bomb"
+   },
+   {
+    "i": 695,
+    "cos": 0.9999942375135508,
+    "tokens": 10,
+    "text": "brian cox wonders of the universe episode 1"
+   },
+   {
+    "i": 31,
+    "cos": 0.9999950311078052,
+    "tokens": 10,
+    "text": "when does the 2017 college football season end"
+   },
+   {
+    "i": 243,
+    "cos": 0.9999953113296458,
+    "tokens": 10,
+    "text": "what was the point of the second amendment"
+   },
+   {
+    "i": 286,
+    "cos": 0.9999954429114358,
+    "tokens": 13,
+    "text": "what is the song who are you by the who about"
+   }
+  ]
+ },
+ "peak_gpu_allocated_mib": 532.9,
+ "verdict": "PASS"
+}

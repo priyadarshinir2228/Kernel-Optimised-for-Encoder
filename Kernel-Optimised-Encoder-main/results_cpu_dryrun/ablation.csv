@@ -1,0 +1,4 @@
+when,stage,name,status,passages_per_s,seconds,speedup,min_cos,violations,live_p50_ms,live_p99_ms,live_min_cos,setup_s,token_budget,wall_s
+2026-11-23 10:14,0,"S0 reference-like (FP32, pad 512, batch 32)",ok,4.0,75.15,1.02,1.0,0,,,,1.9,8192,79.7
+2026-11-23 10:14,2,S2 + length-aware token-budget scheduler,ok,17.8,16.88,4.55,1.0,0,,,,1.7,8192,20.8
+2026-11-23 10:15,4,S4 + CLS-only last layer,ok,18.9,15.91,4.83,1.0,0,,,,1.9,8192,20.0

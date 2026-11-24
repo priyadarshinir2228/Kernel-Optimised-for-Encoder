@@ -1,0 +1,10 @@
+when,stage,name,tag,flags,status,n_passages,passages_per_s,seconds,speedup,min_cos,violations,live_p50_ms,live_p99_ms,live_min_cos,live_violations,peak_gpu_mib,setup_s,token_budget,wall_s,result_file
+2026-11-24 05:00,4,S4 + CLS-only last layer,r1 new_default,fp16 sort budget bucket overlap cls_only graph short32<=32,ok,20000,598.3,33.43,21.06,0.999999,0,,,,,1388,5.3,8192,40.4,results_gpu/repeats_p2/bench_stage4_n20000.json
+2026-11-24 05:00,4,S4 + CLS-only last layer,r1 plain_fp16,fp16 sort budget bucket overlap cls_only graph,ok,20000,692.0,28.9,24.36,0.999663,0,,,,,672,3.5,8192,34.0,results_gpu/repeats_p2/bench_stage4_n20000.json
+2026-11-24 05:01,4,S4 + CLS-only last layer,r1 old_res32,fp16 sort budget bucket overlap cls_only graph res32,ok,20000,621.4,32.19,21.88,0.999991,0,,,,,736,32.7,8192,66.5,results_gpu/repeats_p2/bench_stage4_n20000.json
+2026-11-24 05:02,4,S4 + CLS-only last layer,r2 new_default,fp16 sort budget bucket overlap cls_only graph short32<=32,ok,20000,599.4,33.37,21.1,0.999999,0,,,,,1388,5.1,8192,40.1,results_gpu/repeats_p2/bench_stage4_n20000.json
+2026-11-24 05:02,4,S4 + CLS-only last layer,r2 plain_fp16,fp16 sort budget bucket overlap cls_only graph,ok,20000,692.3,28.89,24.37,0.999663,0,,,,,672,3.6,8192,34.1,results_gpu/repeats_p2/bench_stage4_n20000.json
+2026-11-24 05:03,4,S4 + CLS-only last layer,r2 old_res32,fp16 sort budget bucket overlap cls_only graph res32,ok,20000,617.5,32.39,21.74,0.999991,0,,,,,736,3.6,8192,37.7,results_gpu/repeats_p2/bench_stage4_n20000.json
+2026-11-24 05:04,4,S4 + CLS-only last layer,r3 new_default,fp16 sort budget bucket overlap cls_only graph short32<=32,ok,20000,598.4,33.42,21.07,0.999999,0,,,,,1388,5.1,8192,40.1,results_gpu/repeats_p2/bench_stage4_n20000.json
+2026-11-24 05:04,4,S4 + CLS-only last layer,r3 plain_fp16,fp16 sort budget bucket overlap cls_only graph,ok,20000,692.4,28.88,24.38,0.999663,0,,,,,672,3.5,8192,34.0,results_gpu/repeats_p2/bench_stage4_n20000.json
+2026-11-24 05:05,4,S4 + CLS-only last layer,r3 old_res32,fp16 sort budget bucket overlap cls_only graph res32,ok,20000,618.1,32.36,21.76,0.999991,0,,,,,736,6.8,8192,40.8,results_gpu/repeats_p2/bench_stage4_n20000.json

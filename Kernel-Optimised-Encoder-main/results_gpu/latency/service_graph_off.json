@@ -1,0 +1,75 @@
+{
+ "what": "non-official live latency study; realtime mode replays bench.py's live() timing",
+ "mode": "service",
+ "n": 1500,
+ "setup_s": 5.24,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 0
+  },
+  "token_budget": 8192,
+  "short_fp32": 32,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": false,
+  "short_fp32_active": true,
+  "compiled": false,
+  "graph_buckets": [],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 0.944,
+  "strict_reduction": true
+ },
+ "service_ms": {
+  "p50": 4.047645999889937,
+  "p90": 4.232781599421287,
+  "p95": 4.399841799931892,
+  "p99": 4.605964307775139,
+  "mean": 4.070717135349696,
+  "max": 4.981979000149295
+ },
+ "min_cosine": 0.9999998807907104,
+ "violations_0.999": 0,
+ "slowest_service": [
+  {
+   "i": 1376,
+   "ms": 4.981979000149295,
+   "text": "is aluminium a ferrous or non ferrous metal"
+  },
+  {
+   "i": 372,
+   "ms": 4.94287599940435,
+   "text": "who plays heather in beauty and the beast"
+  },
+  {
+   "i": 445,
+   "ms": 4.919803999655414,
+   "text": "how many episodes are there in season six of nashville"
+  },
+  {
+   "i": 1260,
+   "ms": 4.855545997997979,
+   "text": "when was the letter j introduced to the alphabet"
+  },
+  {
+   "i": 525,
+   "ms": 4.853492002439452,
+   "text": "in order to prove disparate impact you first must establish"
+  }
+ ],
+ "peak_gpu_allocated_mib": 632.5
+}

@@ -1,0 +1,97 @@
+{
+ "what": "non-official full-dataset comparison",
+ "a": "results_gpu/final/fp16plain_100k.npy",
+ "b": "results_gpu/final/fp32_100k.npy",
+ "n": 100000,
+ "a_vs_b": {
+  "min": 0.9944015456531308,
+  "p0.01": 0.9997462585824554,
+  "p0.1": 0.9999788585298656,
+  "mean": 0.9999993522970809,
+  "max_abs_error": 0.012383107095956802,
+  "violations_0.999": 2,
+  "below_0.9995": 5,
+  "worst": [
+   {
+    "i": 31022,
+    "cos": 0.9944015456531308,
+    "max_abs_err": 0.012383107095956802,
+    "tokens": 16,
+    "text": "Transport in Gippsland (region) Shire of South Gippsland"
+   },
+   {
+    "i": 63063,
+    "cos": 0.9988922979271525,
+    "max_abs_err": 0.005171594209969044,
+    "tokens": 8,
+    "text": "Middle Comic poets 4th-century"
+   },
+   {
+    "i": 84848,
+    "cos": 0.9991109793453768,
+    "max_abs_err": 0.004597948514856398,
+    "tokens": 11,
+    "text": "Pennsylvania Republicans Pennsylvania Independents 20th-century American politicians"
+   },
+   {
+    "i": 41345,
+    "cos": 0.9991241030954158,
+    "max_abs_err": 0.005388807505369186,
+    "tokens": 23,
+    "text": "Members of the Senate of Poland 2019\u20132023 Members of the Polish Sejm 2023\u20132027"
+   },
+   {
+    "i": 94037,
+    "cos": 0.9992338123575725,
+    "max_abs_err": 0.005427524447441101,
+    "tokens": 22,
+    "text": "T65 T65K1 T65K2 T65K2 Carbine T65K3"
+   },
+   {
+    "i": 24116,
+    "cos": 0.9995284292848118,
+    "max_abs_err": 0.0037701316177845,
+    "tokens": 9,
+    "text": "Dance teachers 20th-century American dancers"
+   },
+   {
+    "i": 31386,
+    "cos": 0.9995553079259435,
+    "max_abs_err": 0.003838431090116501,
+    "tokens": 8,
+    "text": "2000s American films 2000s Canadian films"
+   },
+   {
+    "i": 64412,
+    "cos": 0.9995874990204191,
+    "max_abs_err": 0.003527643159031868,
+    "tokens": 18,
+    "text": "American television actresses 20th-century American actresses Year of birth missing (living people)"
+   },
+   {
+    "i": 19,
+    "cos": 0.9996644484655327,
+    "max_abs_err": 0.0031512940768152475,
+    "tokens": 8,
+    "text": "(band) albums 1992 albums"
+   },
+   {
+    "i": 11427,
+    "cos": 0.9996797705294037,
+    "max_abs_err": 0.0030189882963895798,
+    "tokens": 12,
+    "text": "American Basketball League (1961\u201362) teams Majors"
+   }
+  ]
+ },
+ "a_vs_official_ref_first2000": {
+  "min": 0.9996633841459357,
+  "mean": 0.9999993431239893,
+  "violations_0.999": 0
+ },
+ "b_vs_official_ref_first2000": {
+  "min": 0.9999999984292942,
+  "mean": 0.9999999999958034,
+  "violations_0.999": 0
+ }
+}

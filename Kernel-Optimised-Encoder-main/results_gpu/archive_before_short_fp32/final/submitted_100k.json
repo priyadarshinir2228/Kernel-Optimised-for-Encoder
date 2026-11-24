@@ -1,0 +1,47 @@
+{
+ "file": "results_gpu/final/submitted_100k.npy",
+ "n": 100000,
+ "seconds": 160.48656757400022,
+ "passages_per_second": 623.1051078707262,
+ "setup_seconds": 3.701664924621582,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 8192,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 0.408,
+  "strict_reduction": true
+ },
+ "finite": true,
+ "official_ref_first2000": {
+  "min": 0.9999914036145573,
+  "mean": 0.999999784480677,
+  "violations_0.999": 0
+ },
+ "peak_gpu_allocated_mib": 711.2
+}

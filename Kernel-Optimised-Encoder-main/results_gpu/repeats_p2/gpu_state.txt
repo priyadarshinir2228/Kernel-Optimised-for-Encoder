@@ -1,0 +1,9 @@
+r1 new_default exit=0 67.88, 1822 MHz
+r1 plain_fp16 exit=0 67.88, 1897 MHz
+r1 old_res32 exit=0 65.62, 1905 MHz
+r2 new_default exit=0 67.53, 1897 MHz
+r2 plain_fp16 exit=0 68.41, 1897 MHz
+r2 old_res32 exit=0 68.06, 1897 MHz
+r3 new_default exit=0 67.84, 1897 MHz
+r3 plain_fp16 exit=0 68.06, 1897 MHz
+r3 old_res32 exit=0 68.38, 1897 MHz

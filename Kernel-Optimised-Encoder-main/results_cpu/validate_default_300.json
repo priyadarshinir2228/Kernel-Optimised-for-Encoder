@@ -1,0 +1,182 @@
+{
+ "stage": 4,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 1,
+  "cls_only": 1,
+  "compile": 0,
+  "graph": 1
+ },
+ "token_budget": 65536,
+ "setup_s": 4.227485179901123,
+ "encode_s": 23.058717727661133,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cpu",
+  "cuda_available": false,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cpu",
+  "dtype": "float32",
+  "res32": false,
+  "compiled": false,
+  "graph_buckets": [],
+  "notes": []
+ },
+ "passages": {
+  "n": 300,
+  "min": 0.9999999999637469,
+  "p0.1": 0.9999999999742428,
+  "mean": 0.9999999999994565,
+  "max_abs_error": 1.1115334928035736e-06,
+  "violations_0.999": 0,
+  "below_gate": 0,
+  "worst": [
+   {
+    "i": 19,
+    "cos": 0.9999999999637469,
+    "tokens": 8,
+    "text": "(band) albums 1992 albums"
+   },
+   {
+    "i": 88,
+    "cos": 0.9999999999988503,
+    "tokens": 231,
+    "text": "Awards National Eisteddfod of Wales (held in Llangefni) National Eisteddfod of W"
+   },
+   {
+    "i": 273,
+    "cos": 0.9999999999989025,
+    "tokens": 72,
+    "text": "Gunn Whittles Publishing External links Orkneyjar account of Sweyn Asleifsson Sw"
+   },
+   {
+    "i": 63,
+    "cos": 0.9999999999989391,
+    "tokens": 82,
+    "text": "Lynda Chuba-Ikpeazu Lynda and Miss Africa 1966 births Igbo beauty pageant contes"
+   },
+   {
+    "i": 107,
+    "cos": 0.9999999999989608,
+    "tokens": 151,
+    "text": "Bansk\u00e1 Bystrica: Stredoslovensk\u00e9 vydavate\u013estvo, 1971. 405 pp. RE\u0164KOVSK\u00dd, P.: The"
+   },
+   {
+    "i": 134,
+    "cos": 0.9999999999991176,
+    "tokens": 209,
+    "text": "Budiana Nugraha \u2013 drummer (1986\u2013present) Harry Sudirman \u2013 percussion (1986\u2013prese"
+   },
+   {
+    "i": 251,
+    "cos": 0.9999999999991205,
+    "tokens": 24,
+    "text": "Harbor of Lost Men (1950) as H.G. Danziger Let's Dance (1950) as"
+   },
+   {
+    "i": 104,
+    "cos": 0.9999999999991259,
+    "tokens": 45,
+    "text": "Discography T&T (1993) 1000 g\u00e5nger (1996) De 3 vise m\u00e4nnen (1998) Duetter i ster"
+   },
+   {
+    "i": 164,
+    "cos": 0.9999999999991815,
+    "tokens": 12,
+    "text": "Male songwriters from Northern Ireland Musicians from Belfast Irish male"
+   },
+   {
+    "i": 258,
+    "cos": 0.9999999999991835,
+    "tokens": 57,
+    "text": "1888 births 1954 deaths Writers from Irkutsk People from Irkutsk Governorate Aca"
+   }
+  ]
+ },
+ "queries": {
+  "n": 100,
+  "min": 0.9999999999981035,
+  "p0.1": 0.9999999999982011,
+  "mean": 0.9999999999995264,
+  "max_abs_error": 2.1746382117271423e-07,
+  "violations_0.999": 0,
+  "below_gate": 0,
+  "worst": [
+   {
+    "i": 10,
+    "cos": 0.9999999999981035,
+    "tokens": 10,
+    "text": "where does the phrase blue moon come from"
+   },
+   {
+    "i": 87,
+    "cos": 0.9999999999990892,
+    "tokens": 11,
+    "text": "who played the princess in kingsman secret service"
+   },
+   {
+    "i": 16,
+    "cos": 0.9999999999991172,
+    "tokens": 11,
+    "text": "who is credited with developing the geocentric view"
+   },
+   {
+    "i": 3,
+    "cos": 0.9999999999992235,
+    "tokens": 11,
+    "text": "who sings the original windmills of your mind"
+   },
+   {
+    "i": 51,
+    "cos": 0.9999999999992666,
+    "tokens": 11,
+    "text": "who has the most super bowls in nfl history"
+   },
+   {
+    "i": 55,
+    "cos": 0.9999999999992761,
+    "tokens": 11,
+    "text": "when does season 8 of vampire diaries come out"
+   },
+   {
+    "i": 36,
+    "cos": 0.9999999999992767,
+    "tokens": 10,
+    "text": "when does agents of shield season five start"
+   },
+   {
+    "i": 48,
+    "cos": 0.9999999999992911,
+    "tokens": 10,
+    "text": "why dry ether is used in woods reaction"
+   },
+   {
+    "i": 81,
+    "cos": 0.9999999999993499,
+    "tokens": 11,
+    "text": "love yourself by justin bieber is about who"
+   },
+   {
+    "i": 79,
+    "cos": 0.9999999999993514,
+    "tokens": 11,
+    "text": "who sings the song one thing leads to another"
+   }
+  ]
+ },
+ "verdict": "PASS"
+}

@@ -1,0 +1,194 @@
+{
+ "stage": 4,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 1,
+  "cls_only": 1,
+  "compile": 0,
+  "graph": 1
+ },
+ "token_budget": 65536,
+ "setup_s": 15.599139213562012,
+ "encode_s": 4.2973456382751465,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": false,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.523,
+  "strict_reduction": true
+ },
+ "passages": {
+  "n": 2000,
+  "min": 0.9996633841459357,
+  "p0.1": 0.9999869942579522,
+  "mean": 0.9999993431771509,
+  "max_abs_error": 0.0031559818889945745,
+  "violations_0.999": 0,
+  "below_gate": 0,
+  "worst": [
+   {
+    "i": 19,
+    "cos": 0.9996633841459357,
+    "tokens": 8,
+    "text": "(band) albums 1992 albums"
+   },
+   {
+    "i": 657,
+    "cos": 0.9999785406700942,
+    "tokens": 12,
+    "text": "Portuguese non-fiction books 1991 non-fiction books"
+   },
+   {
+    "i": 788,
+    "cos": 0.9999870027200022,
+    "tokens": 15,
+    "text": "Welsh bass guitarists People from Aberdare 21st-century bass guitarists"
+   },
+   {
+    "i": 1707,
+    "cos": 0.9999932781143519,
+    "tokens": 7,
+    "text": "Tottenham District centres of London"
+   },
+   {
+    "i": 835,
+    "cos": 0.9999939660433731,
+    "tokens": 14,
+    "text": "High school sports associations in the United States 1921 establishments in Colo"
+   },
+   {
+    "i": 613,
+    "cos": 0.9999940567000688,
+    "tokens": 17,
+    "text": "Ceremonial magic Hermetic Order of the Golden Dawn Magic rituals Thelema"
+   },
+   {
+    "i": 513,
+    "cos": 0.9999962625124167,
+    "tokens": 15,
+    "text": "Northfield, Minnesota 1996 establishments in Minnesota 2022 mergers and acquisit"
+   },
+   {
+    "i": 1170,
+    "cos": 0.9999963261282613,
+    "tokens": 15,
+    "text": "1934 Connecticut Open Results in major championships NYF = Tournament not yet"
+   },
+   {
+    "i": 1851,
+    "cos": 0.9999970186352919,
+    "tokens": 15,
+    "text": "Year of birth missing (living people) 20th-century Canadian lawyers"
+   },
+   {
+    "i": 1923,
+    "cos": 0.9999971787021216,
+    "tokens": 7,
+    "text": "UK MPs 1992\u20131997"
+   }
+  ]
+ },
+ "queries": {
+  "n": 1500,
+  "min": 0.999981845206008,
+  "p0.1": 0.9999987887860181,
+  "mean": 0.9999995667407824,
+  "max_abs_error": 0.0007146690040826797,
+  "violations_0.999": 0,
+  "below_gate": 0,
+  "worst": [
+   {
+    "i": 1289,
+    "cos": 0.999981845206008,
+    "tokens": 11,
+    "text": "grey's anatomy the episode with the bomb"
+   },
+   {
+    "i": 1286,
+    "cos": 0.9999987549234906,
+    "tokens": 10,
+    "text": "i do i do i do movie plot"
+   },
+   {
+    "i": 890,
+    "cos": 0.9999988227842672,
+    "tokens": 10,
+    "text": "who did the chiefs play in the playoffs"
+   },
+   {
+    "i": 1435,
+    "cos": 0.9999990544615002,
+    "tokens": 14,
+    "text": "only player to play for manchester united manchester city liverpool and everton"
+   },
+   {
+    "i": 1312,
+    "cos": 0.9999991661181166,
+    "tokens": 11,
+    "text": "where is the national championship for college football played"
+   },
+   {
+    "i": 905,
+    "cos": 0.999999188607991,
+    "tokens": 13,
+    "text": "who played mrs warboys in one foot in the grave"
+   },
+   {
+    "i": 720,
+    "cos": 0.999999214410578,
+    "tokens": 11,
+    "text": "who has scored more goals in the premier league"
+   },
+   {
+    "i": 811,
+    "cos": 0.9999992272274381,
+    "tokens": 13,
+    "text": "latest season on keeping up with the kardashians"
+   },
+   {
+    "i": 384,
+    "cos": 0.9999992497492259,
+    "tokens": 11,
+    "text": "star trek the next generation season 3 episode 24"
+   },
+   {
+    "i": 1032,
+    "cos": 0.9999993063864286,
+    "tokens": 12,
+    "text": "who sings there's a hole in my bucket"
+   }
+  ]
+ },
+ "peak_gpu_allocated_mib": 477.9,
+ "max_abs_activation": 15.890625,
+ "verdict": "PASS"
+}

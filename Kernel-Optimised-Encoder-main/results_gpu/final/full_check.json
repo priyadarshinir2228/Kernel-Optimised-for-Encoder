@@ -1,0 +1,97 @@
+{
+ "what": "non-official full-dataset comparison",
+ "a": "results_gpu/final/submitted_100k.npy",
+ "b": "results_gpu/final/fp32_100k.npy",
+ "n": 100000,
+ "a_vs_b": {
+  "min": 0.9999915935723,
+  "p0.01": 0.9999980454792955,
+  "p0.1": 0.9999991299982075,
+  "mean": 0.9999997074691127,
+  "max_abs_error": 0.0006435811519622803,
+  "violations_0.999": 0,
+  "below_0.9995": 0,
+  "worst": [
+   {
+    "i": 86483,
+    "cos": 0.9999915935723,
+    "max_abs_err": 0.0005225054919719696,
+    "tokens": 41,
+    "text": "Commission de toponymie du Qu\u00e9bec Minist\u00e8re des Affaires municipales, des R\u00e9gions et de l'Occupation"
+   },
+   {
+    "i": 64085,
+    "cos": 0.9999923291834748,
+    "max_abs_err": 0.0005055665969848633,
+    "tokens": 68,
+    "text": "List of extant Baronetcies List of baronetcies in the Baronetage of Ireland List of baronetcies in t"
+   },
+   {
+    "i": 23296,
+    "cos": 0.9999937926916229,
+    "max_abs_err": 0.0004285462200641632,
+    "tokens": 44,
+    "text": "Polish United Workers' Party members Members of the Polish Sejm 2005\u20132007 Members of the Polish Sejm"
+   },
+   {
+    "i": 62438,
+    "cos": 0.9999949695219902,
+    "max_abs_err": 0.0004456397145986557,
+    "tokens": 447,
+    "text": "North side 98 Edmund Street was the office of the first Birmingham School Board created on 28 Novemb"
+   },
+   {
+    "i": 63832,
+    "cos": 0.9999972166048414,
+    "max_abs_err": 0.00026284530758857727,
+    "tokens": 43,
+    "text": "Swimmers at the 1998 Commonwealth Games Swimmers at the 2002 Commonwealth Games Pan American Games m"
+   },
+   {
+    "i": 85085,
+    "cos": 0.9999977310607162,
+    "max_abs_err": 0.00026445090770721436,
+    "tokens": 33,
+    "text": "Bowling Green Falcons football players Chicago Bears players Green Bay Packers players Denver Bronco"
+   },
+   {
+    "i": 70687,
+    "cos": 0.9999977443578237,
+    "max_abs_err": 0.0002656932920217514,
+    "tokens": 457,
+    "text": "Her season ended with a fifth-place finish over 5000\u00a0m at the 2008 IAAF World Athletics Final. She m"
+   },
+   {
+    "i": 24026,
+    "cos": 0.9999978428752714,
+    "max_abs_err": 0.0002559684216976166,
+    "tokens": 159,
+    "text": "|style=\"background:#ffdf9f;\"| USA3 |style=\"background:#ffffbf;\"| MAL1 |style=\"background:#dfdfdf;\"| "
+   },
+   {
+    "i": 14318,
+    "cos": 0.9999979154312474,
+    "max_abs_err": 0.00022925343364477158,
+    "tokens": 40,
+    "text": "UK MPs 1966\u20131970 UK MPs 1970\u20131974 UK MPs 1974 UK MPs 1974\u20131979 UK MPs 1979\u20131983 UK MPs 1983\u20131987 UK "
+   },
+   {
+    "i": 73077,
+    "cos": 0.9999979485054717,
+    "max_abs_err": 0.0002635736018419266,
+    "tokens": 41,
+    "text": "Living people Foreign Ministers of S\u00e3o Tom\u00e9 and Pr\u00edncipe Government ministers of S\u00e3o Tom\u00e9 and Pr\u00ednci"
+   }
+  ]
+ },
+ "a_vs_official_ref_first2000": {
+  "min": 0.9999987400641798,
+  "mean": 0.9999997120152722,
+  "violations_0.999": 0
+ },
+ "b_vs_official_ref_first2000": {
+  "min": 0.9999999984292942,
+  "mean": 0.9999999999958034,
+  "violations_0.999": 0
+ }
+}

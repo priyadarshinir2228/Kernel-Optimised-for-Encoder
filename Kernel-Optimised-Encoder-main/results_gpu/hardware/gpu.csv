@@ -1,0 +1,2 @@
+name, memory.total [MiB], driver_version, compute_cap, clocks.max.sm [MHz], power.limit [W]
+NVIDIA GeForce RTX 3050 6GB Laptop GPU, 6144 MiB, 620.73.04, 8.6, 2100 MHz, [N/A]

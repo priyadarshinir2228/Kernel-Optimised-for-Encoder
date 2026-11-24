@@ -1,0 +1,45 @@
+{
+ "which": "reference",
+ "n": 2000,
+ "wall_s": 70.6989483590005,
+ "passages_per_s": 28.28896392976382,
+ "gpu_kernel_ms": 69673.7294090004,
+ "gpu_busy_fraction": 0.9854988060567899,
+ "gpu_time_share": {
+  "gemm": 0.749438645252926,
+  "attention": 0.1794449420183458,
+  "norm+elementwise": 0.07105010951746928,
+  "memcpy": 5.6489498027237926e-05,
+  "other": 9.81371322878653e-06
+ },
+ "gpu_ms_by_category": {
+  "gemm": 52216.185378000206,
+  "attention": 12502.59833399999,
+  "norm+elementwise": 4950.326104999997,
+  "memcpy": 3.935834000000037,
+  "other": 0.6837580000000003
+ },
+ "timeline": {
+  "device_span_ms": 70211.93425097656,
+  "device_busy_ms": 69673.72919726562,
+  "device_busy_fraction_of_span": 0.9923345644945901,
+  "idle_gaps": 14915,
+  "idle_total_ms": 538.2050537109375,
+  "idle_gaps_over_100us": 136,
+  "largest_gaps_ms": [
+   8.827,
+   8.222,
+   8.135,
+   7.994,
+   7.975
+  ],
+  "kernels_per_passage": 6.5205
+ },
+ "tokenise_only_s": 0.4641832429988426,
+ "tokenise_share_of_wall": 0.006565631508997526,
+ "note": "wall_s is measured under the profiler (adds overhead); use bench.py for throughput claims",
+ "peak_gpu_allocated_mib": 1003.1,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "fp32_gemm_share": 0.7494350077126055,
+ "breakdown_version": 2
+}

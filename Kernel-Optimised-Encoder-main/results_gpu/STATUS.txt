@@ -1,0 +1,77 @@
+[2026-11-23 23:55:34] START edge-case correctness, stages 1-4
+[2026-11-23 23:56:38] OK    edge-case correctness, stages 1-4
+[2026-11-23 23:56:38] START validate submitted default (2,000 passages + 1,500 queries)
+[2026-11-23 23:57:07] OK    validate submitted default (2,000 passages + 1,500 queries)
+[2026-11-23 23:57:07] START validate plain FP16 residual stream (PS09_RES32=0)
+[2026-11-23 23:57:35] OK    validate plain FP16 residual stream (PS09_RES32=0)
+[2026-11-23 23:57:35] START validate BF16 variant (experiment)
+[2026-11-23 23:58:01] FAIL  validate BF16 variant (experiment) (exit 1)
+[2026-11-23 23:58:01] START validate with cuBLAS reduced-precision reductions allowed (experiment)
+[2026-11-23 23:58:32] OK    validate with cuBLAS reduced-precision reductions allowed (experiment)
+[2026-11-23 23:58:32] START validate FP16 accumulation (experiment, expected to fail)
+[2026-11-23 23:58:59] OK    validate FP16 accumulation (experiment, expected to fail)
+[2026-11-23 23:59:00] START ablation S1-S2 (20k, official bench.py)
+[2026-11-24 00:04:27] OK    ablation S1-S2 (20k, official bench.py)
+[2026-11-24 00:04:27] START ablation S3-S5 (20k + live trace, official bench.py)
+[2026-11-24 00:22:56] OK    ablation S3-S5 (20k + live trace, official bench.py)
+[2026-11-24 00:22:56] START S4 with plain FP16 residual stream (RES32 off)
+[2026-11-24 00:23:57] OK    S4 with plain FP16 residual stream (RES32 off)
+[2026-11-24 00:23:57] START S4 without length-bucket split (O2b off)
+[2026-11-24 00:24:50] OK    S4 without length-bucket split (O2b off)
+[2026-11-24 00:24:50] START budget 8192
+[2026-11-24 00:25:28] OK    budget 8192
+[2026-11-24 00:25:28] START budget 16384
+[2026-11-24 00:26:06] OK    budget 16384
+[2026-11-24 00:26:06] START budget 32768
+[2026-11-24 00:26:47] OK    budget 32768
+[2026-11-24 00:26:47] START budget 65536
+[2026-11-24 00:27:31] OK    budget 65536
+[2026-11-24 00:27:31] START budget 131072
+[2026-11-24 00:28:22] OK    budget 131072
+[2026-11-24 00:28:23] START service time, CUDA Graph on
+[2026-11-24 00:28:38] OK    service time, CUDA Graph on
+[2026-11-24 00:28:38] START service time, CUDA Graph off
+[2026-11-24 00:30:32] OK    service time, CUDA Graph off
+[2026-11-24 00:30:32] START real-time trace replay (~4 min)
+[2026-11-24 00:34:45] OK    real-time trace replay (~4 min)
+[2026-11-24 00:34:45] START profile reference (2,000 passages)
+[2026-11-24 00:36:10] OK    profile reference (2,000 passages)
+[2026-11-24 00:36:10] START profile stage 1
+[2026-11-24 00:36:47] OK    profile stage 1
+[2026-11-24 00:36:47] START profile stage 2
+[2026-11-24 00:37:05] OK    profile stage 2
+[2026-11-24 00:37:05] START profile submitted default
+[2026-11-24 00:37:22] OK    profile submitted default
+[2026-11-24 00:37:23] done. Copy the whole results_gpu/ folder back (it is small; *.npy files are git-ignored).
+[2026-11-24 02:38:40] START FINAL official bench.py, submitted default, 100k + live trace
+[2026-11-24 02:45:28] OK    FINAL official bench.py, submitted default, 100k + live trace
+[2026-11-24 02:45:28] START full 100k embeddings, submitted default
+[2026-11-24 02:48:14] OK    full 100k embeddings, submitted default
+[2026-11-24 02:48:14] START full 100k embeddings, FP32 path (reference maths)
+[2026-11-24 02:57:39] OK    full 100k embeddings, FP32 path (reference maths)
+[2026-11-24 02:57:39] START full 100k embeddings, plain FP16 residual (RES32 off)
+[2026-11-24 03:00:08] OK    full 100k embeddings, plain FP16 residual (RES32 off)
+[2026-11-24 03:00:08] START compare 100k: plain FP16 vs FP32
+[2026-11-24 03:00:33] OK    compare 100k: plain FP16 vs FP32
+[2026-11-24 03:00:33] START compare 100k: submitted vs FP32
+[2026-11-24 03:00:38] OK    compare 100k: submitted vs FP32
+[2026-11-24 03:00:38] done. Copy the whole results_gpu/ folder back (it is small; *.npy files are git-ignored).
+[2026-11-24 04:43:59] START edge-case correctness, stages 1-4
+[2026-11-24 04:44:21] OK    edge-case correctness, stages 1-4
+[2026-11-24 04:44:21] START validate submitted default (2,000 passages + 1,500 queries)
+[2026-11-24 04:44:37] OK    validate submitted default (2,000 passages + 1,500 queries)
+[2026-11-24 04:44:37] START service time, CUDA Graph on
+[2026-11-24 04:44:50] OK    service time, CUDA Graph on
+[2026-11-24 04:44:50] START service time, CUDA Graph off
+[2026-11-24 04:45:02] OK    service time, CUDA Graph off
+[2026-11-24 04:45:02] START real-time trace replay (~4 min)
+[2026-11-24 04:49:11] OK    real-time trace replay (~4 min)
+[2026-11-24 04:49:11] START profile submitted default
+[2026-11-24 04:49:28] OK    profile submitted default
+[2026-11-24 04:49:28] START FINAL official bench.py, submitted default, 100k + live trace
+[2026-11-24 04:56:22] OK    FINAL official bench.py, submitted default, 100k + live trace
+[2026-11-24 04:56:22] START full 100k embeddings, submitted default
+[2026-11-24 04:59:14] OK    full 100k embeddings, submitted default
+[2026-11-24 04:59:14] START compare 100k: submitted vs FP32
+[2026-11-24 04:59:19] OK    compare 100k: submitted vs FP32
+[2026-11-24 04:59:20] done. Copy the whole results_gpu/ folder back (it is small; *.npy files are git-ignored).

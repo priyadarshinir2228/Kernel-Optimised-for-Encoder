@@ -1,0 +1,453 @@
+{"n": 5000, "seconds": 176.0262804031372, "passages_per_second": 28.404849483548414}
+[2026-11-24 02:38:40] START FINAL official bench.py, submitted default, 100k + live trace
+
+=== S4 + CLS-only last layer  flags={'fp16': 1, 'sort': 1, 'budget': 1, 'bucket': 1, 'overlap': 1, 'cls_only': 1, 'compile': 0, 'graph': 1}  budget=8192 ===
+ /home/aravinds/Kernel-Optimisation-for-Encoder/.venv/bin/python data/bench.py --team /home/aravinds/Kernel-Optimisation-for-Encoder/team.py --passages data/practice_passages.jsonl --ref data/practice_ref_first2000.npy --out results_gpu/final/bench_stage4.json --trace data/practice_trace.jsonl --ref-queries data/practice_ref_queries.npy --ref-throughput results_gpu/hardware/ref_throughput.json
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 11771.45it/s]
+{
+ "n_passages": 100000,
+ "seconds": 160.9592850850022,
+ "passages_per_second": 621.2751252417048,
+ "setup_seconds": 3.7389209270477295,
+ "tolerance": 0.999,
+ "passages_sha256": "f29fa2730d8f90c801b876a56fc36735fcc2397a763b3962f20eed17f618f9d6",
+ "shape_ok": true,
+ "n_violations": 0,
+ "min_cosine": 0.9999913573265076,
+ "n_checked": 2000,
+ "reference_passages_per_second": 28.404849483548414,
+ "speedup": 21.872149880658103,
+ "live": {
+  "n": 1500,
+  "p50_ms": 2.484716500047668,
+  "p99_ms": 3.952295381906907,
+  "shape_ok": true,
+  "n_violations": 0,
+  "min_cosine": 0.9999970197677612
+ }
+}
+
+| Stage | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 ms | Live p99 ms | Live min cos | Peak GPU MiB |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| S4 + CLS-only last layer | fp16 sort budget bucket overlap cls_only graph res32 | 100000 | 8192 | 621.3 | 21.87 | 0.999991 | 0 | 2.48 | 3.95 | 0.999997 | 970 |
+[2026-11-24 02:45:28] OK    FINAL official bench.py, submitted default, 100k + live trace
+[2026-11-24 02:45:28] START full 100k embeddings, submitted default
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 17612.71it/s]
+{
+ "file": "results_gpu/final/submitted_100k.npy",
+ "n": 100000,
+ "seconds": 160.48656757400022,
+ "passages_per_second": 623.1051078707262,
+ "setup_seconds": 3.701664924621582,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 8192,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 0.408,
+  "strict_reduction": true
+ },
+ "finite": true,
+ "official_ref_first2000": {
+  "min": 0.9999914036145573,
+  "mean": 0.999999784480677,
+  "violations_0.999": 0
+ },
+ "peak_gpu_allocated_mib": 711.2
+}
+[2026-11-24 02:48:14] OK    full 100k embeddings, submitted default
+[2026-11-24 02:48:14] START full 100k embeddings, FP32 path (reference maths)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 17150.92it/s]
+{
+ "file": "results_gpu/final/fp32_100k.npy",
+ "n": 100000,
+ "seconds": 556.5065321759976,
+ "passages_per_second": 179.69241009443277,
+ "setup_seconds": 5.630535364151001,
+ "runtime": {
+  "stage": 2,
+  "cfg": {
+   "fp16": 0,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 0,
+   "cls_only": 0,
+   "compile": 0,
+   "graph": 0
+  },
+  "token_budget": 8192,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float32",
+  "res32": false,
+  "compiled": false,
+  "graph_buckets": [],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 0.735,
+  "strict_reduction": true
+ },
+ "finite": true,
+ "official_ref_first2000": {
+  "min": 0.9999999984292942,
+  "mean": 0.9999999999958034,
+  "violations_0.999": 0
+ },
+ "peak_gpu_allocated_mib": 1045.6
+}
+[2026-11-24 02:57:39] OK    full 100k embeddings, FP32 path (reference maths)
+[2026-11-24 02:57:39] START full 100k embeddings, plain FP16 residual (RES32 off)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 14650.73it/s]
+{
+ "file": "results_gpu/final/fp16plain_100k.npy",
+ "n": 100000,
+ "seconds": 143.92303227899902,
+ "passages_per_second": 694.8158221551855,
+ "setup_seconds": 3.6803135871887207,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 8192,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": false,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 0.373,
+  "strict_reduction": true
+ },
+ "finite": true,
+ "official_ref_first2000": {
+  "min": 0.9996633841459357,
+  "mean": 0.9999993431239893,
+  "violations_0.999": 0
+ },
+ "peak_gpu_allocated_mib": 675.1
+}
+[2026-11-24 03:00:08] OK    full 100k embeddings, plain FP16 residual (RES32 off)
+[2026-11-24 03:00:08] START compare 100k: plain FP16 vs FP32
+{
+ "what": "non-official full-dataset comparison",
+ "a": "results_gpu/final/fp16plain_100k.npy",
+ "b": "results_gpu/final/fp32_100k.npy",
+ "n": 100000,
+ "a_vs_b": {
+  "min": 0.9944015456531308,
+  "p0.01": 0.9997462585824554,
+  "p0.1": 0.9999788585298656,
+  "mean": 0.9999993522970809,
+  "max_abs_error": 0.012383107095956802,
+  "violations_0.999": 2,
+  "below_0.9995": 5,
+  "worst": [
+   {
+    "i": 31022,
+    "cos": 0.9944015456531308,
+    "max_abs_err": 0.012383107095956802,
+    "tokens": 16,
+    "text": "Transport in Gippsland (region) Shire of South Gippsland"
+   },
+   {
+    "i": 63063,
+    "cos": 0.9988922979271525,
+    "max_abs_err": 0.005171594209969044,
+    "tokens": 8,
+    "text": "Middle Comic poets 4th-century"
+   },
+   {
+    "i": 84848,
+    "cos": 0.9991109793453768,
+    "max_abs_err": 0.004597948514856398,
+    "tokens": 11,
+    "text": "Pennsylvania Republicans Pennsylvania Independents 20th-century American politicians"
+   },
+   {
+    "i": 41345,
+    "cos": 0.9991241030954158,
+    "max_abs_err": 0.005388807505369186,
+    "tokens": 23,
+    "text": "Members of the Senate of Poland 2019\u20132023 Members of the Polish Sejm 2023\u20132027"
+   },
+   {
+    "i": 94037,
+    "cos": 0.9992338123575725,
+    "max_abs_err": 0.005427524447441101,
+    "tokens": 22,
+    "text": "T65 T65K1 T65K2 T65K2 Carbine T65K3"
+   },
+   {
+    "i": 24116,
+    "cos": 0.9995284292848118,
+    "max_abs_err": 0.0037701316177845,
+    "tokens": 9,
+    "text": "Dance teachers 20th-century American dancers"
+   },
+   {
+    "i": 31386,
+    "cos": 0.9995553079259435,
+    "max_abs_err": 0.003838431090116501,
+    "tokens": 8,
+    "text": "2000s American films 2000s Canadian films"
+   },
+   {
+    "i": 64412,
+    "cos": 0.9995874990204191,
+    "max_abs_err": 0.003527643159031868,
+    "tokens": 18,
+    "text": "American television actresses 20th-century American actresses Year of birth missing (living people)"
+   },
+   {
+    "i": 19,
+    "cos": 0.9996644484655327,
+    "max_abs_err": 0.0031512940768152475,
+    "tokens": 8,
+    "text": "(band) albums 1992 albums"
+   },
+   {
+    "i": 11427,
+    "cos": 0.9996797705294037,
+    "max_abs_err": 0.0030189882963895798,
+    "tokens": 12,
+    "text": "American Basketball League (1961\u201362) teams Majors"
+   }
+  ]
+ },
+ "a_vs_official_ref_first2000": {
+  "min": 0.9996633841459357,
+  "mean": 0.9999993431239893,
+  "violations_0.999": 0
+ },
+ "b_vs_official_ref_first2000": {
+  "min": 0.9999999984292942,
+  "mean": 0.9999999999958034,
+  "violations_0.999": 0
+ }
+}
+[2026-11-24 03:00:33] OK    compare 100k: plain FP16 vs FP32
+[2026-11-24 03:00:33] START compare 100k: submitted vs FP32
+{
+ "what": "non-official full-dataset comparison",
+ "a": "results_gpu/final/submitted_100k.npy",
+ "b": "results_gpu/final/fp32_100k.npy",
+ "n": 100000,
+ "a_vs_b": {
+  "min": 0.9977862365753639,
+  "p0.01": 0.9997931768369351,
+  "p0.1": 0.9999924130635472,
+  "mean": 0.9999997148711767,
+  "max_abs_error": 0.007318106247112155,
+  "violations_0.999": 1,
+  "below_0.9995": 3,
+  "worst": [
+   {
+    "i": 31022,
+    "cos": 0.9977862365753639,
+    "max_abs_err": 0.007318106247112155,
+    "tokens": 16,
+    "text": "Transport in Gippsland (region) Shire of South Gippsland"
+   },
+   {
+    "i": 31386,
+    "cos": 0.9992689164501685,
+    "max_abs_err": 0.005045484751462936,
+    "tokens": 8,
+    "text": "2000s American films 2000s Canadian films"
+   },
+   {
+    "i": 2156,
+    "cos": 0.9994811065556262,
+    "max_abs_err": 0.004310863092541695,
+    "tokens": 19,
+    "text": "Russian expatriates in the United States Russian ice hockey right wingers Soviet ice"
+   },
+   {
+    "i": 11427,
+    "cos": 0.9995445766332034,
+    "max_abs_err": 0.0036638490855693817,
+    "tokens": 12,
+    "text": "American Basketball League (1961\u201362) teams Majors"
+   },
+   {
+    "i": 11966,
+    "cos": 0.9996080337420158,
+    "max_abs_err": 0.004074079915881157,
+    "tokens": 10,
+    "text": "American television actresses 21st-century American women"
+   },
+   {
+    "i": 63063,
+    "cos": 0.9996202943154548,
+    "max_abs_err": 0.0028824051842093468,
+    "tokens": 8,
+    "text": "Middle Comic poets 4th-century"
+   },
+   {
+    "i": 70645,
+    "cos": 0.9997370364442861,
+    "max_abs_err": 0.002613179385662079,
+    "tokens": 20,
+    "text": "E1a E1a1 E1a1a E1a1a1 E1a2"
+   },
+   {
+    "i": 84848,
+    "cos": 0.9997525125896537,
+    "max_abs_err": 0.0024137069704011083,
+    "tokens": 11,
+    "text": "Pennsylvania Republicans Pennsylvania Independents 20th-century American politicians"
+   },
+   {
+    "i": 55494,
+    "cos": 0.9997760043389374,
+    "max_abs_err": 0.0028684698045253754,
+    "tokens": 20,
+    "text": "United States Navy personnel of World War I Republican Party members of the United States House of R"
+   },
+   {
+    "i": 62265,
+    "cos": 0.9997910864105989,
+    "max_abs_err": 0.0024840105324983597,
+    "tokens": 11,
+    "text": "1999 compilation albums Suburban Noize Records compilation albums"
+   }
+  ]
+ },
+ "a_vs_official_ref_first2000": {
+  "min": 0.9999914036145573,
+  "mean": 0.999999784480677,
+  "violations_0.999": 0
+ },
+ "b_vs_official_ref_first2000": {
+  "min": 0.9999999984292942,
+  "mean": 0.9999999999958034,
+  "violations_0.999": 0
+ }
+}
+[2026-11-24 03:00:38] OK    compare 100k: submitted vs FP32
+# PS-09 results summary (results_gpu)
+
+Generated from result files by scripts/collect_results.py.
+
+## Hardware and baseline (measured)
+
+- GPU: NVIDIA GeForce RTX 3050 6GB Laptop GPU (compute 8.6, 5.69 GiB, 20 SMs, BF16 True)
+- Software: Python 3.14.10, torch 2.15.0+cu132 (CUDA 13.2), transformers 5.24.0, tokenizers 0.23.3; OS Linux-7.3.5-arch1-1-x86_64-with-glibc2.44
+- Reference baseline: **28.4 passages/s** (reference.py, FP32, pad 512, first 5000 passages, 176 s)
+
+## Accuracy on the official references (measured)
+
+| Run | Passages min cos | Passages mean | Queries min cos | Max abs err | Verdict |
+|---|---|---|---|---|---|
+| validate_default | 0.999991 | 0.9999998 | 0.999997 | 0.00062 | PASS |
+| validate_fp16_plain | 0.999663 | 0.9999993 | 0.999982 | 0.00316 | PASS |
+| validate_bf16 | 0.997342 | 0.9999801 | 0.998891 | 0.00768 | FAIL |
+| validate_lax_reduction | 0.999991 | 0.9999998 | 0.999997 | 0.00062 | PASS |
+| validate_fp16_accum | 0.999636 | 0.9999962 | 0.999972 | 0.00325 | PASS |
+
+Edge-case suite: ALL PASS
+
+## Ablation (official bench.py)
+
+| Stage | Tag | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 | Live p99 | Peak MiB | Status |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | ablation 20k | fp16 res32 | 20000 | 65536 | 85.9 | 3.02 | 0.999991 | 0 |  |  | 2650 | ok |
+| 2 | ablation 20k | fp16 sort budget bucket res32 | 20000 | 65536 | 427.3 | 15.04 | 0.999991 | 0 |  |  | 2650 | ok |
+| 3 | ablation 20k + live | fp16 sort budget bucket overlap graph res32 | 20000 | 65536 | 426.5 | 15.02 | 0.999991 | 0 | 3.34 | 5.64 | 5496 | ok |
+| 4 | ablation 20k + live | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 65536 | 460.4 | 16.21 | 0.999991 | 0 | 3.34 | 5.77 | 5500 | ok |
+| 5 | ablation 20k + live | fp16 sort budget bucket overlap cls_only compile graph res32 | 20000 | 65536 | 493.7 | 17.38 | 0.99986 | 0 | 3.31 | 5.65 | 3228 | ok |
+| 4 | RES32 off | fp16 sort budget bucket overlap cls_only graph | 20000 | 65536 | 511.9 | 18.02 | 0.999663 | 0 |  |  | 5556 | ok |
+| 4 | O2b off | fp16 sort budget overlap cls_only graph res32 | 20000 | 65536 | 569.4 | 20.04 | 0.999991 | 0 |  |  | 2752 | ok |
+
+## Token-budget sweep (official bench.py, stage 4)
+
+| Stage | Tag | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 | Live p99 | Peak MiB | Status |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 8192 | 621.1 | 21.87 | 0.999991 | 0 |  |  | 736 | ok |
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 16384 | 626.6 | 22.06 | 0.999991 | 0 |  |  | 1096 | ok |
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 32768 | 623.5 | 21.95 | 0.999991 | 0 |  |  | 2326 | ok |
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 65536 | 617.1 | 21.73 | 0.999991 | 0 |  |  | 5500 | ok |
+| 4 | budget sweep | fp16 sort budget bucket overlap cls_only graph res32 | 20000 | 131072 | 609.5 | 21.46 | 0.999991 | 0 |  |  | 4958 | ok |
+
+## Final run (official bench.py)
+
+| Stage | Tag | Flags | N | Budget | Passages/s | Speed-up | Min cos | Viol. | Live p50 | Live p99 | Peak MiB | Status |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | final 100k | fp16 sort budget bucket overlap cls_only graph res32 | 100000 | 8192 | 621.3 | 21.87 | 0.999991 | 0 | 2.48 | 3.95 | 970 | ok |
+
+## Live-query latency detail (non-official replay of bench.py timing)
+
+| Run | p50 ms | p90 | p95 | p99 | max | service p50 | service p99 | min cos |
+|---|---|---|---|---|---|---|---|---|
+| realtime_default | 2.29 | 2.50 | 2.64 | 3.91 | 4.87 | 2.18 | 2.43 | 0.999997 |
+| service_graph_on | - | - | - | - | - | 1.76 | 1.79 | 0.999997 |
+| service_graph_off | - | - | - | - | - | 2.49 | 3.06 | 0.999997 |
+
+## Profiler (torch.profiler, 2,000 passages; wall time includes profiler overhead)
+
+| Run | GPU kernel ms | GEMM | Attention | Norm+elementwise | Memcpy | Other | Device busy | Idle gaps >100us | Tokenise share |
+|---|---|---|---|---|---|---|---|---|---|
+| reference | 139886 | 46.3% | 0.0% | 3.5% | 0.0% | 50.2% | 1.000 | 0 | 0.007 |
+| stage1 | 35219 | 38.0% | 0.0% | 12.0% | 0.0% | 50.1% | 1.000 | 0 | 0.003 |
+| stage2 | 7486 | 37.4% | 0.0% | 12.5% | 0.0% | 50.1% | 1.000 | 0 | 0.013 |
+| default | 6979 | 37.5% | 0.0% | 12.4% | 0.0% | 50.1% | 1.000 | 0 | 0.013 |
+
+## Full 100k accuracy check (non-official)
+
+- Submitted config vs FP32 path on all 100,000 passages: min cos **0.997786**, mean 0.9999997, max abs error 0.00732, violations (<0.999) **1**, below 0.9995: 3
+- FP32 path vs official reference (first 2,000): min cos 1.000000
+- Worst input: #31022 (16 tokens) cos 0.997786
+
+[2026-11-24 03:00:38] done. Copy the whole results_gpu/ folder back (it is small; *.npy files are git-ignored).

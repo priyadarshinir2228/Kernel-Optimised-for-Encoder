@@ -1,0 +1,97 @@
+{
+ "what": "non-official live latency study; realtime mode replays bench.py's live() timing",
+ "mode": "realtime",
+ "n": 1500,
+ "setup_s": 5.28,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 8192,
+  "short_fp32": 32,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": false,
+  "short_fp32_active": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 0.944,
+  "strict_reduction": true
+ },
+ "service_ms": {
+  "p50": 4.172822998953052,
+  "p90": 4.336576202331344,
+  "p95": 4.367420550806855,
+  "p99": 4.421030108060222,
+  "mean": 4.185236291991411,
+  "max": 4.727602001366904
+ },
+ "min_cosine": 0.9999998807907104,
+ "violations_0.999": 0,
+ "slowest_service": [
+  {
+   "i": 165,
+   "ms": 4.727602001366904,
+   "text": "who does the voice of stewie family guy"
+  },
+  {
+   "i": 1015,
+   "ms": 4.510418002610095,
+   "text": "when do dwight and angela start dating again"
+  },
+  {
+   "i": 1129,
+   "ms": 4.496082998230122,
+   "text": "who was the wrestler who died in the ring"
+  },
+  {
+   "i": 91,
+   "ms": 4.481331001443323,
+   "text": "what is the genus of a bald eagle"
+  },
+  {
+   "i": 446,
+   "ms": 4.48072900326224,
+   "text": "where does trick or treat for unicef money go"
+  }
+ ],
+ "latency_ms": {
+  "p50": 4.310810500811613,
+  "p90": 4.611085701301932,
+  "p95": 6.164214699818158,
+  "p99": 8.165386341347585,
+  "mean": 4.518812625735524,
+  "max": 10.940276999804155
+ },
+ "queue_ms": {
+  "p50": 0.09199849967522766,
+  "p90": 0.39189410025528576,
+  "p95": 2.209649349622644,
+  "p99": 4.224353340706841,
+  "mean": 0.33357633374411294,
+  "max": 6.957766000027732
+ },
+ "p99_explained": "slow individual calls",
+ "queries_per_second_capacity": 238.93513537420415,
+ "peak_gpu_allocated_mib": 630.5
+}

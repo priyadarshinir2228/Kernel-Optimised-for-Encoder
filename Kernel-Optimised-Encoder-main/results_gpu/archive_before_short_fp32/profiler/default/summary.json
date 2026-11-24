@@ -1,0 +1,82 @@
+{
+ "which": "team",
+ "n": 2000,
+ "wall_s": 3.667221007999615,
+ "passages_per_s": 545.3720939199555,
+ "gpu_kernel_ms": 6979.148869999973,
+ "gpu_busy_fraction": 1.9031165165054884,
+ "gpu_time_share": {
+  "other": 0.500501751583931,
+  "gemm": 0.3751503059713363,
+  "norm+elementwise": 0.12408937251971919,
+  "memcpy": 0.0002585699250180199
+ },
+ "gpu_ms_by_category": {
+  "other": 3493.0762339999987,
+  "gemm": 2618.229833999996,
+  "norm+elementwise": 866.0382040000038,
+  "memcpy": 1.8045980000054915
+ },
+ "timeline": {
+  "device_span_ms": 3492.990442,
+  "device_busy_ms": 3492.990442,
+  "device_busy_fraction_of_span": 1.0,
+  "idle_gaps": 0,
+  "idle_total_ms": 0.0,
+  "idle_gaps_over_100us": 0,
+  "largest_gaps_ms": [
+   0.0
+  ],
+  "kernels_per_passage": 1.783
+ },
+ "tokenise_only_s": 0.04937067799983197,
+ "tokenise_share_of_wall": 0.013462695019508123,
+ "note": "wall_s is measured under the profiler (adds overhead); use bench.py for throughput claims",
+ "peak_gpu_allocated_mib": 532.9,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "stage": 4,
+ "cfg": {
+  "fp16": 1,
+  "sort": 1,
+  "budget": 1,
+  "bucket": 1,
+  "overlap": 1,
+  "cls_only": 1,
+  "compile": 0,
+  "graph": 1
+ },
+ "token_budget": 65536,
+ "runtime": {
+  "stage": 4,
+  "cfg": {
+   "fp16": 1,
+   "sort": 1,
+   "budget": 1,
+   "bucket": 1,
+   "overlap": 1,
+   "cls_only": 1,
+   "compile": 0,
+   "graph": 1
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [
+   32,
+   64,
+   128
+  ],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ }
+}

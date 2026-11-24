@@ -1,0 +1,86 @@
+{
+ "which": "team",
+ "n": 2000,
+ "wall_s": 18.045641287000763,
+ "passages_per_s": 110.83008734306975,
+ "gpu_kernel_ms": 17588.328311999736,
+ "gpu_busy_fraction": 0.9746579883651286,
+ "gpu_time_share": {
+  "gemm": 0.6542484756865271,
+  "norm+elementwise": 0.23986708055259878,
+  "attention": 0.10567506286154138,
+  "memcpy": 0.00018727885570300165,
+  "other": 2.210204364531799e-05
+ },
+ "gpu_ms_by_category": {
+  "gemm": 11507.136988000015,
+  "norm+elementwise": 4218.860963999994,
+  "attention": 1858.6477,
+  "memcpy": 3.2939220000000167,
+  "other": 0.38873800000000025
+ },
+ "timeline": {
+  "device_span_ms": 17630.648022460937,
+  "device_busy_ms": 17588.328435546875,
+  "device_busy_fraction_of_span": 0.9975996578877788,
+  "idle_gaps": 11655,
+  "idle_total_ms": 42.3195869140625,
+  "idle_gaps_over_100us": 77,
+  "largest_gaps_ms": [
+   0.49,
+   0.478,
+   0.467,
+   0.46,
+   0.451
+  ],
+  "kernels_per_passage": 4.977
+ },
+ "tokenise_only_s": 0.04930976800096687,
+ "tokenise_share_of_wall": 0.002732502947206832,
+ "note": "wall_s is measured under the profiler (adds overhead); use bench.py for throughput claims",
+ "peak_gpu_allocated_mib": 628.2,
+ "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+ "stage": 1,
+ "cfg": {
+  "fp16": 1,
+  "sort": 0,
+  "budget": 0,
+  "bucket": 0,
+  "overlap": 0,
+  "cls_only": 0,
+  "compile": 0,
+  "graph": 0
+ },
+ "token_budget": 65536,
+ "runtime": {
+  "stage": 1,
+  "cfg": {
+   "fp16": 1,
+   "sort": 0,
+   "budget": 0,
+   "bucket": 0,
+   "overlap": 0,
+   "cls_only": 0,
+   "compile": 0,
+   "graph": 0
+  },
+  "token_budget": 65536,
+  "torch": "2.15.0+cu132",
+  "cuda_available": true,
+  "model": "BAAI/bge-base-en-v1.5",
+  "device": "cuda",
+  "dtype": "float16",
+  "res32": true,
+  "compiled": false,
+  "graph_buckets": [],
+  "notes": [],
+  "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "compute_capability": "8.6",
+  "vram_gib": 5.69,
+  "cuda_runtime": "13.2",
+  "warmup_peak_gib": 1.804,
+  "strict_reduction": true
+ },
+ "fp32_gemm_share": 0.0,
+ "breakdown_version": 2
+}
